@@ -25,18 +25,24 @@ export default {
 
   .search
     background-color #fff
+    border-radius 15px
     .search-wrapper
       position relative
+      box-sizing border-box
       height 28px
       border-radius 14px
+      padding 5px 5px 5px 35px
       .logo
-        display inline-block
-        width 25px
-        height 24px
-      .search-input
         position absolute
         top 0
-        left 30px
-        right 0
+        left 5px
+        width 25px
         bottom 0
+        bg('./search')
+        background-size 24px 23px
+      .search-input
+        width 100%
+        height 100%
+        font-size $font-size-medium
+        color $color-text
 </style>
