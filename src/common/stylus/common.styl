@@ -2,3 +2,21 @@
 body
   font-size $font-size-small-s
   color $color-text
+input::-webkit-input-placeholder, 
+textarea::-webkit-input-placeholder
+  color #8b8a8a
+
+/* 
+ * 去掉IOS默认样式
+ */
+input[type=button],
+input[type=text],
+input[type=password],
+  -webkit-appearance none
+  outline:none
+  border-radius 0
+input[type=checkbox]
+  border-radius 0
+  font-size $font-size-small
+input[type=checkbox]:after
+  background-color #fff

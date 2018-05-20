@@ -64,7 +64,7 @@ export default {
           this.scroll = new BScroll(this.$refs.sliderWrapper, {
             scrollX: true,
             click: true,
-            startX: -picWidth + 4
+            startX: -picWidth - 1
             // eventPassthrough: 'vertical'
           })
         } else {

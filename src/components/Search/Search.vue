@@ -2,7 +2,7 @@
   <div class="search">
     <div class="search-wrapper">
       <span class="logo"></span>
-      <input type="text" class="search-input">
+      <input type="text" class="search-input" placeholder="输入相关搜索关键词">
     </div>
   </div>
 </template>
@@ -29,7 +29,7 @@ export default {
     .search-wrapper
       position relative
       box-sizing border-box
-      height 28px
+      height 32px
       border-radius 14px
       padding 5px 5px 5px 35px
       .logo
@@ -43,6 +43,7 @@ export default {
       .search-input
         width 100%
         height 100%
+        line-height normal
         font-size $font-size-medium
         color $color-text
 </style>

@@ -41,9 +41,11 @@ export default {
     position absolute
     bottom 0
     width 100%
+    z-index 99
+    box-shadow inset 0 -70px 30px $color-background
     ul
       display flex
-      padding-bottom 24px
+      padding 20px 0 24px
       .nav-item
         flex 1
         display flex
