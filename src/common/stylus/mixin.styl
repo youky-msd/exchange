@@ -4,7 +4,6 @@ border()
 fixed-all()
   position absolute
   left 0
-  
   top 0
   right 0
   bottom 0
@@ -19,3 +18,26 @@ bg($url)
 
 public-box-shadow()
   box-shadow: 0 20px 20px #272f4b
+
+linear($deg = 90deg, $one = #5e63f0, $two = #9961e9)
+  background-image:linear-gradient($deg, $one, $two)
+
+btn($width = 42px, $height = 16px, $bgc = $color-btn-bg , $ft = $font-size-mini, $color = $color-btn)
+  width $width
+  height $height
+  line-height $height
+  background-color $bgc
+  font-size $ft
+  color $color
+  border-radius ($height / 2)px
+  text-align center
+
+btn-linear($width = 64px, $height = 28px, $ft = $font-size-medium)
+  width $width
+  height $height
+  font-size $ft
+  border-radius ($height / 2)px
+  line-height $height
+  color #fff
+  text-align center
+  linear()

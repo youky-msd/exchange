@@ -32,8 +32,10 @@ export default {
     height 50px
     font-size 22px
     display flex
-    padding 18px 17px
-    // bg('')
+    padding 0 17px
+    bg('./nav-bg')
+    justify-content space-between
+    align-items center
     .icon-wrapper,
     .name
       flex 1

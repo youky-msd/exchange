@@ -30,7 +30,7 @@ export default {
     height 36px
     line-height 36px
     color $color-text-desc
-    background-image:linear-gradient(90deg, #5762ed, #915fe6)
+    linear(,#5762ed,#915fe6)
     border-bottom-right-radius 18px
     border-bottom-left-radius 18px
     text-align center

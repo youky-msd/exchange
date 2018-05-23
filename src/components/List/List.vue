@@ -3,7 +3,7 @@
     <ul>
       <router-link to="/" tag="li" class="list-item"
       v-for="(item, index) in list" :key="index">
-        <img src="../../common/test/list.png" alt="">
+        <img v-lazy="item.img" alt="">
         <div class="list-desc-1">
           <span class="name">光明骑士</span>
           <span class="money">¥: {{item.price}}</span>
@@ -117,7 +117,7 @@ export default {
         box-sizing border-box
         flex 0 0 48%
         padding 5px
-        background-image:linear-gradient(#4c5779, #2e3859)
+        linear(180deg, #4c5779, #2e3859)
         border-radius 10px
         margin-bottom 13px
         img

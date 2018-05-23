@@ -7,10 +7,17 @@ import 'common/stylus/reset.styl'
 import 'common/stylus/common.styl'
 import 'vant/lib/vant-css/index.css'
 import Trend from 'vuetrend'
+import fastclick from 'fastclick'
 import Vant from 'vant'
+import VueLazyload from 'vue-lazyload'
+
+fastclick.attach(document.body)
 Vue.config.productionTip = false
 Vue.use(Vant)
 Vue.use(Trend)
+Vue.use(VueLazyload, {
+  loading: require('common/img/lazy.png')
+})
 
 /* eslint-disable no-new */
 new Vue({

@@ -184,7 +184,7 @@ export default {
           .quotation-item
             height 72px
             border-radius 16px
-            background-image:linear-gradient(90deg, #4c5779, #2e3859)
+            linear(,#4c5779,#2e3859)
             display flex
             margin-bottom 10px
             .quotation-content
