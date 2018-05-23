@@ -22,7 +22,15 @@
               <span class="number">数量: {{item.number}}</span>
             </div>
             <div class="quotation-content echarts">
-
+              <trend
+                :data="[0, 2, 5, 9, 0, 9, 1, 8, 2, 9, 0]"
+                :stroke-width="5"
+                :gradient="['#5bfc5c']"
+                auto-draw
+                smooth
+                :height="72"
+              >
+              </trend>
             </div>
           </li>
         </ul>
@@ -40,6 +48,14 @@ import List from 'components/List/List'
 export default {
   data () {
     return {
+      lineData: {
+        datasets: [
+          {
+            backgroundColor: '#f87979',
+            data: [40, 20]
+          }
+        ]
+      },
       list: [{
         name: '绝地求生',
         en: 'JUEDIQIUSHENG',
