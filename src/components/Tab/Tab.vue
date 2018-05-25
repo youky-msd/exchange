@@ -1,8 +1,10 @@
 <template>
   <div class="tab">
     <ul>
-      <li v-for="(item, index) in tabList" :key="index">
-        {{item}} {{index}}
+      <li v-for="(item, index) in tabList" :key="index"
+       @click="selectTab(index)" :class="{active: currentIndex === index}">
+        {{item}}
+        <div class="active-line"></div>
       </li>
     </ul>
   </div>
@@ -17,7 +19,16 @@ export default {
   },
   data () {
     return {
-
+      currentIndex: 0
+    }
+  },
+  methods: {
+    // 切换tab
+    selectTab(index) {
+      // class
+      this.currentIndex = index
+      // 传递索引
+      this.$emit('toggleTab', index)
     }
   },
   components: {
@@ -33,10 +44,28 @@ export default {
     height 42px
     ul
       display flex
-      padding 0 20px
+      padding 0 30px
       height 100%
+      justify-content space-around
       li
-        flex 1
+        box-sizing border-box
+        color $color-text-desc
+        position relative
+        flex 0 0 70px
         text-align center
+        height 42px
         line-height 42px
+        font-size $font-size-medium
+        &.active
+          color #fff
+          .active-line
+            linear()
+            width 100%
+        .active-line
+          position absolute
+          left 0
+          bottom 0
+          height 2px
+          transition all 0.5s
+          width 0
 </style>

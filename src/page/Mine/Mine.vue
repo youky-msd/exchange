@@ -25,62 +25,62 @@
         </div>
         <div class="user-operation">
           <ul>
-            <li class="user-operation-item">
+            <router-link to="/mine/info" tag="li" class="user-operation-item">
               <div class="user-operation-item-wrapper">
                 <div class="icon info"></div>
                 <div class="text">消息中心</div>
                 <div class="status">1</div>
               </div>
-            </li>
-            <li class="user-operation-item">
+            </router-link>
+            <router-link to="/mine/collection" tag="li" class="user-operation-item">
               <div class="user-operation-item-wrapper">
                 <div class="icon collection"></div>
                 <div class="text">我的收藏</div>
                 <div class="status">1</div>
               </div>
-            </li>
-            <li class="user-operation-item">
+            </router-link>
+            <router-link to="/mine/my-buy" tag="li" class="user-operation-item">
               <div class="user-operation-item-wrapper">
                 <div class="icon my-buy"></div>
                 <div class="text">我的求购</div>
                 <div class="status">1</div>
               </div>
-            </li>
-            <li class="user-operation-item">
+            </router-link>
+            <router-link to="/mine/account-setting" tag="li" class="user-operation-item">
               <div class="user-operation-item-wrapper">
                 <div class="icon account-setting"></div>
                 <div class="text">账号设置</div>
                 <div class="status">ENTER</div>
               </div>
-            </li>
-            <li class="user-operation-item">
+            </router-link>
+            <router-link to="/mine/exchange" tag="li" class="user-operation-item">
               <div class="user-operation-item-wrapper">
                 <div class="icon exchange"></div>
                 <div class="text">我要兑换</div>
                 <div class="status">ENTER</div>
               </div>
-            </li>
-            <li class="user-operation-item">
+            </router-link>
+            <router-link to="/mine/help" tag="li" class="user-operation-item">
               <div class="user-operation-item-wrapper">
                 <div class="icon help"></div>
                 <div class="text">帮助中心</div>
                 <div class="status">ENTER</div>
               </div>
-            </li>
-            <li class="user-operation-item no-border-bottom">
+            </router-link>
+            <router-link to="/mine/question" tag="li" class="user-operation-item no-border-bottom">
               <div class="user-operation-item-wrapper">
                 <div class="icon question"></div>
                 <div class="text">问题反馈</div>
                 <div class="status">ENTER</div>
               </div>
-            </li>
-            <li class="user-operation-item no-border-bottom">
+            </router-link>
+            <router-link to="/mine/system-setting" tag="li" class="user-operation-item no-border-bottom">
               <div class="user-operation-item-wrapper">
                 <div class="icon system-setting"></div>
                 <div class="text">系统设置</div>
                 <div class="status">ENTER</div>
               </div>
-            </li>
+            </router-link>
             <li class="user-operation-item no-border-bottom">
               <div class="user-operation-item-wrapper no-order">
                 <!-- <div class="icon"></div>

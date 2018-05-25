@@ -17,12 +17,16 @@ bg($url)
   background-size 100% 100%
 
 public-box-shadow()
-  box-shadow: 0 20px 20px #272f4b
+  box-shadow: 0 20px 20px $color-background
 
 linear($deg = 90deg, $one = #5e63f0, $two = #9961e9)
   background-image:linear-gradient($deg, $one, $two)
 
+box-linear()
+  background-image:linear-gradient(#485374, #323c5e)
+
 btn($width = 42px, $height = 16px, $bgc = $color-btn-bg , $ft = $font-size-mini, $color = $color-btn)
+  display block
   width $width
   height $height
   line-height $height
@@ -33,6 +37,7 @@ btn($width = 42px, $height = 16px, $bgc = $color-btn-bg , $ft = $font-size-mini,
   text-align center
 
 btn-linear($width = 64px, $height = 28px, $ft = $font-size-medium)
+  display block
   width $width
   height $height
   font-size $ft
@@ -41,3 +46,11 @@ btn-linear($width = 64px, $height = 28px, $ft = $font-size-medium)
   color #fff
   text-align center
   linear()
+
+shadow()
+  box-shadow 0 0 20px rgba(0,0,0,.4)
+
+box()
+  box-linear()
+  shadow()
+  border-radius 10px

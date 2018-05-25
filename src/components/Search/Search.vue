@@ -1,7 +1,8 @@
 <template>
   <div class="search">
     <div class="search-wrapper">
-      <span class="logo"></span>
+      <van-icon class="logo" name="search" />
+      <!-- <span class="logo"></span> -->
       <input type="text" class="search-input" placeholder="输入相关搜索关键词">
     </div>
   </div>
@@ -34,12 +35,14 @@ export default {
       padding 5px 5px 5px 35px
       .logo
         position absolute
-        top 0
+        top 5px
         left 5px
         width 25px
         bottom 0
-        bg('./search')
-        background-size 24px 23px
+        font-size 24px
+        color #8b8a8a
+        // bg('./search')
+        // background-size 24px 23px
       .search-input
         width 100%
         height 100%

@@ -25,6 +25,7 @@ export default {
 
   .notice
     position absolute
+    z-index 3
     top 50px
     width 100%
     height 36px

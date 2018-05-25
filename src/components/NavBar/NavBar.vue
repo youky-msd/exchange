@@ -1,6 +1,6 @@
 <template>
   <div class="nav-bar">
-    <div class="icon-wrapper"><van-icon name="arrow-left" /></div>
+    <div class="icon-wrapper" @click="back"><van-icon name="arrow-left" /></div>
     <span class="name">{{title}}</span>
     <div class="icon-wrapper search"><van-icon name="search" /></div>
   </div>
@@ -20,6 +20,11 @@ export default {
   },
   components: {
 
+  },
+  methods: {
+    back() {
+      this.$router.back()
+    }
   }
 }
 </script>
