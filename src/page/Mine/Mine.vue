@@ -53,10 +53,10 @@
                 <div class="status">ENTER</div>
               </div>
             </router-link>
-            <router-link to="/mine/exchange" tag="li" class="user-operation-item">
+            <router-link to="/mine/sell-manage" tag="li" class="user-operation-item">
               <div class="user-operation-item-wrapper">
                 <div class="icon exchange"></div>
-                <div class="text">我要兑换</div>
+                <div class="text">出售管理</div>
                 <div class="status">ENTER</div>
               </div>
             </router-link>

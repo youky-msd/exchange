@@ -2,14 +2,14 @@
   <div class="goods-list">
     <div class="list">
       <ul>
-        <li class="list-item" v-for="(item, index) in list" :key="index">
+        <li class="list-item" v-for="(item, index) in list" :key="index" @click="checkDetail(item.id)">
           <div class="img">
             <img v-lazy="item.img" alt="">
           </div>
           <div class="content">
             <p class="content-item"><span class="name">{{item.name}}</span></p>
-            <p class="content-item"><span class="price">{{item.price}}</span></p>
-            <p class="content-item"><span class="time">{{item.time}}</span></p>
+            <p class="content-item"><span class="price">¥: {{item.price}}</span></p>
+            <p class="content-item"><span class="time">求购{{status}}时间: {{item.time}}</span></p>
           </div>
         </li>
       </ul>
@@ -19,41 +19,31 @@
 
 <script type="text/ecmascript-6">
 export default {
-  // props: {
-  //   list: {
-  //     type: Array
-  //   }
-  // },
-  data () {
-    return {
-      list: [{
-        name: 'DOTA2',
-        img: require('../../common/test/list.png'),
-        price: 123,
-        time: '2018-1-12 18:23'
-      },
-      {
-        name: 'DOTA2',
-        img: require('../../common/test/list.png'),
-        price: 123,
-        time: '2018-1-12 18:23'
-      },
-      {
-        name: 'DOTA2',
-        img: require('../../common/test/list.png'),
-        price: 123,
-        time: '2018-1-12 18:23'
-      },
-      {
-        name: 'DOTA2',
-        img: require('../../common/test/list.png'),
-        price: 123,
-        time: '2018-1-12 18:23'
-      }]
+  props: {
+    status: {
+      default: '完成',
+      type: String
+    },
+    list: {
+      type: Array
+    },
+    isClick: {
+      type: Boolean
     }
   },
-  components: {
-
+  data () {
+    return {
+    }
+  },
+  methods: {
+    checkDetail(id) {
+      if (this.isClick) {
+        console.log(id)
+        this.$router.push({
+          path: `/mine/my-buy/buy-detail/${id}`
+        })
+      }
+    }
   }
 }
 </script>
@@ -62,7 +52,7 @@ export default {
   @import '~common/stylus/index.styl'
 
   .goods-list
-    padding 18px 10px
+    padding 10px
     .list
       ul
         .list-item
@@ -80,4 +70,16 @@ export default {
             img
               width 100%
               height 100%
+          .content
+            padding-left 15px
+            display flex
+            flex-direction column
+            justify-content space-around
+            .name
+              font-size $font-size-medium
+              color #fff
+            .price
+              color $color-text-money
+            .time
+              font-size $font-size-small-s
 </style>
