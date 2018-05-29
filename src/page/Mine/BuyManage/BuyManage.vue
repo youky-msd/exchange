@@ -1,11 +1,11 @@
 <template>
-  <div class="sell-manage">
-    <NavBar title="出售管理"></NavBar>
+  <div class="buy-manage">
+    <NavBar title="购买管理"></NavBar>
     <Tab :tabList="tabList" @toggleTab="toggleTab"></Tab>
     <Scroll class="scroll">
-      <GoodsList :list="list" :status="listStatus" >
+      <GoodsList :list="list" :status="listStatus" :isClick="isClick">
         <template slot-scope="slotProps" slot="publicBtn">
-          <div class="btn" v-show="currentIndex === 0">下架</div>
+          <div class="btn" v-show="currentIndex === 0">取消购买</div>
         </template>
       </GoodsList>
     </Scroll>
@@ -21,14 +21,14 @@ import Tab from 'components/Tab/Tab'
 export default {
   data () {
     return {
-      currentIndex: 0,
-      listStatus: '下架时间: ', // 列表的时间状态
-      tabList: ['在售', '交易中', '已售', '已下架', '已取消'], // tab列表
+      currentIndex: 0, // 当前索引
+      isClick: true, // 是否可以点击
+      listStatus: '发起', // 列表的时间状态
+      tabList: ['正在购买', '购买完成', '取消购买'], // tab列表
       list: [{
         name: 'DOTA2',
         img: require('../../../common/test/list.png'),
         price: 123,
-        order: 465783512315,
         time: '2018-1-12 18:23',
         id: 3
       },
@@ -36,7 +36,6 @@ export default {
         name: 'DOTA2',
         img: require('../../../common/test/list.png'),
         price: 123,
-        order: 465783512315,
         time: '2018-1-12 18:23',
         id: 3
       },
@@ -44,7 +43,6 @@ export default {
         name: 'DOTA2',
         img: require('../../../common/test/list.png'),
         price: 123,
-        order: 465783512315,
         time: '2018-1-12 18:23',
         id: 3
       },
@@ -52,7 +50,6 @@ export default {
         name: 'DOTA2',
         img: require('../../../common/test/list.png'),
         price: 123,
-        order: 465783512315,
         time: '2018-1-12 18:23',
         id: 3
       },
@@ -60,7 +57,6 @@ export default {
         name: 'DOTA2',
         img: require('../../../common/test/list.png'),
         price: 123,
-        order: 465783512315,
         time: '2018-1-12 18:23',
         id: 3
       },
@@ -68,7 +64,6 @@ export default {
         name: 'DOTA2',
         img: require('../../../common/test/list.png'),
         price: 123,
-        order: 465783512315,
         time: '2018-1-12 18:23',
         id: 3
       },
@@ -76,7 +71,6 @@ export default {
         name: 'DOTA2',
         img: require('../../../common/test/list.png'),
         price: 123,
-        order: 465783512315,
         time: '2018-1-12 18:23',
         id: 3
       },
@@ -84,7 +78,6 @@ export default {
         name: 'DOTA2',
         img: require('../../../common/test/list.png'),
         price: 123,
-        order: 465783512315,
         time: '2018-1-12 18:23',
         id: 3
       },
@@ -92,7 +85,6 @@ export default {
         name: 'DOTA2',
         img: require('../../../common/test/list.png'),
         price: 123,
-        order: 465783512315,
         time: '2018-1-12 18:23',
         id: 3
       },
@@ -100,7 +92,6 @@ export default {
         name: 'DOTA2',
         img: require('../../../common/test/list.png'),
         price: 123,
-        order: 465783512315,
         time: '2018-1-12 18:23',
         id: 3
       }]
@@ -115,6 +106,11 @@ export default {
   methods: {
     toggleTab(index) {
       this.currentIndex = index
+      if (index === 0) {
+        this.isClick = true
+      } else {
+        this.isClick = false
+      }
     }
   }
 }
@@ -123,10 +119,11 @@ export default {
 <style scoped lang="stylus" rel="stylesheet/stylus">
   @import '~common/stylus/index.styl'
 
-  .sell-manage
+  .buy-manage
     .scroll
       fixed-all()
       top 92px
       .btn
         btn-linear()
+        width 70px
 </style>

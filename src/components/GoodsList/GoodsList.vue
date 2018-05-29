@@ -3,13 +3,17 @@
     <div class="list">
       <ul>
         <li class="list-item" v-for="(item, index) in list" :key="index" @click="checkDetail(item.id)">
-          <div class="img">
-            <img v-lazy="item.img" alt="">
-          </div>
-          <div class="content">
-            <p class="content-item"><span class="name">{{item.name}}</span></p>
-            <p class="content-item"><span class="price">¥: {{item.price}}</span></p>
-            <p class="content-item"><span class="time">求购{{status}}时间: {{item.time}}</span></p>
+          <div class="list-item-wrapper">
+            <div class="img">
+              <img v-lazy="item.img" alt="">
+            </div>
+            <div class="content">
+              <p class="content-item"><span class="name">{{item.name}}</span></p>
+              <p class="content-item"><span class="price">¥: {{item.price}}</span></p>
+              <p class="content-item" v-if="item.order"><span class="time">{{item.order}}</span></p>
+              <p class="content-item"><span class="time">{{status}}{{item.time}}</span></p>
+            </div>
+            <slot name="publicBtn" :item="item"></slot>
           </div>
         </li>
       </ul>
@@ -21,7 +25,7 @@
 export default {
   props: {
     status: {
-      default: '完成',
+      default: '下架时间: ',
       type: String
     },
     list: {
@@ -56,30 +60,35 @@ export default {
     .list
       ul
         .list-item
-          box-sizing border-box
-          padding 5px
-          height 74px
-          border-radius 10px
-          box-linear()
-          margin-bottom 10px
-          display flex
-          .img
+          .list-item-wrapper
+            box-sizing border-box
+            padding 5px
+            height 74px
             border-radius 10px
-            height 100%
-            width 100px
-            img
-              width 100%
-              height 100%
-          .content
-            padding-left 15px
+            box-linear()
+            margin-bottom 10px
             display flex
-            flex-direction column
-            justify-content space-around
-            .name
-              font-size $font-size-medium
-              color #fff
-            .price
-              color $color-text-money
-            .time
-              font-size $font-size-small-s
+            align-items center
+            justify-content space-between
+            .img
+              border-radius 10px
+              height 100%
+              flex 0 0 100px
+              img
+                width 100%
+                height 100%
+            .content
+              flex 1
+              padding-left 15px
+              display flex
+              flex-direction column
+              justify-content space-around
+              height 100%
+              .name
+                font-size $font-size-medium
+                color #fff
+              .price
+                color $color-text-money
+              .time
+                font-size $font-size-small-s
 </style>

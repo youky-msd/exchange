@@ -9,11 +9,13 @@ import Info from 'page/Mine/Info/Info'
 import Collection from 'page/Mine/Collection/Collection'
 import MyBuy from 'page/Mine/MyBuy/MyBuy'
 import AccountSetting from 'page/Mine/AccountSetting/AccountSetting'
+import ModifyNickname from 'page/Mine/AccountSetting/ModifyNickname/ModifyNickname'
 import SellManage from 'page/Mine/SellManage/SellManage'
 import Help from 'page/Mine/Help/Help'
 import Question from 'page/Mine/Question/Question'
 import SystemSetting from 'page/Mine/SystemSetting/SystemSetting'
 import BuyDetail from 'page/Mine/MyBuy/BuyDetail/BuyDetail'
+import BuyManage from 'page/Mine/BuyManage/BuyManage'
 
 Vue.use(Router)
 
@@ -55,6 +57,10 @@ const routes = [{
   component: AccountSetting
 },
 {
+  path: '/mine/account-setting/modify-nickname',
+  component: ModifyNickname
+},
+{
   path: '/mine/sell-manage',
   component: SellManage
 },
@@ -69,6 +75,10 @@ const routes = [{
 {
   path: '/mine/system-setting',
   component: SystemSetting
+},
+{
+  path: '/mine/buy-manage',
+  component: BuyManage
 },
 {
   path: '/mine/my-buy/buy-detail/:goodsId',

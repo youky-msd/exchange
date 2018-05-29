@@ -1,30 +1,32 @@
+// 边框
 border()
   border 1px solid $color-border
-
+// 全屏
 fixed-all()
   position absolute
   left 0
   top 0
   right 0
   bottom 0
+// 不换行
 ellipsis()
   text-overflow: ellipsis
   overflow: hidden
   white-space: nowrap
-
+// 背景色
 bg($url)
   background url($url + ".png") center center no-repeat
   background-size 100% 100%
-
+// 容器阴影
 public-box-shadow()
   box-shadow: 0 20px 20px $color-background
-
+// 普通渐变(active ..)
 linear($deg = 90deg, $one = #5e63f0, $two = #9961e9)
   background-image:linear-gradient($deg, $one, $two)
-
+// 容器渐变
 box-linear()
   background-image:linear-gradient(#485374, #323c5e)
-
+// 纯色按钮
 btn($width = 42px, $height = 16px, $bgc = $color-btn-bg , $ft = $font-size-mini, $color = $color-btn)
   display block
   width $width
@@ -35,7 +37,7 @@ btn($width = 42px, $height = 16px, $bgc = $color-btn-bg , $ft = $font-size-mini,
   color $color
   border-radius ($height / 2)px
   text-align center
-
+// 渐变按钮
 btn-linear($width = 64px, $height = 28px, $ft = $font-size-medium)
   display block
   width $width
@@ -46,11 +48,23 @@ btn-linear($width = 64px, $height = 28px, $ft = $font-size-medium)
   color #fff
   text-align center
   linear()
-
+// 大按钮
+btn-big()
+  box-sizing border-box
+  btn-linear(100%,50px,$font-size-large)
+// 阴影
 shadow()
   box-shadow 0 0 20px rgba(0,0,0,.4)
-
+// 文本块
 box()
   box-linear()
   shadow()
   border-radius 10px
+// 公共input
+public-input()
+  padding 15px
+  background-color $color-btn-bg
+  border-radius 10px
+  input
+    background-color transparent
+    color #fff

@@ -2,7 +2,7 @@
     <div class="mine">
       <Scroll>
         <NavBar title="个人中心"></NavBar>
-        <div class="mine-nav">
+        <router-link tag="div" to="/mine/account-setting" class="mine-nav">
           <div class="avatar">
             <img src="../../common/test/avatar.png" alt="">
           </div>
@@ -13,7 +13,7 @@
           <div class="arrow-wrapper">
             <van-icon class="arrow" name="arrow" />
           </div>
-        </div>
+        </router-link>
         <div class="mine-nav-shadow"></div>
         <div class="user-money">
           <div class="money-icon"></div>
@@ -60,6 +60,13 @@
                 <div class="status">ENTER</div>
               </div>
             </router-link>
+            <router-link to="/mine/buy-manage" tag="li" class="user-operation-item">
+              <div class="user-operation-item-wrapper">
+                <div class="icon exchange"></div>
+                <div class="text">购买管理</div>
+                <div class="status">ENTER</div>
+              </div>
+            </router-link>
             <router-link to="/mine/help" tag="li" class="user-operation-item">
               <div class="user-operation-item-wrapper">
                 <div class="icon help"></div>
@@ -70,17 +77,17 @@
             <router-link to="/mine/question" tag="li" class="user-operation-item no-border-bottom">
               <div class="user-operation-item-wrapper">
                 <div class="icon question"></div>
-                <div class="text">问题反馈</div>
+                <div class="text">联系客服</div>
                 <div class="status">ENTER</div>
               </div>
             </router-link>
-            <router-link to="/mine/system-setting" tag="li" class="user-operation-item no-border-bottom">
+            <!-- <router-link to="/mine/system-setting" tag="li" class="user-operation-item no-border-bottom">
               <div class="user-operation-item-wrapper">
                 <div class="icon system-setting"></div>
                 <div class="text">系统设置</div>
                 <div class="status">ENTER</div>
               </div>
-            </router-link>
+            </router-link> -->
             <li class="user-operation-item no-border-bottom">
               <div class="user-operation-item-wrapper no-order">
                 <!-- <div class="icon"></div>

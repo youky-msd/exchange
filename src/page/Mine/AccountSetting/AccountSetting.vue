@@ -8,7 +8,7 @@
           <span class="text">昵称:</span>
           <span class="value">{{userInfo.nickname}}</span>
         </div>
-        <span class="btn linear">修改昵称</span>
+        <router-link to="/mine/account-setting/modify-nickname" class="btn linear">修改昵称</router-link>
       </div>
       <div class="user-info-item">
         <div class="user-info-wrapper">
