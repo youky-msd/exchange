@@ -92,7 +92,7 @@ export default {
         height 160px
         border-bottom-left-radius 20px
         border-bottom-right-radius 20px
-        bg('index-top-bg')
+        bg('./index-top-bg')
       .container
         position relative
         z-index 2

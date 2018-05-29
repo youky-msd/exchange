@@ -1,6 +1,6 @@
-# cxchange
+# exchange
 
-> A Vue.js project
+> 游戏交易平台
 
 ## Build Setup
 
