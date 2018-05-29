@@ -2,16 +2,19 @@
   <div class="info">
     <NavBar title="消息中心"></NavBar>
     <Notice></Notice>
-    <div class="tab-wrapper">
-      <Tab :tabList="tabList" @toggleTab="toggleTab"></Tab>
+    <div class="edit-wrapper">
+      <van-icon name="edit" />
     </div>
+    <!-- <div class="tab-wrapper">
+      <Tab :tabList="tabList" @toggleTab="toggleTab"></Tab>
+    </div> -->
     <Scroll class="scroll">
       <div class="list">
         <ul>
           <li class="list-item" v-for="item in exchangeInfoList" :key="item.id">
             <div class="list-item-info-wrapper">
               <p class="text"><span class="text-desc">您在售的物品</span><span class="text-name">{{item.name}}</span></p>
-              <p class="price"><span class="price-text">收入</span><span class="price-num">¥{{item.price}}</span></p>
+              <!-- <p class="price"><span class="price-text">收入</span><span class="price-num">¥{{item.price}}</span></p> -->
             </div>
             <div class="list-item-info-wrapper">
               <p class="status">{{item.status}}</p>
@@ -103,6 +106,14 @@ export default {
   @import '~common/stylus/index.styl'
 
   .info
+    // position relative
+    .edit-wrapper
+      position absolute
+      z-index 2
+      top 13px
+      right 17px
+      font-size 24px
+      color #fff
     .tab-wrapper
       position relative
       z-index 2
@@ -110,7 +121,7 @@ export default {
       public-box-shadow()
     .scroll
       fixed-all()
-      top 147px
+      top 97px
       .list
         ul
           padding 0 24px

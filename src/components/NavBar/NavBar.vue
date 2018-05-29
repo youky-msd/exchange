@@ -1,8 +1,11 @@
 <template>
   <div class="nav-bar">
-    <div class="icon-wrapper" @click="back"><van-icon name="arrow-left" /></div>
+    <div v-show="showBack" class="icon-wrapper" @click="back"><van-icon name="arrow-left" /></div>
+    <div v-show="!showBack" class="icon-wrapper"></div>
     <span class="name">{{title}}</span>
-    <div class="icon-wrapper search"><van-icon name="search" /></div>
+    <div v-show="showSearch" class="icon-wrapper right"><van-icon name="search" /></div>
+    <div v-show="!showSearch" class="icon-wrapper right"></div>
+    <!-- <div v-show="!showSearch" class="icon-wrapper right"></div> -->
   </div>
 </template>
 
@@ -11,6 +14,14 @@ export default {
   props: {
     title: {
       type: String
+    },
+    showSearch: {
+      default: false,
+      type: Boolean
+    },
+    showBack: {
+      default: true,
+      type: Boolean
     }
   },
   data () {
@@ -38,8 +49,8 @@ export default {
     font-size 22px
     display flex
     padding 0 17px
-    bg('./nav-bg')
-    justify-content space-between
+    bg('../../common/img/nav-bg')
+    justify-content center
     align-items center
     .icon-wrapper,
     .name
@@ -47,7 +58,7 @@ export default {
       height 24px
       color #fff
     .icon-wrapper
-      &.search
+      &.right
         display flex
         flex-direction row-reverse
     .name

@@ -1,6 +1,6 @@
 <template>
   <div class="scroll" ref="scroll">
-    <div class="scroll-group" ref="scrollGroup">
+    <div class="scroll-group" :class="{'is-main': isMain}" ref="scrollGroup">
       <slot></slot>
     </div>
   </div>
@@ -10,6 +10,12 @@
 import BScroll from 'better-scroll'
 
 export default {
+  props: {
+    isMain: {
+      default: false,
+      type: Boolean
+    }
+  },
   mounted() {
     setTimeout(() => {
       this._initScroll()
@@ -43,6 +49,7 @@ export default {
   .scroll
     overflow hidden
     .scroll-group
-      padding-bottom 60px
       background-color $color-background
+      &.is-main
+        padding-bottom 60px
 </style>

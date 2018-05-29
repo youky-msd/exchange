@@ -1,6 +1,6 @@
 <template>
   <div class="store">
-    <NavBar title="DOTA2"></NavBar>
+    <TopSearch class="search"></TopSearch>
     <Notice></Notice>
     <div class="list-wrapper-top">
       <div class="list-title">
@@ -10,14 +10,14 @@
             <span class="select-only-icon"><van-icon class="icon" name="success" v-show="only"/></span>
             <span class="select-only-text">只看求购</span>
           </div>
-          <div class="filter-btn">
+          <!-- <div class="filter-btn">
             <van-icon class="icon" name="wap-nav" />
             <span class="text">筛选</span>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
-    <Scroll class="scroll">
+    <Scroll class="scroll" :isMain="true">
       <List></List>
     </Scroll>
   </div>
@@ -28,6 +28,7 @@ import NavBar from 'components/NavBar/NavBar'
 import Notice from 'components/Notice/Notice'
 import Scroll from 'components/Scroll/Scroll'
 import List from 'components/List/List'
+import TopSearch from 'page/Index/TopSearch/TopSearch'
 
 export default {
   data () {
@@ -39,7 +40,8 @@ export default {
     NavBar,
     Notice,
     Scroll,
-    List
+    List,
+    TopSearch
   },
   methods: {
     toggleOnly() {
@@ -54,6 +56,9 @@ export default {
 
   .store
     fixed-all()
+    .search
+      height 50px
+      bg('../../common/img/nav-bg')
     .list-wrapper-top
       position relative
       padding 50px 13px 0

@@ -1,7 +1,7 @@
 <template>
     <div class="mine">
-      <Scroll>
-        <NavBar title="个人中心"></NavBar>
+      <Scroll :isMain="true">
+        <NavBar title="个人中心" :showBack="false"></NavBar>
         <router-link tag="div" to="/mine/account-setting" class="mine-nav">
           <div class="avatar">
             <img src="../../common/test/avatar.png" alt="">
@@ -67,7 +67,7 @@
                 <div class="status">ENTER</div>
               </div>
             </router-link>
-            <router-link to="/mine/help" tag="li" class="user-operation-item">
+            <router-link to="/mine/help" tag="li" class="user-operation-item no-border-bottom">
               <div class="user-operation-item-wrapper">
                 <div class="icon help"></div>
                 <div class="text">帮助中心</div>

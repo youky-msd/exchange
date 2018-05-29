@@ -1,9 +1,9 @@
 <template>
-  <div class="notice">
+  <div class="notice" v-show="showNotice">
     <p>信息公告: 我们将会收取1%作为平台支持</p>
-    <div class="btn-wrapper">
+    <!-- <div class="btn-wrapper" @click="close">
       <van-icon name="close" />
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -11,11 +11,16 @@
 export default {
   data () {
     return {
-
+      showNotice: true
     }
   },
   components: {
 
+  },
+  methods: {
+    close() {
+      this.showNotice = false
+    }
   }
 }
 </script>

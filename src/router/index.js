@@ -1,8 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Index from 'page/Index/Index'
+import Main from 'components/Layout/Main/Main'
 import Store from 'page/Store/Store'
 import Quotation from 'page/Quotation/Quotation'
+// Store
+import GoodsDetail from 'page/Store/GoodsDetail/GoodsDetail'
 // Mine
 import Mine from 'page/Mine/Mine'
 import Info from 'page/Mine/Info/Info'
@@ -16,29 +19,34 @@ import Question from 'page/Mine/Question/Question'
 import SystemSetting from 'page/Mine/SystemSetting/SystemSetting'
 import BuyDetail from 'page/Mine/MyBuy/BuyDetail/BuyDetail'
 import BuyManage from 'page/Mine/BuyManage/BuyManage'
-
+// Login
+import Login from 'page/Login/Login'
 Vue.use(Router)
 
 const routes = [{
   path: '/',
   redirect: '/index',
-  component: Index
+  component: Main,
+  children: [{
+    path: '/index',
+    component: Index
+  },
+  {
+    path: '/store',
+    component: Store
+  },
+  {
+    path: '/quotation',
+    component: Quotation
+  },
+  {
+    path: '/mine',
+    component: Mine
+  }]
 },
 {
-  path: '/index',
-  component: Index
-},
-{
-  path: '/store',
-  component: Store
-},
-{
-  path: '/quotation',
-  component: Quotation
-},
-{
-  path: '/mine',
-  component: Mine
+  path: '/store/goods-detail',
+  component: GoodsDetail
 },
 {
   path: '/mine/info',
@@ -83,6 +91,10 @@ const routes = [{
 {
   path: '/mine/my-buy/buy-detail/:goodsId',
   component: BuyDetail
+},
+{
+  path: '/login',
+  component: Login
 }]
 
 export default new Router({

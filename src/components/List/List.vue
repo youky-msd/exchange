@@ -1,7 +1,7 @@
 <template>
   <div class="list">
     <ul>
-      <router-link to="/" tag="li" class="list-item"
+      <router-link to="/store/goods-detail" tag="li" class="list-item"
       v-for="(item, index) in list" :key="index">
         <img v-lazy="item.img" alt="">
         <div class="list-desc-1">

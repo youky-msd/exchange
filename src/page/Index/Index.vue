@@ -1,30 +1,31 @@
 <template>
   <div class="index">
-    <Scroll class="scroll">
+    <Scroll class="scroll" :isMain="true">
       <div class="top-bg"></div>
       <div class="container">
-        <div class="search-wrapper">
-          <Search class="search"></Search>
-          <span class="info"></span>
-        </div>
-        <div class="top-banner">
-          <img src="../../common/test/Banner.png" alt="" width="100%" height="100%">
+        <TopSearch></TopSearch>
+        <div class="top-swipe">
+          <van-swipe class="swipt-wrapper" :autoplay="3000" :show-indicators="false">
+            <van-swipe-item v-for="(item, index) in imageList" :key="index">
+              <img v-lazy="item.image" width="100%" height="100%"/>
+            </van-swipe-item>
+          </van-swipe>
         </div>
         <div class="nav-wrapper">
           <ul>
-            <router-link to="" tag="li" class="nav-item">
+            <router-link :to="{path: '/store'}" tag="li" class="nav-item">
               <img src="../../common/test/nav1.png" alt="">
               <p class="text">绝地求生</p>
             </router-link>
-            <router-link to="" tag="li" class="nav-item">
+            <router-link :to="{path: '/store'}" tag="li" class="nav-item">
               <img src="../../common/test/nav2.png" alt="">
               <p class="text">CS GO</p>
             </router-link>
-            <router-link to="" tag="li" class="nav-item">
+            <router-link :to="{path: '/store'}" tag="li" class="nav-item">
               <img src="../../common/test/nav3.png" alt="">
               <p class="text">H1N1</p>
             </router-link>
-            <router-link to="" tag="li" class="nav-item">
+            <router-link :to="{path: '/store'}" tag="li" class="nav-item">
               <img src="../../common/test/nav4.png" alt="">
               <p class="text">DOTA2</p>
             </router-link>
@@ -33,8 +34,8 @@
         <Slider class="scroll-class"></Slider>
         <div class="list-wrapper">
           <div class="list-title">
-            <span class="text">DOTA2热销</span>
-            <router-link to="/" tag="span" class="more">更多...</router-link>
+            <span class="text">热门商品</span>
+            <router-link to="/store" tag="span" class="more">更多...</router-link>
           </div>
           <List></List>
         </div>
@@ -44,7 +45,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import Search from 'components/Search/Search'
+import TopSearch from 'page/Index/TopSearch/TopSearch'
 import Slider from 'page/Index/Slider/Slider'
 import Scroll from 'components/Scroll/Scroll'
 import List from 'components/List/List'
@@ -55,11 +56,19 @@ export default {
   },
   data () {
     return {
-
+      imageList: [{
+        image: require('common/test/Banner.png')
+      },
+      {
+        image: require('common/test/Banner.png')
+      },
+      {
+        image: require('common/test/Banner.png')
+      }]
     }
   },
   components: {
-    Search,
+    TopSearch,
     Slider,
     Scroll,
     List
@@ -87,22 +96,12 @@ export default {
       .container
         position relative
         z-index 2
-        .search-wrapper
-          display flex
-          position relative
-          padding 15px 13px 0
-          .search
-            flex 9
-          .info
-            flex 1
-            margin-left 5px
-            bg('./info-white')
-            background-size 25px 25px
-        .top-banner
-          padding 0 13px 0
-          margin-top 20px
+        .top-swipe
+          padding 20px 13px 0
           height 164px
           border-radius 20px
+          .swipt-wrapper
+            height 100%
         .nav-wrapper
           padding 22px 13px 18px
           ul

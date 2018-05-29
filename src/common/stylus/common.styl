@@ -5,6 +5,9 @@ body
   color $color-text
   font-family 'Microsoft Yahei', 'PingFang SC', 'STHeitiSC-Light', 'Helvetica-Light', arial, sans-serif, 'Droid Sans Fallback'
 
+/*
+ * placeholder color
+ */
 input::-webkit-input-placeholder, 
 textarea::-webkit-input-placeholder
   color #8b8a8a
@@ -23,3 +26,8 @@ input[type=checkbox]
   font-size $font-size-small
 input[type=checkbox]:after
   background-color #fff
+
+/* 
+ * 去除搜索默认样式
+ */
+::-webkit-search-cancel-button { display: none; }

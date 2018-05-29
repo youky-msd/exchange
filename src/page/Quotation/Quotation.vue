@@ -1,6 +1,6 @@
 <template>
   <div class="quotation">
-    <NavBar title="行情"></NavBar>
+    <NavBar title="行情" :showBack="false"></NavBar>
     <Notice></Notice>
     <div class="quotation-title">
       <ul>
@@ -9,7 +9,7 @@
         <li>涨跌幅</li>
       </ul>
     </div>
-    <Scroll class="scroll">
+    <Scroll class="scroll" :isMain="true">
       <div class="quotation-list">
         <ul>
           <li class="quotation-item" v-for="(item, index) in list" :key="index">

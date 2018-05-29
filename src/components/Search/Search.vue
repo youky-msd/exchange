@@ -3,7 +3,9 @@
     <div class="search-wrapper">
       <van-icon class="logo" name="search" />
       <!-- <span class="logo"></span> -->
-      <input type="text" class="search-input" placeholder="输入相关搜索关键词">
+      <form action="#" onsubmit="return false">
+        <input v-model="value" type="search" class="search-input" placeholder="输入相关搜索关键词" @keyup.enter="search">
+      </form>
     </div>
   </div>
 </template>
@@ -12,11 +14,21 @@
 export default {
   data () {
     return {
-
+      value: '' // 搜索关键字
     }
   },
   components: {
 
+  },
+  methods: {
+    search() {
+      this.$router.push({
+        path: '/store',
+        query: {
+          search: this.value
+        }
+      })
+    }
   }
 }
 </script>
@@ -43,10 +55,12 @@ export default {
         color #8b8a8a
         // bg('./search')
         // background-size 24px 23px
-      .search-input
-        width 100%
+      form
         height 100%
-        line-height normal
-        font-size $font-size-medium
-        color $color-text
+        .search-input
+          width 100%
+          height 100%
+          line-height normal
+          font-size $font-size-medium
+          color $color-text
 </style>
