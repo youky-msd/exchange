@@ -6,6 +6,7 @@ import Store from 'page/Store/Store'
 import Quotation from 'page/Quotation/Quotation'
 // Store
 import GoodsDetail from 'page/Store/GoodsDetail/GoodsDetail'
+import GoodsBuy from 'page/Store/GoodsBuy/GoodsBuy'
 // Mine
 import Mine from 'page/Mine/Mine'
 import Info from 'page/Mine/Info/Info'
@@ -95,6 +96,10 @@ const routes = [{
 {
   path: '/login',
   component: Login
+},
+{
+  path: '/store/goods-buy',
+  component: GoodsBuy
 }]
 
 export default new Router({
