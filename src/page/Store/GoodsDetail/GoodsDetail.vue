@@ -1,6 +1,8 @@
 <template>
   <div class="goods-detail">
+    <!-- 购买弹窗 -->
     <BuyWindow v-show="showBuyWindow" @cancel="cancelBuy"></BuyWindow>
+    <!-- 供应提示弹窗 -->
     <AlertWindow class="alert-window" v-show="showSupplyWindow">
       <p class="title">供应提示</p>
       <div class="desc-wrapper">
@@ -12,23 +14,25 @@
         <div class="btn do">供应</div>
       </div>
     </AlertWindow>
-    <NavBar title="道具详情"></NavBar>
+    <!-- 底部供应按钮 -->
+    <router-link tag="div" to="/store/want-to-buy" class="supply-bottom-btn-wrapper" v-show="currentIndex === 1">
+      <div class="btn">供应</div>
+    </router-link>
+    <NavBar title="魔域神兵"></NavBar>
+    <!-- 右上消息按钮 -->
     <div class="info-wrapper">
       <InfoLink></InfoLink>
     </div>
-    <div class="goods-details-title">
-      <div class="img-wrapper">
-        <img v-lazy="gameDetail.img" alt="">
-        <div class="tag">精品</div>
-      </div>
-      <div class="details-wrapper">
-        <p class="name">{{gameDetail.name}}</p>
-        <p class="price">参考价格: <span class="num">¥ {{gameDetail.price}}</span></p>
-        <p class="week-sell">本周出售: <span class="num">{{gameDetail.weekSell}}</span></p>
-        <p class="all-sell">累计已售: <span class="num">{{gameDetail.allSell}}</span></p>
-      </div>
-    </div>
+    <!-- 商品信息 -->
+    <GoodsDetailTitle :data="gameDetail">
+      <p class="name">{{gameDetail.name}}</p>
+      <p class="price">参考价格: <span class="num">¥ {{gameDetail.price}}</span></p>
+      <p class="week-sell">本周出售: <span class="num">{{gameDetail.weekSell}}</span></p>
+      <p class="all-sell">累计已售: <span class="num">{{gameDetail.allSell}}</span></p>
+    </GoodsDetailTitle>
+    <!-- Tab -->
     <Tab :tabList="tabList" @toggleTab="toggleTab"></Tab>
+    <!-- 列表 -->
     <Scroll class="scroll">
       <GoodsListItem class="goods-list-item" :detail="item" v-show="currentIndex === 0"
       v-for="(item, index) in sellList" :key="index">
@@ -50,6 +54,20 @@
           <div class="btn" @click.stop="supply">供应</div>
         </template>
       </GoodsListItem>
+      <GoodsListItem class="goods-list-item" :detail="item" v-show="currentIndex === 2"
+      v-for="item in logList" :key="item.id">
+        <template slot="content">
+          <p class="price">¥ {{item.price}}</p>
+          <p class="user desc">{{item.user}}</p>
+        </template>
+        <template slot="btn">
+          <p class="status">{{item.status}}</p>
+          <p class="time">{{item.time}}</p>
+        </template>
+      </GoodsListItem>
+      <div class="line-wrapper">
+        <VLine></VLine>
+      </div>
     </Scroll>
   </div>
 </template>
@@ -62,6 +80,8 @@ import GoodsListItem from 'components/GoodsListItem/GoodsListItem'
 import Tab from 'components/Tab/Tab'
 import InfoLink from 'page/Index/TopSearch/InfoLink/InfoLink'
 import BuyWindow from 'page/Store/BuyWindow/BuyWindow'
+import GoodsDetailTitle from 'page/Store/GoodsDetail/GoodsDetailTitle/GoodsDetailTitle'
+import VLine from 'page/Store/GoodsDetail/Line/Line'
 
 export default {
   data () {
@@ -142,6 +162,14 @@ export default {
         user: '买我东西必出货',
         id: 12,
         img: require('common/test/list.png')
+      }],
+      logList: [{
+        price: 666,
+        user: '买我东西必出货',
+        id: 42,
+        status: '出售',
+        time: '2018-5-31',
+        img: require('common/test/list.png')
       }]
     }
   },
@@ -152,7 +180,9 @@ export default {
     GoodsListItem,
     Scroll,
     BuyWindow,
-    AlertWindow
+    AlertWindow,
+    GoodsDetailTitle,
+    VLine
   },
   methods: {
     // 购买
@@ -191,45 +221,30 @@ export default {
       display flex
       width 39px
       height 32px
-    .goods-details-title
-      height 120px
-      display flex
-      padding 0 12px
-      align-items center
-      .img-wrapper
-        position relative
-        box-sizing border-box
-        width 140px
-        height 90px
-        padding 5px
-        border-radius 10px
-        box-linear()
-        img
-          width 100%
-          height 100%
-        .tag
-          position absolute
-          z-index 2
-          top 10px
-          left 10px
-          tag-fine()
-      .details-wrapper
-        box-sizing border-box
-        padding 15px 0 15px 15px
-        height 100%
-        display flex
-        flex-direction column
-        justify-content space-around
-        .name
-          font-size $font-size-medium
-          color #fff
-        .price,
-        .week-sell,
-        .all-sell
-          color $color-text-little
-        .num
-          color $color-text-money
+    .goods-detail-title
+      .name
+        font-size $font-size-medium
+        color #fff
+      .price,
+      .week-sell,
+      .all-sell
+        color $color-text-little
+      .num
+        color $color-text-money
+    .supply-bottom-btn-wrapper
+      position fixed
+      z-index 999
+      bottom 20px
+      width calc(100% - 26px)
+      padding 0 13px
+      .btn
+        btn-big()
     .scroll
       fixed-all()
       top 222px
+      .goods-list-item
+        .status
+          font-size $font-size-large
+      .line-wrapper
+        width 100%
 </style>

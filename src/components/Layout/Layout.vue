@@ -7,9 +7,16 @@
 <script type="text/ecmascript-6">
 
 export default {
+  mounted() {
+    // this.testAlert()
+  },
   data () {
     return {
-
+      testAlert() {
+        setTimeout(() => {
+          alert('2018.5.30.增加了道具详情,商品购买,购买弹窗,求购弹窗等.')
+        }, 1000)
+      }
     }
   },
   components: {

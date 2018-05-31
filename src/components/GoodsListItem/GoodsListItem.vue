@@ -8,7 +8,9 @@
       <div class="content">
         <slot name="content"></slot>
       </div>
-      <slot name="btn"></slot>
+      <div class="content content-right">
+        <slot name="btn"></slot>
+      </div>
     </div>
   </div>
 </template>
@@ -71,6 +73,9 @@ export default {
         flex-direction column
         justify-content space-around
         height 100%
+        &.content-right
+          align-items flex-end
+          padding-right 10px
         .name
           font-size $font-size-medium
           color #fff
@@ -80,5 +85,4 @@ export default {
           color $color-text-desc
       .btn
         btn-linear()
-        margin-right 5px
 </style>
