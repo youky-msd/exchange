@@ -65,7 +65,7 @@
           <p class="time">{{item.time}}</p>
         </template>
       </GoodsListItem>
-      <div class="line-wrapper">
+      <div class="line-wrapper" v-show="currentIndex === 3">
         <ChartLine></ChartLine>
       </div>
     </Scroll>
