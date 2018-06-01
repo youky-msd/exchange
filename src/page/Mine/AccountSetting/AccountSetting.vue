@@ -5,37 +5,34 @@
     <div class="user-info">
       <div class="user-info-item">
         <div class="user-info-wrapper">
-          <span class="text">昵称:</span>
+          <span class="value">昵称:</span>
           <span class="value">{{userInfo.nickname}}</span>
         </div>
         <router-link to="/mine/account-setting/modify-nickname" class="btn linear">修改昵称</router-link>
       </div>
       <div class="user-info-item">
         <div class="user-info-wrapper">
-          <span class="text">Steam:</span>
-          <span class="value">{{userInfo.steamId}}</span>
+          <span class="value">头像</span>
         </div>
-        <span class="btn">解绑</span>
+        <span class="btn">设置头像</span>
       </div>
       <div class="user-info-item">
         <div class="user-info-wrapper">
-          <span class="text">公开Steam库存资料</span>
-          <!-- <span class="value"></span> -->
+          <span class="value">接收推送通知</span>
         </div>
-        <span class="btn">前往公开</span>
+        <van-switch v-model="acceptSend" />
       </div>
       <div class="user-info-item">
         <div class="user-info-wrapper">
-          <span class="text">Steam交易链接:</span>
-          <span class="value">获取交易链接</span>
+          <span class="value">关于产品</span>
         </div>
-        <span class="btn">保存链接</span>
+        <router-link to="/mine/account-setting/about-product">
+          <span class="btn">查看</span>
+        </router-link>
       </div>
     </div>
-    <div class="description">
-      <p class="text">说明</p>
-      <p class="text">1. 公开资料存在延迟</p>
-      <p class="text">2. 如有疑问,可查看<span class="help">帮助</span></p>
+    <div class="logout-wrapper">
+      <div class="logout">退出当前账号</div>
     </div>
   </div>
 </template>
@@ -47,6 +44,7 @@ import Notice from 'components/Notice/Notice'
 export default {
   data () {
     return {
+      acceptSend: true, // 是否接受推送
       userInfo: {
         nickname: 'Greentea',
         steamId: '23094230979847509348'
@@ -62,7 +60,8 @@ export default {
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
   @import '~common/stylus/index.styl'
-
+  .van-switch--on
+    background-color $color-selected
   .account-setting
     .user-info
       box-sizing border-box
@@ -88,17 +87,12 @@ export default {
           btn(80px, 28px, #5e698b, $font-size-small, #fff)
           &.linear
             linear()
-    .description
+    .logout-wrapper
+      position fixed
       box-sizing border-box
-      box()
-      height 105px
-      margin 16px 13px 0
-      display flex
-      flex-direction column
-      justify-content space-around
-      padding 10px 18px
-      .text
-        color $color-text
-        .help
-          color #fff
+      width 100%
+      padding 0 13px
+      bottom 20px
+      .logout
+        btn-big()
 </style>

@@ -8,7 +8,7 @@
           </div>
           <div class="user-info">
             <div class="user-name">Greentea</div>
-            <div class="user-id">2018523</div>
+            <!-- <div class="user-id">2018523</div> -->
           </div>
           <div class="arrow-wrapper">
             <van-icon class="arrow" name="arrow" />
@@ -19,7 +19,7 @@
           <div class="money-icon"></div>
           <div class="user-money-num">
             <p class="money-text">我的钱包</p>
-            <p class="money-num">¥: 9999999999.0</p>
+            <p class="money-num">9999999.0DDM</p>
           </div>
           <div class="user-money-btn">充值</div>
         </div>
@@ -29,70 +29,57 @@
               <div class="user-operation-item-wrapper">
                 <div class="icon info"></div>
                 <div class="text">消息中心</div>
-                <div class="status">1</div>
               </div>
             </router-link>
             <router-link to="/mine/collection" tag="li" class="user-operation-item">
               <div class="user-operation-item-wrapper">
                 <div class="icon collection"></div>
                 <div class="text">我的收藏</div>
-                <div class="status">1</div>
               </div>
             </router-link>
             <router-link to="/mine/my-buy" tag="li" class="user-operation-item">
               <div class="user-operation-item-wrapper">
                 <div class="icon my-buy"></div>
                 <div class="text">我的求购</div>
-                <div class="status">1</div>
               </div>
             </router-link>
-            <router-link to="/mine/account-setting" tag="li" class="user-operation-item">
+            <!-- <router-link to="/mine/account-setting" tag="li" class="user-operation-item">
               <div class="user-operation-item-wrapper">
                 <div class="icon account-setting"></div>
                 <div class="text">账号设置</div>
                 <div class="status">ENTER</div>
               </div>
-            </router-link>
+            </router-link> -->
             <router-link to="/mine/sell-manage" tag="li" class="user-operation-item">
               <div class="user-operation-item-wrapper">
                 <div class="icon exchange"></div>
                 <div class="text">出售管理</div>
-                <div class="status">ENTER</div>
               </div>
             </router-link>
             <router-link to="/mine/buy-manage" tag="li" class="user-operation-item">
               <div class="user-operation-item-wrapper">
                 <div class="icon exchange"></div>
                 <div class="text">购买管理</div>
-                <div class="status">ENTER</div>
               </div>
             </router-link>
             <router-link to="/mine/help" tag="li" class="user-operation-item no-border-bottom">
               <div class="user-operation-item-wrapper">
                 <div class="icon help"></div>
                 <div class="text">帮助中心</div>
-                <div class="status">ENTER</div>
               </div>
             </router-link>
             <router-link to="/mine/question" tag="li" class="user-operation-item no-border-bottom">
               <div class="user-operation-item-wrapper">
                 <div class="icon question"></div>
                 <div class="text">联系客服</div>
-                <div class="status">ENTER</div>
               </div>
             </router-link>
-            <!-- <router-link to="/mine/system-setting" tag="li" class="user-operation-item no-border-bottom">
-              <div class="user-operation-item-wrapper">
-                <div class="icon system-setting"></div>
-                <div class="text">系统设置</div>
-                <div class="status">ENTER</div>
-              </div>
-            </router-link> -->
             <li class="user-operation-item no-border-bottom">
               <div class="user-operation-item-wrapper no-order">
-                <!-- <div class="icon"></div>
-                <div class="text">消息中心</div>
-                <div class="status">1</div> -->
+              </div>
+            </li>
+            <li class="user-operation-item no-border-bottom">
+              <div class="user-operation-item-wrapper no-order">
               </div>
             </li>
           </ul>
@@ -222,7 +209,7 @@ export default {
             flex-direction column
             justify-content space-around
             align-items center
-            height 102px
+            height 90px
             min-width 90px
             padding-bottom 10px
             border-bottom 1px solid $color-border

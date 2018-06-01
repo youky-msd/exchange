@@ -1,12 +1,16 @@
 <template>
   <div class="quotation">
-    <NavBar title="行情" :showBack="false"></NavBar>
+    <NavBar title="行情" :showBack="false">
+    </NavBar>
+    <div class="info-wrapper">
+      <InfoLink></InfoLink>
+    </div>
     <Notice></Notice>
     <div class="quotation-title">
       <ul>
         <li>商品名称</li>
-        <li>订购价</li>
-        <li>涨跌幅</li>
+        <li>平均价</li>
+        <li>跌涨幅</li>
       </ul>
     </div>
     <Scroll class="scroll" :isMain="true">
@@ -44,6 +48,7 @@ import NavBar from 'components/NavBar/NavBar'
 import Notice from 'components/Notice/Notice'
 import Scroll from 'components/Scroll/Scroll'
 import List from 'components/List/List'
+import InfoLink from 'page/Index/TopSearch/InfoLink/InfoLink'
 
 export default {
   data () {
@@ -152,7 +157,8 @@ export default {
     NavBar,
     Notice,
     Scroll,
-    List
+    List,
+    InfoLink
   }
 }
 </script>
@@ -175,6 +181,14 @@ export default {
         li
           flex 1
           text-align center
+    .info-wrapper
+      position absolute
+      z-index 2
+      top 9px
+      right 17px
+      display flex
+      width 39px
+      height 32px
     .scroll
       fixed-all()
       top 135px

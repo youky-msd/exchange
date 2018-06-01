@@ -15,6 +15,7 @@ import Collection from 'page/Mine/Collection/Collection'
 import MyBuy from 'page/Mine/MyBuy/MyBuy'
 import AccountSetting from 'page/Mine/AccountSetting/AccountSetting'
 import ModifyNickname from 'page/Mine/AccountSetting/ModifyNickname/ModifyNickname'
+import AboutProduct from 'page/Mine/AccountSetting/AboutProduct/AboutProduct'
 import SellManage from 'page/Mine/SellManage/SellManage'
 import Help from 'page/Mine/Help/Help'
 import Question from 'page/Mine/Question/Question'
@@ -69,6 +70,10 @@ const routes = [{
 {
   path: '/mine/account-setting/modify-nickname',
   component: ModifyNickname
+},
+{
+  path: '/mine/account-setting/about-product',
+  component: AboutProduct
 },
 {
   path: '/mine/sell-manage',

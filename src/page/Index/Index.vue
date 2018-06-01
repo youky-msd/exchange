@@ -97,10 +97,12 @@ export default {
         position relative
         z-index 2
         .top-swipe
-          padding 20px 13px 0
+          margin 20px 13px 0
           height 164px
           border-radius 20px
+          overflow hidden
           .swipt-wrapper
+            overflow hidden
             height 100%
         .nav-wrapper
           padding 22px 13px 18px
