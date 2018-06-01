@@ -8,13 +8,13 @@
 
 export default {
   mounted() {
-    // this.testAlert()
+    this.testAlert()
   },
   data () {
     return {
       testAlert() {
         setTimeout(() => {
-          alert('2018.5.30.增加了道具详情,商品购买,购买弹窗,求购弹窗等.')
+          alert('页面基本完成,剩余一些小细节对接接口再进行调整,有什么问题跟我说- -..')
         }, 1000)
       }
     }
