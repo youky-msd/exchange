@@ -66,7 +66,7 @@
         </template>
       </GoodsListItem>
       <div class="line-wrapper">
-        <VLine></VLine>
+        <ChartLine></ChartLine>
       </div>
     </Scroll>
   </div>
@@ -81,7 +81,7 @@ import Tab from 'components/Tab/Tab'
 import InfoLink from 'page/Index/TopSearch/InfoLink/InfoLink'
 import BuyWindow from 'page/Store/BuyWindow/BuyWindow'
 import GoodsDetailTitle from 'page/Store/GoodsDetail/GoodsDetailTitle/GoodsDetailTitle'
-import VLine from 'page/Store/GoodsDetail/Line/Line'
+import ChartLine from 'page/Store/GoodsDetail/ChartLine/ChartLine'
 
 export default {
   data () {
@@ -182,7 +182,7 @@ export default {
     BuyWindow,
     AlertWindow,
     GoodsDetailTitle,
-    VLine
+    ChartLine
   },
   methods: {
     // 购买
