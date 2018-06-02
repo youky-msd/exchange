@@ -8,7 +8,7 @@
 
 export default {
   mounted() {
-    this.testAlert()
+    // this.testAlert()
   },
   data () {
     return {

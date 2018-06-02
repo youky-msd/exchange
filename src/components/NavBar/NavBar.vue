@@ -57,6 +57,8 @@ export default {
       flex 1
       height 24px
       color #fff
+    .name
+      flex 2
     .icon-wrapper
       &.right
         display flex

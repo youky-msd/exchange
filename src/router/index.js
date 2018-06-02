@@ -22,6 +22,11 @@ import Question from 'page/Mine/Question/Question'
 import SystemSetting from 'page/Mine/SystemSetting/SystemSetting'
 import BuyDetail from 'page/Mine/MyBuy/BuyDetail/BuyDetail'
 import BuyManage from 'page/Mine/BuyManage/BuyManage'
+import MyAccount from 'page/Mine/MyAccount/MyAccount'
+import Charge from 'page/Mine/Charge/Charge'
+import Exchange from 'page/Mine/Exchange/Exchange'
+import AddAddress from 'page/Mine/Exchange/AddAddress/AddAddress'
+
 // Login
 import Login from 'page/Login/Login'
 Vue.use(Router)
@@ -98,6 +103,22 @@ const routes = [{
 {
   path: '/mine/my-buy/buy-detail/:goodsId',
   component: BuyDetail
+},
+{
+  path: '/mine/my-account',
+  component: MyAccount
+},
+{
+  path: '/mine/charge',
+  component: Charge
+},
+{
+  path: '/mine/exchange',
+  component: Exchange
+},
+{
+  path: '/mine/add-address',
+  component: AddAddress
 },
 {
   path: '/login',

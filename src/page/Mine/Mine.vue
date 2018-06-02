@@ -15,14 +15,14 @@
           </div>
         </router-link>
         <div class="mine-nav-shadow"></div>
-        <div class="user-money">
+        <router-link to="/mine/my-account" tag="div" class="user-money">
           <div class="money-icon"></div>
           <div class="user-money-num">
             <p class="money-text">我的钱包</p>
             <p class="money-num">9999999.0DDM</p>
           </div>
-          <div class="user-money-btn">充值</div>
-        </div>
+          <router-link to="/mine/charge" class="user-money-btn">充值</router-link>
+        </router-link>
         <div class="user-operation">
           <ul>
             <router-link to="/mine/info" tag="li" class="user-operation-item">
