@@ -22,4 +22,4 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 # question
 1. 编辑 / 取消编辑
-2. 
+2. 登录 get?

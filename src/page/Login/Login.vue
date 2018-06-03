@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <NavBar title="登录"></NavBar>
-    <!-- <div class="container">
+    <div class="container">
       <div class="logo-wrapper">
         <img src="../../common/img/logo.png" alt="">
       </div>
@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="btn">登录</div>
-    </div> -->
+    </div>
     <Verification></Verification>
   </div>
 </template>
