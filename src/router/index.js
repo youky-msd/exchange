@@ -23,9 +23,11 @@ import SystemSetting from 'page/Mine/SystemSetting/SystemSetting'
 import BuyDetail from 'page/Mine/MyBuy/BuyDetail/BuyDetail'
 import BuyManage from 'page/Mine/BuyManage/BuyManage'
 import MyAccount from 'page/Mine/MyAccount/MyAccount'
+import Log from 'page/Mine/MyAccount/Log/Log'
 import Charge from 'page/Mine/Charge/Charge'
 import Exchange from 'page/Mine/Exchange/Exchange'
 import AddAddress from 'page/Mine/Exchange/AddAddress/AddAddress'
+import Up from 'page/Mine/SellManage/Up/Up'
 
 // Login
 import Login from 'page/Login/Login'
@@ -119,6 +121,14 @@ const routes = [{
 {
   path: '/mine/add-address',
   component: AddAddress
+},
+{
+  path: '/mine/log',
+  component: Log
+},
+{
+  path: '/mine/up',
+  component: Up
 },
 {
   path: '/login',

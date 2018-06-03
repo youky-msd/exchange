@@ -35,4 +35,5 @@ export default {
         padding 10px 13px
         color #fff
         font-size $font-size-medium-x
+        text-align center
 </style>
