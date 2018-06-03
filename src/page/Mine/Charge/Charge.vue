@@ -2,6 +2,9 @@
   <div class="charge">
     <NavBar title="充值"></NavBar>
     <AccountInfo></AccountInfo>
+    <div class="top-wrapper">
+      <router-link class="link" to="/mine/log">充值记录</router-link>
+    </div>
     <div class="charge-input-wrapper">
       <div class="input-wrapper">
         <input type="number" placeholder="请输入充值数量">
@@ -60,6 +63,18 @@ export default {
   @import '~common/stylus/index.styl'
 
   .charge
+    .top-wrapper
+      position absolute
+      z-index 2
+      top 13px
+      right 17px
+      font-size 24px
+      color #fff
+      .link
+        display block
+        padding 5px
+        color #fff
+        font-size $font-size-medium-x
     .charge-input-wrapper
       padding 10px 13px
       .input-wrapper

@@ -13,13 +13,13 @@
       </div>
       <div class="input-container">
         <p class="label">验证码</p>
-        <div class="input-wrapper">
+        <div class="input-wrapper verification">
           <input type="text">
+          <Verification class="verification"></Verification>
         </div>
       </div>
       <div class="btn">登录</div>
     </div>
-    <Verification></Verification>
   </div>
 </template>
 
@@ -66,7 +66,13 @@ export default {
         font-size $font-size-large-x
         color #fff
       .input-wrapper
+        display flex
+        align-items center
         public-input()
+        &.verification
+          padding 7px 12px
+        .verification
+          flex-basis 100px
     .btn
       margin-top 20px
       btn-big()

@@ -1,7 +1,7 @@
 <template>
-  <div class="verification">
-    <div v-show="NotSend" class="send" @click="sendVerificationCode">发送验证码</div>
-    <div v-show="!NotSend" class="sent">{{this.num}}</div>
+  <div class="verification" :class="{sent: !NotSend}">
+    <div v-show="NotSend" class="btn send" @click="sendVerificationCode">发送验证码</div>
+    <div v-show="!NotSend" class="btn sent">{{this.num}}</div>
   </div>
 </template>
 
@@ -40,4 +40,17 @@ export default {
 <style scoped lang="stylus" rel="stylesheet/stylus">
   @import '~common/stylus/index.styl'
 
+  .verification
+    // padding 3px
+    border($color-text-ll)
+    border-radius 3px
+    color $color-text-ll
+    font-size $font-size-medium
+    &.sent
+      border($color-text-d)
+    .btn
+      text-align center
+      line-height 26px
+      &.sent
+        color $color-text-d
 </style>

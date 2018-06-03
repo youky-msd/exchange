@@ -2,6 +2,9 @@
   <div class="exchange">
     <NavBar title="DDM币兑换"></NavBar>
     <AccountInfo></AccountInfo>
+    <div class="top-wrapper">
+      <router-link class="link" to="/mine/log">兑换记录</router-link>
+    </div>
     <div class="exchange-main-wrapper">
       <div class="exchange-input-wrapper">
         <div class="input-wrapper">
@@ -74,6 +77,18 @@ export default {
   @import '~common/stylus/index.styl'
 
   .exchange
+    .top-wrapper
+      position absolute
+      z-index 2
+      top 13px
+      right 17px
+      font-size 24px
+      color #fff
+      .link
+        display block
+        padding 5px
+        color #fff
+        font-size $font-size-medium-x
     .exchange-main-wrapper
       margin-top 10px
       box-linear()
