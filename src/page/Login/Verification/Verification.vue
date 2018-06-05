@@ -7,6 +7,11 @@
 
 <script type="text/ecmascript-6">
 export default {
+  props: {
+    mobile: {
+      type: String
+    }
+  },
   data () {
     return {
       NotSend: true, // 是否点击了发送验证码
@@ -18,14 +23,16 @@ export default {
   },
   methods: {
     sendVerificationCode() {
-      this.NotSend = false
-      this.countDown()
+      if (this.mobile) {
+        this.NotSend = false
+        this.countDown()
+      }
     },
     countDown() {
       setTimeout(() => {
         this.num--
         if (this.num !== 0) {
-          console.log(this.num)
+          // console.log(this.num)
           this.countDown()
         } else {
           this.NotSend = true

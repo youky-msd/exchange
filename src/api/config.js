@@ -7,11 +7,9 @@ import Router from '../router'
 
 // axios 配置
 axios.defaults.timeout = 5000
-const debug = process.env.NODE_ENV === 'production'
-// 本地 http://192.168.1.222/zcmu/public
-// 线上 http://47.104.170.242:15001/zcmu/public/
+// const debug = process.env.NODE_ENV === 'production'
 
-axios.defaults.baseURL = debug ? 'http://47.104.170.242:15001/zcmu/public' : 'http://47.104.170.242:15001/zcmu/public'
+axios.defaults.baseURL = 'http://47.104.254.248:8080'
 
 axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
 
@@ -38,22 +36,18 @@ axios.interceptors.response.use(
     */
     // status === 200
     if (response.status === 200) {
-      // 没有权限
-      if (response.data.code === 401) {
-        Toast({
-          message: response.data.message,
-          duration: 1500
-        })
-      } else if (response.data.code === 402) {
-        // 登录失效
-        Toast.clear()
+      // token不正确
+      if (response.data.code === 11000) {
         localStorage.removeItem('token')
         Router.push('/login')
-      } else if (response.data.code !== 200) {
+      } else if (response.data.code === 11001) {
+        // token过期
+        // 获取新token接口
+      } else if (response.data.code !== 0) {
         // 其他情况
         Toast({
           message: response.data.message,
-          duration: 1500
+          duration: 1000
         })
       } else {
         return response

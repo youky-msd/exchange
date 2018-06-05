@@ -8,33 +8,60 @@
       <div class="input-container">
         <p class="label">手机账号</p>
         <div class="input-wrapper">
-          <input type="text">
+          <input type="number" v-model="mobile">
         </div>
       </div>
       <div class="input-container">
         <p class="label">验证码</p>
         <div class="input-wrapper verification">
-          <input type="text">
-          <Verification class="verification"></Verification>
+          <input type="text" v-model="verificationCode">
+          <div class="verification-wrapper" @click="sendVerification">
+            <Verification class="verification" :mobile="mobile"></Verification>
+          </div>
         </div>
       </div>
-      <div class="btn">登录</div>
+      <div class="btn" @click="login">登录</div>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import NavBar from 'components/NavBar/NavBar'
-import Verification from 'page/Login/Verification/Verification'
+import Verification from 'page/Login/verification/verification'
+import { Toast } from 'vant'
+import User from 'api/user'
+const _user = new User()
 
 export default {
   data () {
     return {
+      mobile: '', // 手机号
+      verificationCode: '' // 验证码
     }
   },
   components: {
     NavBar,
     Verification
+  },
+  methods: {
+    login() {
+      _user.login(this.mobile, this.verificationCode)
+        .then(res => {
+          localStorage.token = res.result.token
+          location.href = '/'
+        })
+    },
+    // 发送验证码
+    sendVerification() {
+      if (this.mobile) {
+        _user.sendVerification(this.mobile)
+          .then(res => {
+            console.log(res)
+          })
+      } else {
+        Toast.fail('请输入手机号')
+      }
+    }
   }
 }
 </script>
@@ -71,7 +98,7 @@ export default {
         public-input()
         &.verification
           padding 7px 12px
-        .verification
+        .verification-wrapper
           flex-basis 100px
     .btn
       margin-top 20px
