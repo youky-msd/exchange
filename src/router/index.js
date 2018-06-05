@@ -55,7 +55,7 @@ const routes = [{
   }]
 },
 {
-  path: '/store/goods-detail',
+  path: '/store/goods-detail/:goodsTypeId',
   component: GoodsDetail
 },
 {

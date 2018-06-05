@@ -6,6 +6,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+import _tool from 'common/js/tool'
 export default {
   props: {
     mobile: {
@@ -23,7 +24,7 @@ export default {
   },
   methods: {
     sendVerificationCode() {
-      if (this.mobile) {
+      if (_tool.isPhone(this.mobile)) {
         this.NotSend = false
         this.countDown()
       }

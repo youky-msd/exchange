@@ -2,7 +2,7 @@
   <div class="goods-detail-title">
     <div class="goods-detail-title-wrapper">
       <div class="img-wrapper">
-        <img v-lazy="data.img" alt="">
+        <img v-lazy="data.image" alt="">
         <div class="tag">精品</div>
       </div>
       <div class="details-wrapper">
@@ -49,6 +49,7 @@ export default {
         img
           width 100%
           height 100%
+          border-radius 10px
         .tag
           position absolute
           z-index 2

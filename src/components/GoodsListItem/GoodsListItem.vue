@@ -6,7 +6,7 @@
       </div>
       <div class="list-item-container">
         <div class="img" @click="link(detail.id)">
-          <img v-lazy="detail.img" alt="">
+          <img v-lazy="detail.image" alt="">
           <div class="tag">精品</div>
         </div>
         <div class="content" @click="link(detail.id)">

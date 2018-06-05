@@ -10,15 +10,11 @@
             <span class="select-only-icon"><van-icon class="icon" name="success" v-show="only"/></span>
             <span class="select-only-text">只看求购</span>
           </div>
-          <!-- <div class="filter-btn">
-            <van-icon class="icon" name="wap-nav" />
-            <span class="text">筛选</span>
-          </div> -->
         </div>
       </div>
     </div>
     <Scroll class="scroll" :isMain="true">
-      <List></List>
+      <List :list="list"></List>
     </Scroll>
   </div>
 </template>
@@ -29,11 +25,17 @@ import Notice from 'components/Notice/Notice'
 import Scroll from 'components/Scroll/Scroll'
 import List from 'components/List/List'
 import TopSearch from 'page/Index/TopSearch/TopSearch'
+import Store from 'api/store'
+let _store = new Store()
 
 export default {
+  mounted() {
+    this.getGoodsList()
+  },
   data () {
     return {
-      only: false
+      only: false,
+      list: [] // 商品列表
     }
   },
   components: {
@@ -46,6 +48,14 @@ export default {
   methods: {
     toggleOnly() {
       this.only = !this.only
+    },
+    // 获取商品列表
+    getGoodsList() {
+      _store.getGoodsList()
+        .then(res => {
+          // console.log(res)
+          this.list = res.result
+        })
     }
   }
 }

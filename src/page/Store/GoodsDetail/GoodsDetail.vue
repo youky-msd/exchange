@@ -24,31 +24,33 @@
       <InfoLink></InfoLink>
     </div>
     <!-- 商品信息 -->
-    <GoodsDetailTitle :data="gameDetail">
-      <p class="name">{{gameDetail.name}}</p>
-      <p class="price">参考价格: <span class="num">¥ {{gameDetail.price}}</span></p>
-      <p class="week-sell">本周出售: <span class="num">{{gameDetail.weekSell}}</span></p>
-      <p class="all-sell">累计已售: <span class="num">{{gameDetail.allSell}}</span></p>
+    <GoodsDetailTitle :data="propertyDetail">
+      <p class="name">{{propertyDetail.name}}</p>
+      <p class="price">参考价格: <span class="num">¥ {{propertyDetail.price}}</span></p>
+      <p class="week-sell">本周出售: <span class="num">{{propertyDetail.weekSoldNum}}</span></p>
+      <p class="all-sell">累计已售: <span class="num">{{propertyDetail.soldNum}}</span></p>
     </GoodsDetailTitle>
     <!-- Tab -->
     <Tab :tabList="tabList" @toggleTab="toggleTab"></Tab>
     <!-- 列表 -->
     <Scroll class="scroll">
+      <!-- 在售 -->
       <GoodsListItem class="goods-list-item" :detail="item" v-show="currentIndex === 0"
       v-for="(item, index) in sellList" :key="index">
         <template slot="content">
           <p class="price">¥ {{item.price}}</p>
-          <p class="user desc">{{item.user}}</p>
+          <p class="user desc">{{item.sellerNickName}}</p>
         </template>
         <template slot="btn">
           <div class="btn" @click.stop="buy">购买</div>
         </template>
       </GoodsListItem>
+      <!-- 求购 -->
       <GoodsListItem class="goods-list-item" :detail="item" v-show="currentIndex === 1"
       v-for="item in buyList" :key="item.id">
         <template slot="content">
-          <p class="price">¥ {{item.price}}</p>
-          <p class="user desc">{{item.user}}</p>
+          <p class="price">¥ {{item.totalPrice}}</p>
+          <p class="user desc">{{item.nickname}}</p>
         </template>
         <template slot="btn">
           <div class="btn" @click.stop="supply">供应</div>
@@ -82,95 +84,27 @@ import InfoLink from 'page/Index/TopSearch/InfoLink/InfoLink'
 import BuyWindow from 'page/Store/BuyWindow/BuyWindow'
 import GoodsDetailTitle from 'page/Store/GoodsDetail/GoodsDetailTitle/GoodsDetailTitle'
 import ChartLine from 'page/Store/GoodsDetail/ChartLine/ChartLine'
+import Store from 'api/store'
+let _store = new Store()
 
 export default {
+  mounted() {
+    this.getPropertyDetail()
+    this.getPropertyDetailForSaleList()
+    this.getPropertyDetailForBuyList()
+    this.getPropertyDetailOrderRecordsList()
+    this.getPropertyDetailStatistics()
+  },
   data () {
     return {
       currentIndex: 0, // 当前tab索引
       showBuyWindow: false, // 是否打开购买窗口
       showSupplyWindow: false, // 是否打开供应提示窗口
       tabList: ['出售', '求购', '成交记录', '价格走势'],
-      gameDetail: { // 商品详情
-        name: '魔域神兵',
-        price: 43.33,
-        weekSell: 13,
-        allSell: 66,
-        img: require('common/test/list.png')
-      },
-      sellList: [{
-        price: 666,
-        user: '买我东西必出货',
-        id: 12,
-        img: require('common/test/list.png')
-      },
-      {
-        price: 666,
-        user: '买我东西必出货',
-        id: 12,
-        img: require('common/test/list.png')
-      },
-      {
-        price: 666,
-        user: '买我东西必出货',
-        id: 12,
-        img: require('common/test/list.png')
-      },
-      {
-        price: 666,
-        user: '买我东西必出货',
-        id: 12,
-        img: require('common/test/list.png')
-      },
-      {
-        price: 666,
-        user: '买我东西必出货',
-        id: 12,
-        img: require('common/test/list.png')
-      },
-      {
-        price: 666,
-        user: '买我东西必出货',
-        id: 12,
-        img: require('common/test/list.png')
-      },
-      {
-        price: 666,
-        user: '买我东西必出货',
-        id: 12,
-        img: require('common/test/list.png')
-      },
-      {
-        price: 666,
-        user: '买我东西必出货',
-        id: 12,
-        img: require('common/test/list.png')
-      },
-      {
-        price: 666,
-        user: '买我东西必出货',
-        id: 12,
-        img: require('common/test/list.png')
-      }],
-      buyList: [{
-        price: 666,
-        user: '买我东西必出货',
-        id: 44,
-        img: require('common/test/list.png')
-      },
-      {
-        price: 666,
-        user: '买我东西必出货',
-        id: 12,
-        img: require('common/test/list.png')
-      }],
-      logList: [{
-        price: 666,
-        user: '买我东西必出货',
-        id: 42,
-        status: '出售',
-        time: '2018-5-31',
-        img: require('common/test/list.png')
-      }]
+      propertyDetail: {}, // 道具详情
+      sellList: [], // 在售列表
+      buyList: [],
+      logList: []
     }
   },
   components: {
@@ -204,6 +138,44 @@ export default {
     // 关闭供应窗口
     cancelSupplyWindow() {
       this.showSupplyWindow = false
+    },
+    // 获取道具详情
+    getPropertyDetail() {
+      _store.getPropertyDetail(this.$route.params.goodsTypeId)
+        .then(res => {
+          this.propertyDetail = res.result
+        })
+    },
+    // 获取道具详情-在售列表
+    getPropertyDetailForSaleList() {
+      _store.getPropertyDetailForSaleList(this.$route.params.goodsTypeId)
+        .then(res => {
+          console.log(res)
+          this.sellList = res.result.goodsList
+        })
+    },
+    // 获取道具详情-求购列表
+    getPropertyDetailForBuyList() {
+      _store.getPropertyDetailForBuyList(this.$route.params.goodsTypeId)
+        .then(res => {
+          console.log(res)
+          this.buyList = res.result
+        })
+    },
+    // 获取道具详情-成交记录
+    getPropertyDetailOrderRecordsList() {
+      _store.getPropertyDetailOrderRecordsList(this.$route.params.goodsTypeId)
+        .then(res => {
+          console.log(res)
+          this.logList = res.result
+        })
+    },
+    // 获取道具详情-价格走势
+    getPropertyDetailStatistics() {
+      _store.getPropertyDetailStatistics(this.$route.params.goodsTypeId)
+        .then(res => {
+          console.log(res)
+        })
     }
   }
 }

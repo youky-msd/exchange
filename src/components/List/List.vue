@@ -1,11 +1,11 @@
 <template>
   <div class="list">
     <ul>
-      <router-link to="/store/goods-detail" tag="li" class="list-item"
+      <router-link :to="{path: `/store/goods-detail/${item.id}`}" tag="li" class="list-item"
       v-for="(item, index) in list" :key="index">
-        <img v-lazy="item.img" alt="">
+        <img v-lazy="item.image" alt="">
         <div class="list-desc-1">
-          <span class="name">光明骑士</span>
+          <span class="name">{{item.name}}</span>
           <span class="money">¥: {{item.price}}</span>
         </div>
       </router-link>
@@ -15,88 +15,13 @@
 
 <script type="text/ecmascript-6">
 export default {
+  props: {
+    list: {
+      type: Array
+    }
+  },
   data () {
     return {
-      list: [{
-        name: '光明骑士',
-        price: 170,
-        img: require('../../common/test/list.png')
-      },
-      {
-        name: '光明骑士',
-        price: 170,
-        img: require('../../common/test/list.png')
-      },
-      {
-        name: '光明骑士',
-        price: 170,
-        img: require('../../common/test/list.png')
-      },
-      {
-        name: '光明骑士',
-        price: 170,
-        img: require('../../common/test/list.png')
-      },
-      {
-        name: '光明骑士',
-        price: 170,
-        img: require('../../common/test/list.png')
-      },
-      {
-        name: '光明骑士',
-        price: 170,
-        img: require('../../common/test/list.png')
-      },
-      {
-        name: '光明骑士',
-        price: 170,
-        img: require('../../common/test/list.png')
-      },
-      {
-        name: '光明骑士',
-        price: 170,
-        img: require('../../common/test/list.png')
-      },
-      {
-        name: '光明骑士',
-        price: 170,
-        img: require('../../common/test/list.png')
-      },
-      {
-        name: '光明骑士',
-        price: 170,
-        img: require('../../common/test/list.png')
-      },
-      {
-        name: '光明骑士',
-        price: 170,
-        img: require('../../common/test/list.png')
-      },
-      {
-        name: '光明骑士',
-        price: 170,
-        img: require('../../common/test/list.png')
-      },
-      {
-        name: '光明骑士',
-        price: 170,
-        img: require('../../common/test/list.png')
-      },
-      {
-        name: '光明骑士',
-        price: 170,
-        img: require('../../common/test/list.png')
-      },
-      {
-        name: '光明骑士',
-        price: 170,
-        img: require('../../common/test/list.png')
-      },
-      {
-        name: '光明骑士',
-        price: 170,
-        img: require('../../common/test/list.png')
-      }]
     }
   },
   components: {

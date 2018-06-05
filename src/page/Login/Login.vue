@@ -44,11 +44,13 @@ export default {
     Verification
   },
   methods: {
+    // 登录
     login() {
       _user.login(this.mobile, this.verificationCode)
         .then(res => {
           localStorage.token = res.result.token
-          location.href = '/'
+          Toast.success('登录成功')
+          this.$router.push('/')
         })
     },
     // 发送验证码
@@ -56,7 +58,7 @@ export default {
       if (this.mobile) {
         _user.sendVerification(this.mobile)
           .then(res => {
-            console.log(res)
+            // to do...
           })
       } else {
         Toast.fail('请输入手机号')

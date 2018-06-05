@@ -49,10 +49,13 @@ import TopSearch from 'page/Index/TopSearch/TopSearch'
 import Slider from 'page/Index/Slider/Slider'
 import Scroll from 'components/Scroll/Scroll'
 import List from 'components/List/List'
-
+import Index from 'api/index'
+let _index = new Index()
 export default {
   mounted() {
-
+    this.getBanner()
+    this.getAd()
+    this.getHotGame()
   },
   data () {
     return {
@@ -74,6 +77,27 @@ export default {
     List
   },
   methods: {
+    // 获取Banner
+    getBanner() {
+      _index.getBanner()
+        .then(res => {
+          console.log(res)
+        })
+    },
+    // 获取广告
+    getAd() {
+      _index.getAd()
+        .then(res => {
+          console.log(res)
+        })
+    },
+    // 获取热门游戏
+    getHotGame() {
+      _index.getHotGame()
+        .then(res => {
+          console.log(res)
+        })
+    }
   }
 }
 </script>
