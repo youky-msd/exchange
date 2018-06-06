@@ -46,6 +46,7 @@ export default {
         border-radius 10px
         margin-bottom 13px
         img
+          border-radius 10px
           width 100%
         .list-desc-1
           padding 10px 3px 3px

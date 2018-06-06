@@ -28,7 +28,7 @@ class Index {
   }
   // 获取热门游戏
   getHotGame() {
-    const url = 'api/index/get-hot-game'
+    const url = 'api/index/hot-game-list'
     return axios.get(url, {
       params: {
         token

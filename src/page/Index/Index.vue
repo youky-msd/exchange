@@ -7,7 +7,7 @@
         <div class="top-swipe">
           <van-swipe class="swipt-wrapper" :autoplay="3000" :show-indicators="false">
             <van-swipe-item v-for="(item, index) in imageList" :key="index">
-              <img v-lazy="item.image" width="100%" height="100%"/>
+              <img v-lazy="item.srcUrl" width="100%" height="100%"/>
             </van-swipe-item>
           </van-swipe>
         </div>
@@ -17,21 +17,9 @@
               <img src="../../common/test/nav1.png" alt="">
               <p class="text">绝地求生</p>
             </router-link>
-            <router-link :to="{path: '/store'}" tag="li" class="nav-item">
-              <img src="../../common/test/nav2.png" alt="">
-              <p class="text">CS GO</p>
-            </router-link>
-            <router-link :to="{path: '/store'}" tag="li" class="nav-item">
-              <img src="../../common/test/nav3.png" alt="">
-              <p class="text">H1N1</p>
-            </router-link>
-            <router-link :to="{path: '/store'}" tag="li" class="nav-item">
-              <img src="../../common/test/nav4.png" alt="">
-              <p class="text">DOTA2</p>
-            </router-link>
           </ul>
         </div>
-        <Slider class="scroll-class"></Slider>
+        <Slider class="scroll-class" :adList="adList"></Slider>
         <div class="list-wrapper">
           <div class="list-title">
             <span class="text">热门商品</span>
@@ -46,7 +34,7 @@
 
 <script type="text/ecmascript-6">
 import TopSearch from 'page/Index/TopSearch/TopSearch'
-import Slider from 'page/Index/Slider/Slider'
+import Slider from 'page/Index/slider/slider'
 import Scroll from 'components/Scroll/Scroll'
 import List from 'components/List/List'
 import Index from 'api/index'
@@ -59,15 +47,9 @@ export default {
   },
   data () {
     return {
-      imageList: [{
-        image: require('common/test/Banner.png')
-      },
-      {
-        image: require('common/test/Banner.png')
-      },
-      {
-        image: require('common/test/Banner.png')
-      }]
+      imageList: [], // banner列表
+      adList: [], // 广告列表
+      HotGameList: [] // 热门游戏列表
     }
   },
   components: {
@@ -81,21 +63,24 @@ export default {
     getBanner() {
       _index.getBanner()
         .then(res => {
-          console.log(res)
+          // console.log(res)
+          this.imageList = res.result
         })
     },
     // 获取广告
     getAd() {
       _index.getAd()
         .then(res => {
-          console.log(res)
+          // console.log(res)
+          this.adList = res.result
         })
     },
     // 获取热门游戏
     getHotGame() {
       _index.getHotGame()
         .then(res => {
-          console.log(res)
+          // console.log(res)
+          this.HotGameList = res.result
         })
     }
   }
