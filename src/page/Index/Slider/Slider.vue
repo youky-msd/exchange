@@ -1,7 +1,7 @@
 <template>
   <div class="slider" ref="sliderWrapper">
-    <ul ref="slider" :style="allWidth">
-      <router-link tag="li" to="/" class="slider-item" :style="listStyle"
+    <ul ref="slider">
+      <router-link tag="li" to="/" class="slider-item"
       v-for="(item, index) in adList" :key="index" ref="sliderItem">
         <img :src="item.srcUrl" alt="" width="100%" height="100%">
       </router-link>
@@ -23,13 +23,6 @@ export default {
   },
   data () {
     return {
-      listStyle: {
-        width: localStorage.listWidth || '',
-        height: localStorage.listHeight || ''
-      },
-      allWidth: {
-        width: localStorage.allWidth || ''
-      }
     }
   },
   components: {
@@ -37,33 +30,22 @@ export default {
   },
   methods: {
     _initSlider() {
-      // 存储数量
-      localStorage.listNum = this.adList.length
       // slider width
       let picWidth = document.documentElement.clientWidth - 16 * 2
       let margin = 4
       let width = (picWidth + margin * 2) * this.adList.length + margin * 2
-
-      if (!localStorage.listWidth) {
-        this.listStyle.width = picWidth + 'px'
-        this.listStyle.height = (181 / 692 * picWidth) + 'px'
-        localStorage.listWidth = picWidth + 'px'
-        localStorage.listHeight = (181 / 692 * picWidth) + 'px'
-      }
-
-      if (!localStorage.allWidth) {
-        this.allWidth.width = `${width}px`
-        localStorage.allWidth = `${width}px`
-      } else if (parseInt(this.adList.length) !== parseInt(localStorage.listNum)) {
-        this.allWidth.width = `${width}px`
-        localStorage.allWidth = `${width}px`
-      }
+      let sliderItem = document.querySelectorAll('.slider-item')
+      sliderItem.forEach(element => {
+        element.style.width = picWidth + 'px'
+        element.style.height = (181 / 692 * picWidth) + 'px'
+      })
+      this.$refs.slider.style.width = `${width}px`
       this.$nextTick(() => {
         if (!this.scroll) {
           this.scroll = new BScroll(this.$refs.sliderWrapper, {
             scrollX: true,
-            click: true
-            // startX: -picWidth - 1
+            click: true,
+            startX: -picWidth - 1
             // eventPassthrough: 'vertical'
           })
         } else {

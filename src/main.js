@@ -10,6 +10,7 @@ import Trend from 'vuetrend'
 import fastclick from 'fastclick'
 import Vant from 'vant'
 import VueLazyload from 'vue-lazyload'
+import store from './store'
 
 fastclick.attach(document.body)
 Vue.config.productionTip = false
@@ -23,6 +24,7 @@ Vue.use(VueLazyload, {
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

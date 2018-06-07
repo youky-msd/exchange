@@ -1,10 +1,10 @@
 import axios from './config'
 let token = localStorage.token
 
-class Quotation {
+class Mine {
   // 行情列表
-  getQuotationList() {
-    const url = 'api/quotation/quotation-list'
+  getBalanceLock() {
+    const url = '/api/financeaccount/balance-lock'
     return axios.get(url, {
       params: {
         token
@@ -16,4 +16,4 @@ class Quotation {
   }
 }
 
-export default Quotation
+export default Mine

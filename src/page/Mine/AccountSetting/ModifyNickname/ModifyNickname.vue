@@ -4,7 +4,7 @@
     <Notice></Notice>
     <div class="container">
       <div class="nickname-wrapper">
-        <input type="text" v-model="nickname" placeholder="请输入新昵称">
+        <input type="text" v-model="nickName" placeholder="请输入新昵称">
       </div>
     </div>
     <div class="desc">
@@ -12,24 +12,42 @@
       (请勿带有辱骂,广告,诱导等违反法律法规的词汇,违者账号将做封禁处理)
     </div>
     <div class="btn-wrapper">
-      <div class="btn">确认修改</div>
+      <div class="btn" @click="modifyAvatar">确认修改</div>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import { Toast } from 'vant'
 import NavBar from 'components/NavBar/NavBar'
 import Notice from 'components/Notice/Notice'
-
+import AccountSetting from 'api/mine/accountSetting'
+const _accountSetting = new AccountSetting()
 export default {
   data () {
     return {
-      nickname: ''
+      nickName: ''
     }
   },
   components: {
     NavBar,
     Notice
+  },
+  methods: {
+    modifyAvatar() {
+      _accountSetting.accountSettingAvatar(this.nickName)
+        .then(res => {
+          console.log(res)
+          let user = JSON.parse(localStorage.user)
+          user.nickName = this.nickName
+          localStorage.user = JSON.stringify(user)
+          Toast.success({
+            duration: 1000,
+            message: '修改成功!'
+          })
+          this.$router.back()
+        })
+    }
   }
 }
 </script>

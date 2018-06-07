@@ -78,7 +78,7 @@ import SellManage from 'api/mine/sellManage'
 let _sellManage = new SellManage()
 export default {
   mounted() {
-    this.getHotGame()
+    this.getGameList()
   },
   data () {
     return {
@@ -129,8 +129,8 @@ export default {
       }
     },
     // 获取游戏
-    getHotGame() {
-      _sellManage.getHotGame()
+    getGameList() {
+      _sellManage.getGameList()
         .then(res => {
           res.result.forEach(element => {
             element.text = element.gameName

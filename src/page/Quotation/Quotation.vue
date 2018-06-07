@@ -49,8 +49,13 @@ import Notice from 'components/Notice/Notice'
 import Scroll from 'components/Scroll/Scroll'
 import List from 'components/List/List'
 import InfoLink from 'page/Index/TopSearch/InfoLink/InfoLink'
+import Quoatation from 'api/quotation'
+const _quotation = new Quoatation()
 
 export default {
+  mounted() {
+    this.loadQuotationList()
+  },
   data () {
     return {
       lineData: {
@@ -61,96 +66,7 @@ export default {
           }
         ]
       },
-      list: [{
-        name: '绝地求生',
-        en: 'JUEDIQIUSHENG',
-        price: 122,
-        number: 10
-      },
-      {
-        name: '绝地求生',
-        en: 'JUEDIQIUSHENG',
-        price: 122,
-        number: 10
-      },
-      {
-        name: '绝地求生',
-        en: 'JUEDIQIUSHENG',
-        price: 122,
-        number: 10
-      },
-      {
-        name: '绝地求生',
-        en: 'JUEDIQIUSHENG',
-        price: 122,
-        number: 10
-      },
-      {
-        name: '绝地求生',
-        en: 'JUEDIQIUSHENG',
-        price: 122,
-        number: 10
-      },
-      {
-        name: '绝地求生',
-        en: 'JUEDIQIUSHENG',
-        price: 122,
-        number: 10
-      },
-      {
-        name: '绝地求生',
-        en: 'JUEDIQIUSHENG',
-        price: 122,
-        number: 10
-      },
-      {
-        name: '绝地求生',
-        en: 'JUEDIQIUSHENG',
-        price: 122,
-        number: 10
-      },
-      {
-        name: '绝地求生',
-        en: 'JUEDIQIUSHENG',
-        price: 122,
-        number: 10
-      },
-      {
-        name: '绝地求生',
-        en: 'JUEDIQIUSHENG',
-        price: 122,
-        number: 10
-      },
-      {
-        name: '绝地求生',
-        en: 'JUEDIQIUSHENG',
-        price: 122,
-        number: 10
-      },
-      {
-        name: '绝地求生',
-        en: 'JUEDIQIUSHENG',
-        price: 122,
-        number: 10
-      },
-      {
-        name: '绝地求生',
-        en: 'JUEDIQIUSHENG',
-        price: 122,
-        number: 10
-      },
-      {
-        name: '绝地求生',
-        en: 'JUEDIQIUSHENG',
-        price: 122,
-        number: 10
-      },
-      {
-        name: '绝地求生',
-        en: 'JUEDIQIUSHENG',
-        price: 122,
-        number: 10
-      }]
+      list: []
     }
   },
   components: {
@@ -159,6 +75,14 @@ export default {
     Scroll,
     List,
     InfoLink
+  },
+  methods: {
+    loadQuotationList() {
+      _quotation.getQuotationList()
+        .then(res => {
+          this.list = res.result
+        })
+    }
   }
 }
 </script>

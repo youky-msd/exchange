@@ -20,8 +20,8 @@ class SellManage {
       })
   }
   // 获取热门游戏
-  getHotGame() {
-    const url = 'api/index/hot-game-list'
+  getGameList() {
+    const url = '/api/game/all-games'
     return axios.get(url, {
       params: {
         token

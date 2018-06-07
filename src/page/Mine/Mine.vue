@@ -4,10 +4,11 @@
         <NavBar title="个人中心" :showBack="false"></NavBar>
         <router-link tag="div" to="/mine/account-setting" class="mine-nav">
           <div class="avatar">
-            <img src="../../common/test/avatar.png" alt="">
+            <img :src="user.avatar" v-show="user.avatar" alt="">
+            <img src="../../common/test/avatar.png" v-show="!user.avatar" alt="">
           </div>
           <div class="user-info">
-            <div class="user-name">Greentea</div>
+            <div class="user-name">{{user.nickName}}</div>
             <!-- <div class="user-id">2018523</div> -->
           </div>
           <div class="arrow-wrapper">
@@ -19,7 +20,7 @@
           <div class="money-icon"></div>
           <div class="user-money-num">
             <p class="money-text">我的钱包</p>
-            <p class="money-num">9999999.0DDM</p>
+            <p class="money-num">{{userMoney.accountBalance}}DDM</p>
           </div>
           <router-link to="/mine/charge" class="user-money-btn">充值</router-link>
         </router-link>
@@ -91,16 +92,29 @@
 <script type="text/ecmascript-6">
 import NavBar from 'components/NavBar/NavBar'
 import Scroll from 'components/Scroll/Scroll'
-
+import Mine from 'api/mine'
+const _mine = new Mine()
 export default {
+  mounted() {
+    this.loadBalanceLock()
+  },
   data () {
     return {
-
+      user: JSON.parse(localStorage.user), // 用户信息
+      userMoney: {} // 用户余额信息
     }
   },
   components: {
     NavBar,
     Scroll
+  },
+  methods: {
+    loadBalanceLock() {
+      _mine.getBalanceLock()
+        .then(res => {
+          this.userMoney = res.result
+        })
+    }
   }
 }
 </script>
@@ -124,28 +138,34 @@ export default {
         justify-content space-between
         align-items center
         .avatar
-          flex 1
+          flex-shrink 0
           width 60px
           height 60px
           img
             width 100%
             height 100%
         .user-info
-          flex 3
+          flex-grow 1
+          flex-shrink 1
           box-sizing border-box
           height 100%
-          padding 20px
+          margin 0 20px
           display flex
           flex-direction column
-          justify-content space-around
+          align-items center
+          justify-content center
           .user-name
+            display block
+            width 200px
             font-size $font-size-v-v
             color #fff
+            ellipsis()
           .user-id
             font-size $font-size-small-s
             color #fff
         .arrow-wrapper
-          flex 1
+          width 28px
+          flex 0 0 28px
           display flex
           font-size 28px
           color #fff

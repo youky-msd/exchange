@@ -14,7 +14,7 @@
       <div class="input-container">
         <p class="label">验证码</p>
         <div class="input-wrapper verification">
-          <input type="text" v-model="verificationCode">
+          <input type="text" v-model="verificationCode" @keyup.enter="login">
           <div class="verification-wrapper" @click="sendVerification">
             <Verification class="verification" :mobile="mobile"></Verification>
           </div>
@@ -28,6 +28,7 @@
 <script type="text/ecmascript-6">
 import NavBar from 'components/NavBar/NavBar'
 import Verification from 'page/Login/verification/verification'
+// import { mapMutations } from 'vuex'
 import { Toast } from 'vant'
 import User from 'api/user'
 const _user = new User()
@@ -44,12 +45,16 @@ export default {
     Verification
   },
   methods: {
+    // ...mapMutations({
+    //   setUser: 'SET_USER'
+    // }),
     // 登录
     login() {
       _user.login(this.mobile, this.verificationCode)
         .then(res => {
           localStorage.token = res.result.token
           Toast.success('登录成功')
+          localStorage.user = JSON.stringify(res.result)
           this.$router.push('/')
         })
     },
