@@ -28,7 +28,6 @@
 <script type="text/ecmascript-6">
 import NavBar from 'components/NavBar/NavBar'
 import Verification from 'page/Login/verification/verification'
-// import { mapMutations } from 'vuex'
 import { Toast } from 'vant'
 import User from 'api/user'
 const _user = new User()
@@ -45,9 +44,6 @@ export default {
     Verification
   },
   methods: {
-    // ...mapMutations({
-    //   setUser: 'SET_USER'
-    // }),
     // 登录
     login() {
       _user.login(this.mobile, this.verificationCode)

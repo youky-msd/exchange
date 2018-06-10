@@ -8,11 +8,11 @@
           </div>
           <p class="title">确认支付</p>
         </div>
-        <p class="intergral">222DDM</p>
-        <p class="account">账户余额: </p>
+        <p class="intergral">{{sellPrice}}DDM</p>
+        <p class="account">账户余额: {{balance}}</p>
         <div class="btn-wrapper">
           <div class="cancel" @click="cancel">取消</div>
-          <div class="buy">购买</div>
+          <div class="buy" @click="buy">购买</div>
         </div>
       </div>
     </div>
@@ -20,7 +20,16 @@
 </template>
 
 <script type="text/ecmascript-6">
+import { Toast } from 'vant'
+import Store from 'api/store'
+const _store = new Store()
+
 export default {
+  props: {
+    balance: Number, // 余额
+    goodsId: String, // 商品ID
+    sellPrice: Number // 支付金额
+  },
   data () {
     return {
 
@@ -32,6 +41,16 @@ export default {
   methods: {
     cancel() {
       this.$emit('cancel')
+    },
+    buy() {
+      _store.buy(this.goodsId, this.sellPrice)
+        .then(res => {
+          Toast.success({
+            duration: 1000,
+            message: '购买成功'
+          })
+          this.$emit('buyDone')
+        })
     }
   }
 }

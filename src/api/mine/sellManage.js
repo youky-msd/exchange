@@ -3,16 +3,16 @@ let token = localStorage.token
 
 class SellManage {
   // 上架
-  up({bizId, goodsTypeId, qq, email, price, goodsName, imgs, description}) {
+  up({bizId, goodsTypeId, qq, email, price, goodsName, description}) {
     const url = '/api/goods/save'
     return axios.post(url, {
       token,
+      bizId,
       goodsTypeId,
       qq,
       email,
       price,
       goodsName,
-      imgs,
       description
     })
       .then(res => {

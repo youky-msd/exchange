@@ -92,6 +92,49 @@ class Store {
         return Promise.resolve(res.data)
       })
   }
+  // 发布求购
+  purchaseOrder({gameId, typeId, name, purchasePrice, totalPrice, count, payment, qq, email}) {
+    const url = '/api/purchase/submit-purchase-order'
+    return axios.post(url, {
+      token,
+      gameId,
+      typeId,
+      name,
+      purchasePrice,
+      totalPrice,
+      count,
+      payment,
+      qq,
+      email
+    })
+      .then(res => {
+        return Promise.resolve(res.data)
+      })
+  }
+  // 提交订单(购买)
+  buy(goodsId, sellPrice) {
+    const url = '/api/purchase/submit-purchase-order'
+    return axios.post(url, {
+      token,
+      payment: 1,
+      goodsId,
+      sellPrice
+    })
+      .then(res => {
+        return Promise.resolve(res.data)
+      })
+  }
+  // 供应
+  supply(purchaseId) {
+    const url = '/api/purchase/supply'
+    return axios.post(url, {
+      token,
+      purchaseId
+    })
+      .then(res => {
+        return Promise.resolve(res.data)
+      })
+  }
 }
 
 export default Store

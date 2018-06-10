@@ -25,7 +25,7 @@
             <span class="text">热门商品</span>
             <router-link to="/store" tag="span" class="more">更多...</router-link>
           </div>
-          <List></List>
+          <List :list="list"></List>
         </div>
       </div>
     </Scroll>
@@ -38,18 +38,22 @@ import Slider from 'page/Index/slider/slider'
 import Scroll from 'components/Scroll/Scroll'
 import List from 'components/List/List'
 import Index from 'api/index'
+import Store from 'api/store'
+let _store = new Store()
 let _index = new Index()
 export default {
   mounted() {
     this.getBanner()
     this.getAd()
     this.getHotGame()
+    this.getHotGoods()
   },
   data () {
     return {
       imageList: [], // banner列表
       adList: [], // 广告列表
-      HotGameList: [] // 热门游戏列表
+      HotGameList: [], // 热门游戏列表
+      list: [] // 热门商品列表
     }
   },
   components: {
@@ -81,6 +85,13 @@ export default {
         .then(res => {
           // console.log(res)
           this.HotGameList = res.result
+        })
+    },
+    // 获取热门商品
+    getHotGoods() {
+      _store.getGoodsList()
+        .then(res => {
+          this.list = res.result
         })
     }
   }

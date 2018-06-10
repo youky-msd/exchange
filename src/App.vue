@@ -6,7 +6,14 @@
 
 <script type="text/ecmascript-6">
 import Layout from 'components/Layout/Layout'
+import { mapActions } from 'vuex'
+
 export default {
+  mounted() {
+    if (localStorage.token) {
+      this.setUser()
+    }
+  },
   data () {
     return {
 
@@ -14,6 +21,9 @@ export default {
   },
   components: {
     Layout
+  },
+  methods: {
+    ...mapActions(['setUser'])
   }
 }
 </script>

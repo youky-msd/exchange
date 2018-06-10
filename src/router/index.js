@@ -139,7 +139,7 @@ const routes = [{
   component: GoodsBuy
 },
 {
-  path: '/store/want-to-buy',
+  path: '/store/want-to-buy/:goodsTypeId',
   component: WantToBuy
 }]
 

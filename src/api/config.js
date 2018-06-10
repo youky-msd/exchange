@@ -1,9 +1,9 @@
 import axios from 'axios'
 import qs from 'qs'
-import {
-  Toast
-} from 'vant'
+import { Toast } from 'vant'
 import Router from '../router'
+import User from 'api/user'
+const _user = new User()
 
 // axios 配置
 axios.defaults.timeout = 5000
@@ -43,6 +43,11 @@ axios.interceptors.response.use(
       } else if (response.data.code === 11001) {
         // token过期
         // 获取新token接口
+        _user.updateToken()
+          .then(res => {
+            localStorage.token = res.result.token
+            location.reload()
+          })
       } else if (response.data.code !== 0) {
         // 其他情况
         Toast({

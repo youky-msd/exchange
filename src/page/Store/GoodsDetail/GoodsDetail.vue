@@ -1,7 +1,8 @@
 <template>
   <div class="goods-detail">
     <!-- 购买弹窗 -->
-    <BuyWindow v-show="showBuyWindow" @cancel="cancelBuy"></BuyWindow>
+    <BuyWindow v-show="showBuyWindow" @cancel="cancelBuy" @buyDone="buyDone"
+    :balance="balance" :goodsId="selectGoods.goodsId" :sellPrice="selectGoods.sellPrice"></BuyWindow>
     <!-- 供应提示弹窗 -->
     <AlertWindow class="alert-window" v-show="showSupplyWindow">
       <p class="title">供应提示</p>
@@ -11,14 +12,14 @@
       </div>
       <div class="btn-wrapper">
         <div class="btn" @click="cancelSupplyWindow">取消</div>
-        <div class="btn do">供应</div>
+        <div class="btn do" @click="supply">供应</div>
       </div>
     </AlertWindow>
     <!-- 底部供应按钮 -->
-    <router-link tag="div" to="/store/want-to-buy" class="supply-bottom-btn-wrapper" v-show="currentIndex === 1">
+    <router-link tag="div" :to="{path: `/store/want-to-buy/${$route.params.goodsTypeId}`}" class="supply-bottom-btn-wrapper" v-show="currentIndex === 1">
       <div class="btn">供应</div>
     </router-link>
-    <NavBar title="魔域神兵"></NavBar>
+    <NavBar :title="propertyDetail.name"></NavBar>
     <!-- 右上消息按钮 -->
     <div class="info-wrapper">
       <InfoLink></InfoLink>
@@ -42,7 +43,7 @@
           <p class="user desc">{{item.sellerNickName}}</p>
         </template>
         <template slot="btn">
-          <div class="btn" @click.stop="buy">购买</div>
+          <div class="btn" @click.stop="openBuyWindow(item)">购买</div>
         </template>
       </GoodsListItem>
       <!-- 求购 -->
@@ -53,7 +54,7 @@
           <p class="user desc">{{item.nickname}}</p>
         </template>
         <template slot="btn">
-          <div class="btn" @click.stop="supply">供应</div>
+          <div class="btn" @click.stop="openSupplyWindow(item.id)">供应</div>
         </template>
       </GoodsListItem>
       <GoodsListItem class="goods-list-item" :detail="item" v-show="currentIndex === 2"
@@ -75,6 +76,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+import { Toast } from 'vant'
 import NavBar from 'components/NavBar/NavBar'
 import Scroll from 'components/Scroll/Scroll'
 import AlertWindow from 'components/AlertWindow/AlertWindow'
@@ -85,7 +87,9 @@ import BuyWindow from 'page/Store/BuyWindow/BuyWindow'
 import GoodsDetailTitle from 'page/Store/GoodsDetail/GoodsDetailTitle/GoodsDetailTitle'
 import ChartLine from 'page/Store/GoodsDetail/ChartLine/ChartLine'
 import Store from 'api/store'
-let _store = new Store()
+import User from 'api/user'
+const _user = new User()
+const _store = new Store()
 
 export default {
   mounted() {
@@ -94,6 +98,7 @@ export default {
     this.getPropertyDetailForBuyList()
     this.getPropertyDetailOrderRecordsList()
     this.getPropertyDetailStatistics()
+    this.getBalanceLock()
   },
   data () {
     return {
@@ -103,8 +108,14 @@ export default {
       tabList: ['出售', '求购', '成交记录', '价格走势'],
       propertyDetail: {}, // 道具详情
       sellList: [], // 在售列表
-      buyList: [],
-      logList: []
+      buyList: [], // 求购列表
+      logList: [], // 日志记录列表
+      balance: 0, // 余额
+      selectGoods: { // 选择的商品价格
+        goodsId: '',
+        sellPrice: 0
+      },
+      supplyId: '' // 供应ID
     }
   },
   components: {
@@ -119,21 +130,44 @@ export default {
     ChartLine
   },
   methods: {
-    // 购买
-    buy() {
+    // 打开购买窗口
+    openBuyWindow(goods) {
       this.showBuyWindow = true
+      this.selectGoods.goodsId = goods.id
+      this.selectGoods.sellPrice = goods.price
+      // 更新余额
+      this.getBalanceLock()
     },
     // 取消购买,关闭窗口
     cancelBuy() {
       this.showBuyWindow = false
+    },
+    // 购买完成后回调
+    buyDone() {
+      this.cancelBuy()
+      // 更新
+      this.getPropertyDetailForSaleList()
     },
     // 切换tab
     toggleTab(index) {
       this.currentIndex = index
     },
     // 供应按钮,弹出窗口
-    supply() {
+    openSupplyWindow(id) {
       this.showSupplyWindow = true
+      this.supplyId = id
+    },
+    // 供应
+    supply() {
+      _store.supply(this.supplyId)
+        .then(res => {
+          Toast.success({
+            duration: 1000,
+            message: '供应成功'
+          })
+          this.cancelSupplyWindow()
+          this.getPropertyDetailForBuyList()
+        })
     },
     // 关闭供应窗口
     cancelSupplyWindow() {
@@ -150,7 +184,6 @@ export default {
     getPropertyDetailForSaleList() {
       _store.getPropertyDetailForSaleList(this.$route.params.goodsTypeId)
         .then(res => {
-          console.log(res)
           this.sellList = res.result.goodsList
         })
     },
@@ -158,16 +191,17 @@ export default {
     getPropertyDetailForBuyList() {
       _store.getPropertyDetailForBuyList(this.$route.params.goodsTypeId)
         .then(res => {
-          console.log(res)
-          this.buyList = res.result
+          if (res.result) {
+            this.buyList = res.result.purchaseList
+          }
         })
     },
     // 获取道具详情-成交记录
     getPropertyDetailOrderRecordsList() {
       _store.getPropertyDetailOrderRecordsList(this.$route.params.goodsTypeId)
         .then(res => {
-          console.log(res)
           this.logList = res.result
+          // console.log(this.logList)
         })
     },
     // 获取道具详情-价格走势
@@ -175,6 +209,13 @@ export default {
       _store.getPropertyDetailStatistics(this.$route.params.goodsTypeId)
         .then(res => {
           console.log(res)
+        })
+    },
+    // 获取余额
+    getBalanceLock() {
+      _user.getBalanceLock()
+        .then(res => {
+          this.balance = res.result.accountBalance
         })
     }
   }

@@ -8,46 +8,52 @@
       <div class="confirm-content-wrapper">
         <div class="confirm-content-item">
           <span class="text">游戏名称:</span>
-          <span class="content">XXXXXXXXXX</span>
+          <span class="content">{{formData.gameName}}</span>
         </div>
         <div class="confirm-content-item">
           <span class="text">商品名称:</span>
-          <span class="content">XXXXXXXXXX</span>
+          <span class="content">{{formData.goodsName}}</span>
         </div>
         <div class="confirm-content-item">
           <span class="text">交流QQ:</span>
-          <span class="content">XXXXXXXXXX</span>
+          <span class="content">{{formData.qq}}</span>
         </div>
         <div class="confirm-content-item">
           <span class="text">交流邮箱:</span>
-          <span class="content">XXXXXXXXXX</span>
+          <span class="content">{{formData.email}}</span>
         </div>
         <div class="confirm-content-item">
           <span class="text">商品售价:</span>
-          <span class="content">XXXXXXXXXX</span>
+          <span class="content">{{formData.price}}</span>
         </div>
         <div class="confirm-content-item">
           <span class="text">手续费:</span>
-          <span class="content">XXXXXXXXXX</span>
+          <span class="content"></span>
         </div>
         <div class="confirm-content-item">
           <span class="text">最终收益:</span>
-          <span class="content">XXXXXXXXXX</span>
+          <span class="content"></span>
         </div>
         <div class="confirm-content-item">
           <span class="text">商品介绍:</span>
-          <span class="content">XXXXXXXXXX</span>
+          <span class="content">{{formData.description}}</span>
         </div>
       </div>
       <div class="btn-wrapper">
-        <div class="btn">确认上架</div>
+        <div class="btn" @click="submit">确认上架</div>
       </div>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import SellManage from 'api/mine/sellManage'
+const _sellManage = new SellManage()
+
 export default {
+  props: {
+    formData: Object
+  },
   data () {
     return {
 
@@ -57,8 +63,16 @@ export default {
 
   },
   methods: {
+    // 关闭窗口
     closeWindow() {
       this.$emit('close')
+    },
+    // 提交
+    submit() {
+      _sellManage.up(this.formData)
+        .then(res => {
+          console.log(res)
+        })
     }
   }
 }
