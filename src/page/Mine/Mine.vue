@@ -20,7 +20,7 @@
           <div class="money-icon"></div>
           <div class="user-money-num">
             <p class="money-text">我的钱包</p>
-            <p class="money-num">{{userMoney.accountBalance}}DDM</p>
+            <p class="money-num" v-if="userMoney.accountBalance">{{userMoney.accountBalance}}DDM</p>
           </div>
           <router-link to="/mine/charge" class="user-money-btn">充值</router-link>
         </router-link>

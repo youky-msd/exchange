@@ -8,23 +8,24 @@
 
 <script type="text/ecmascript-6">
 import F2 from '@antv/f2'
+import Store from 'api/store'
+const _store = new Store()
 
 export default {
-  props: {
-    list: Array
-  },
   mounted() {
-    setTimeout(() => {
-      this._initChartLine()
-    }, 1000)
+    this.getPropertyDetailStatistics()
+  },
+  props: {
+    id: String
   },
   data () {
     return {
+      data: [{
 
+      }]
     }
   },
   components: {
-
   },
   methods: {
     _initChartLine() {
@@ -34,7 +35,6 @@ export default {
         height: window.innerWidth > window.innerHeight ? window.innerHeight - 54 : window.innerWidth * 0.707,
         pixelRatio: window.devicePixelRatio
       })
-
       let defs = {
         time: {
           type: 'timeCat',
@@ -42,13 +42,13 @@ export default {
           tickCount: 6,
           range: [0, 1]
         },
-        price: {
+        tem: {
           tickCount: 5,
           min: 0,
           alias: '¥'
         }
       }
-      chart.source(this.list, defs)
+      chart.source(this.data, defs)
       chart.axis('time', {
         label: function label(text, index, total) {
           let textCfg = {}
@@ -63,13 +63,26 @@ export default {
       chart.tooltip({
         showCrosshairs: true
       })
-      chart.line().position('time*price').shape('smooth')
-      chart.area().position('time*price').shape('smooth')
-      chart.point().position('time*price').shape('smooth').style({
+      chart.line().position('time*tem').shape('smooth')
+      chart.area().position('time*tem').shape('smooth')
+      chart.point().position('time*tem').shape('smooth').style({
         stroke: 'red',
         lineWidth: 2
       })
       chart.render()
+    },
+    // 获取道具详情-价格走势
+    getPropertyDetailStatistics() {
+      _store.getPropertyDetailStatistics(this.id)
+        .then(res => {
+          res.result.forEach(element => {
+            this.data.push({
+              tem: parseInt(element.avgPrice),
+              time: element.time
+            })
+            this._initChartLine()
+          })
+        })
     }
   }
 }

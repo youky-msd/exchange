@@ -74,7 +74,7 @@
       </GoodsListItem>
       <!-- 价格走势 -->
       <div class="line-wrapper" v-show="currentIndex === 3">
-        <ChartLine :list="chartLineList"></ChartLine>
+        <ChartLine :id="$route.params.goodsTypeId"></ChartLine>
       </div>
     </Scroll>
   </div>
@@ -104,7 +104,7 @@ export default {
     this.getPropertyDetailForSaleList()
     this.getPropertyDetailForBuyList()
     this.getPropertyDetailOrderRecordsList()
-    this.getPropertyDetailStatistics()
+    // this.getPropertyDetailStatistics()
     this.getBalanceLock()
   },
   data () {
@@ -226,23 +226,13 @@ export default {
           console.log(this.logList)
         })
     },
-    // 获取道具详情-价格走势
-    getPropertyDetailStatistics() {
-      _store.getPropertyDetailStatistics(this.$route.params.goodsTypeId)
-        .then(res => {
-          res.result.forEach(element => {
-            this.chartLineList.push({
-              price: element.avgPrice,
-              time: element.time
-            })
-          })
-        })
-    },
     // 获取余额
     getBalanceLock() {
       _user.getBalanceLock()
         .then(res => {
-          this.balance = res.result.accountBalance
+          if (res.code === 200) {
+            this.balance = res.result.accountBalance
+          }
         })
     },
     // 处理时间

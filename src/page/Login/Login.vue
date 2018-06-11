@@ -30,6 +30,7 @@ import NavBar from 'components/NavBar/NavBar'
 import Verification from 'page/Login/verification/verification'
 import { Toast } from 'vant'
 import User from 'api/user'
+import { mapActions } from 'vuex'
 const _user = new User()
 
 export default {
@@ -44,13 +45,17 @@ export default {
     Verification
   },
   methods: {
+    ...mapActions(['setUser']),
     // 登录
     login() {
       _user.login(this.mobile, this.verificationCode)
         .then(res => {
           localStorage.token = res.result.token
-          Toast.success('登录成功')
-          localStorage.user = JSON.stringify(res.result)
+          Toast.success({
+            duration: 1000,
+            message: '登录成功'
+          })
+          this.setUser()
           this.$router.push('/')
         })
     },
