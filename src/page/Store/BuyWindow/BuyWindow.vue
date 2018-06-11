@@ -39,9 +39,11 @@ export default {
 
   },
   methods: {
+    // 取消窗口
     cancel() {
       this.$emit('cancel')
     },
+    // 购买
     buy() {
       _store.buy(this.goodsId, this.sellPrice)
         .then(res => {

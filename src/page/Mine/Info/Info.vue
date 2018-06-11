@@ -5,7 +5,7 @@
     <div class="edit-wrapper">
       <van-icon name="edit" @click="openEdit()" v-show="!isShowEdit"/>
       <van-icon name="completed" @click="cancelEdit()" v-show="isShowEdit"/>
-      <van-icon name="delete" @click="deleteSelected()" v-show="isShowEdit"/>
+      <van-icon name="delete" @click="deleteInfo()" v-show="isShowEdit"/>
     </div>
     <!-- <div class="tab-wrapper">
       <Tab :tabList="tabList" @toggleTab="toggleTab"></Tab>
@@ -13,17 +13,17 @@
     <Scroll class="scroll">
       <div class="list">
         <ul>
-          <li class="list-item" v-for="item in exchangeInfoList"
+          <li class="list-item" v-for="item in infoList"
            :key="item.id" @click="addSelect(item)">
             <div class="select-wrapper" v-show="isShowEdit">
               <van-icon name="checked" class="icon" :class="{selected: item.selected}"/>
             </div>
             <div class="list-item-info-wrapper">
-              <p class="text"><span class="text-desc">您在售的物品</span><span class="text-name">{{item.name}}</span></p>
-              <p class="status">{{item.status}}</p>
+              <p class="text"><span class="text-desc">{{item.title}}</span></p>
+              <p class="status">{{item.content}}</p>
             </div>
             <div class="list-item-info-wrapper right">
-              <p class="time">{{item.time}}</p>
+              <p class="time">{{getTime(item.createTime)}}</p>
             </div>
           </li>
         </ul>
@@ -33,82 +33,25 @@
 </template>
 
 <script type="text/ecmascript-6">
+import { Toast } from 'vant'
 import NavBar from 'components/NavBar/NavBar'
 import Notice from 'components/Notice/Notice'
 import Scroll from 'components/Scroll/Scroll'
 import Tab from 'components/Tab/Tab'
+import tool from 'common/js/tool'
+import Info from 'api/mine/info'
+const _info = new Info()
 
 export default {
+  mounted() {
+    this.getInfoList()
+  },
   data () {
     return {
       isShowEdit: false, // 是否打开编辑
       selectList: [], // 选中的列表
       // tabList: ['交易消息', '系统消息'], // tab 标题
-      exchangeInfoList: [{ // 交易信息列表
-        name: '光明骑士',
-        price: 88.4,
-        status: '已出售',
-        time: '2018-5-20 18:00',
-        id: 1,
-        selected: false
-      },
-      {
-        name: '光明骑士',
-        price: 88.4,
-        status: '已出售',
-        time: '2018-5-20 18:00',
-        id: 2,
-        selected: false
-      },
-      {
-        name: '光明骑士',
-        price: 88.4,
-        status: '已出售',
-        time: '2018-5-20 18:00',
-        id: 3,
-        selected: false
-      },
-      {
-        name: '光明骑士',
-        price: 88.4,
-        status: '已出售',
-        time: '2018-5-20 18:00',
-        id: 4,
-        selected: false
-      },
-      {
-        name: '光明骑士',
-        price: 88.4,
-        status: '已出售',
-        time: '2018-5-20 18:00',
-        id: 5,
-        selected: false
-      },
-      {
-        name: '光明骑士',
-        price: 88.4,
-        status: '已出售',
-        time: '2018-5-20 18:00',
-        id: 6,
-        selected: false
-      },
-      {
-        name: '光明骑士',
-        price: 88.4,
-        status: '已出售',
-        time: '2018-5-20 18:00',
-        id: 7,
-        selected: false
-      },
-      {
-        name: '光明骑士',
-        price: 88.4,
-        status: '已出售',
-        time: '2018-5-20 18:00',
-        id: 8,
-        selected: false
-      }],
-      systemInfoList: [] // 系统信息列表
+      infoList: [] // 交易信息列表
     }
   },
   components: {
@@ -148,6 +91,7 @@ export default {
         // console.log('变为选中')
         // console.log(this.selectList)
         selectList.selected = true
+        this.infoList = Object.assign({}, this.infoList, {})
       } else {
         // 已选中
         this.selectList = this.selectList.filter((item, index) => {
@@ -160,6 +104,7 @@ export default {
         selectList.selected = false
         // console.log('变为未选中')
         // console.log(this.selectList)
+        this.infoList = Object.assign({}, this.infoList, {})
       }
       console.log(this.selectList)
     },
@@ -170,6 +115,36 @@ export default {
     // 取消编辑
     cancelEdit() {
       this.isShowEdit = false
+    },
+    getInfoList() {
+      _info.getInfoList()
+        .then(res => {
+          this.infoList = res.result
+          this.infoList.forEach(item => {
+            item.selected = false
+          })
+          console.log(this.infoList)
+          console.log(res)
+        })
+    },
+    deleteInfo() {
+      // 处理删除ID
+      let deleteStr = this.selectList.join(',')
+      _info.deleteInfo(deleteStr)
+        .then(res => {
+          if (res.code === 0) {
+            Toast.success({
+              duration: 500,
+              message: '删除成功'
+            })
+            this.getInfoList()
+            this.selectList = []
+          }
+        })
+    },
+    // 时间戳处理
+    getTime(timestamp) {
+      return tool.timestampToTime(timestamp)
     }
   }
 }
@@ -194,7 +169,7 @@ export default {
       public-box-shadow()
     .scroll
       fixed-all()
-      top 97px
+      top 86px
       .list
         ul
           padding 0 13px
@@ -216,7 +191,7 @@ export default {
                 &.selected
                   color $color-selected
             .list-item-info-wrapper
-              flex 3
+              width 70%
               display flex
               justify-content space-between
               flex-direction column
@@ -241,4 +216,5 @@ export default {
               .time
                 font-size $font-size-mini
                 color $color-text-little
+                ellipsis()
 </style>

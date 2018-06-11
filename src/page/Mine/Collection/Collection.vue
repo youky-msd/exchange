@@ -4,18 +4,19 @@
     <div class="edit-wrapper">
       <van-icon name="edit" @click="openEdit()" v-show="!isShowEdit"/>
       <van-icon name="completed" @click="cancelEdit()" v-show="isShowEdit"/>
-      <van-icon name="delete" @click="deleteSelected()" v-show="isShowEdit"/>
+      <van-icon name="delete" @click="deleteCollection()" v-show="isShowEdit"/>
     </div>
     <Scroll class="scroll">
       <!-- <GoodsList :list="list"></GoodsList> -->
       <GoodsListItem class="goods-list-item" :detail="item"
       v-for="(item, index) in list" :key="index">
         <template slot="top">
-          <p class="time">{{item.time}}</p>
+          <p class="time">{{getTime(item.collectTime)}}</p>
         </template>
         <template slot="content">
-          <p class="name">{{item.name}}</p>
-          <p class="user desc">{{item.score}}DDM积分*1</p>
+          <p class="name">{{item.gameName}}</p>
+          <p class="name">{{item.goodsName}}</p>
+          <p class="user price">¥ {{item.price}}</p>
         </template>
         <template slot="btn">
           <div class="icon-wrapper" v-show="isShowEdit" @click="addSelect(item)">
@@ -23,7 +24,7 @@
           </div>
         </template>
         <template slot="bottom">
-          <p class="desc">{{item.desc}}</p>
+          <p class="desc">{{item.description}}</p>
         </template>
       </GoodsListItem>
     </Scroll>
@@ -31,116 +32,23 @@
 </template>
 
 <script type="text/ecmascript-6">
+import { Toast } from 'vant'
 import NavBar from 'components/NavBar/NavBar'
-// import GoodsList from 'components/GoodsList/GoodsList'
 import GoodsListItem from 'components/GoodsListItem/GoodsListItem'
 import Scroll from 'components/Scroll/Scroll'
+import tool from 'common/js/tool'
+import Collection from 'api/mine/collection'
+const _collection = new Collection()
 
 export default {
+  mounted() {
+    this.getCollectionList()
+  },
   data () {
     return {
       isShowEdit: false, // 是否打开编辑
       selectList: [], // 选中的列表
-      list: [{
-        name: 'DOTA2',
-        id: '1',
-        img: require('../../../common/test/list.png'),
-        price: 123,
-        score: 100,
-        time: '2018-1-12 18:23',
-        desc: '简介: 嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿',
-        selected: false
-      },
-      {
-        name: 'DOTA2',
-        id: '2',
-        img: require('../../../common/test/list.png'),
-        price: 123,
-        score: 100,
-        time: '2018-1-12 18:23',
-        desc: '简介: 嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿',
-        selected: false
-      },
-      {
-        name: 'DOTA2',
-        id: '3',
-        img: require('../../../common/test/list.png'),
-        price: 123,
-        score: 100,
-        time: '2018-1-12 18:23',
-        desc: '简介: 嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿',
-        selected: false
-      },
-      {
-        name: 'DOTA2',
-        id: '4',
-        img: require('../../../common/test/list.png'),
-        price: 123,
-        score: 100,
-        time: '2018-1-12 18:23',
-        desc: '简介: 嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿',
-        selected: false
-      },
-      {
-        name: 'DOTA2',
-        id: '5',
-        img: require('../../../common/test/list.png'),
-        price: 123,
-        score: 100,
-        time: '2018-1-12 18:23',
-        desc: '简介: 嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿',
-        selected: false
-      },
-      {
-        name: 'DOTA2',
-        id: '1',
-        img: require('../../../common/test/list.png'),
-        price: 123,
-        score: 100,
-        time: '2018-1-12 18:23',
-        desc: '简介: 嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿',
-        selected: false
-      },
-      {
-        name: 'DOTA2',
-        id: '6',
-        img: require('../../../common/test/list.png'),
-        price: 123,
-        score: 100,
-        time: '2018-1-12 18:23',
-        desc: '简介: 嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿',
-        selected: false
-      },
-      {
-        name: 'DOTA2',
-        id: '7',
-        img: require('../../../common/test/list.png'),
-        price: 123,
-        score: 100,
-        time: '2018-1-12 18:23',
-        desc: '简介: 嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿',
-        selected: false
-      },
-      {
-        name: 'DOTA2',
-        id: '8',
-        img: require('../../../common/test/list.png'),
-        price: 123,
-        score: 100,
-        time: '2018-1-12 18:23',
-        desc: '简介: 嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿',
-        selected: false
-      },
-      {
-        name: 'DOTA2',
-        id: '9',
-        img: require('../../../common/test/list.png'),
-        price: 123,
-        score: 100,
-        time: '2018-1-12 18:23',
-        desc: '简介: 嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿',
-        selected: false
-      }]
+      list: [] // 收藏列表
     }
   },
   components: {
@@ -164,8 +72,8 @@ export default {
       if (!selectList.selected) {
         // 判断选中的元素没有与当前选中的id相同,则为true
         let flag = this.selectList.every((item, index) => {
-          console.log('没有选中时')
-          console.log(this.selectList)
+          // console.log('没有选中时')
+          // console.log(this.selectList)
           if (item !== selectList.id) {
             return true
           }
@@ -174,21 +82,23 @@ export default {
         if (flag) {
           this.selectList.push(selectList.id)
         }
-        console.log('变为选中')
-        console.log(this.selectList)
+        // console.log('变为选中')
+        // console.log(this.selectList)
         selectList.selected = true
+        this.list = Object.assign({}, this.list, {})
       } else {
         // 已选中
         this.selectList = this.selectList.filter((item, index) => {
-          console.log('选中时')
-          console.log(this.selectList)
+          // console.log('选中时')
+          // console.log(this.selectList)
           if (item !== selectList.id) {
             return true
           }
         })
         selectList.selected = false
-        console.log('变为未选中')
+        // console.log('变为未选中')
         // console.log(this.selectList)
+        this.list = Object.assign({}, this.list, {})
       }
       console.log(this.selectList)
     },
@@ -199,6 +109,36 @@ export default {
     // 取消编辑
     cancelEdit() {
       this.isShowEdit = false
+    },
+    // 获取收藏列表
+    getCollectionList() {
+      _collection.getCollectionList()
+        .then(res => {
+          this.list = res.result
+          this.list.forEach(item => {
+            item.selected = false
+          })
+          console.log(this.list)
+          console.log(res)
+        })
+    },
+    deleteCollection() {
+      let deleteStr = this.selectList.join(',')
+      _collection.deleteCollection(deleteStr)
+        .then(res => {
+          if (res.code === 0) {
+            Toast.success({
+              duration: 500,
+              message: res.message
+            })
+            this.getCollectionList()
+            this.selectList = []
+          }
+        })
+    },
+    // 时间戳处理
+    getTime(timestamp) {
+      return tool.timestampToTimeHM(timestamp)
     }
   }
 }
@@ -230,4 +170,6 @@ export default {
           font-size 20px
           &.selected
             color $color-selected
+        .price
+          color $color-text-money
 </style>

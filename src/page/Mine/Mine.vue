@@ -92,6 +92,7 @@
 <script type="text/ecmascript-6">
 import NavBar from 'components/NavBar/NavBar'
 import Scroll from 'components/Scroll/Scroll'
+import { mapGetters } from 'vuex'
 import Mine from 'api/mine'
 const _mine = new Mine()
 export default {
@@ -100,13 +101,15 @@ export default {
   },
   data () {
     return {
-      user: JSON.parse(localStorage.user), // 用户信息
       userMoney: {} // 用户余额信息
     }
   },
   components: {
     NavBar,
     Scroll
+  },
+  computed: {
+    ...mapGetters(['user'])
   },
   methods: {
     loadBalanceLock() {
@@ -141,6 +144,8 @@ export default {
           flex-shrink 0
           width 60px
           height 60px
+          border-radius 50%
+          overflow hidden
           img
             width 100%
             height 100%

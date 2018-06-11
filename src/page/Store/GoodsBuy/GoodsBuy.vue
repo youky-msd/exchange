@@ -1,17 +1,19 @@
 <template>
   <div class="buy-detail">
-    <NavBar title="商品购买"></NavBar>
-    <BuyWindow v-show="showBuyWindow" @cancel="cancelBuy"></BuyWindow>
+    <NavBar title="商品购买" :otherFun="true" @publicGo="close"></NavBar>
+    <div class="collection" @click="collection">收藏</div>
+    <BuyWindow v-show="showBuyWindow" @cancel="cancelBuy" @buyDone="buyDone"
+    :balance="balance" :goodsId="detail.id" :sellPrice="detail.price"></BuyWindow>
     <div class="buy-detail-wrapper">
-      <div class="title">{{goodsDetail.name}}</div>
+      <div class="title">{{detail.name}}</div>
       <div class="img">
-        <img v-lazy="goodsDetail.img" alt="">
+        <img v-lazy="detail.image" alt="">
       </div>
-      <p class="intergral">商品单价: {{goodsDetail.price}}DDM</p>
+      <p class="intergral">商品单价: {{detail.price}}DDM</p>
       <div class="desc-wrapper">
         <p class="desc-title">商品介绍</p>
         <div class="desc">
-          {{goodsDetail.desc}}
+          {{detail.description}}
         </div>
       </div>
     </div>
@@ -22,20 +24,21 @@
 </template>
 
 <script type="text/ecmascript-6">
+import { Toast } from 'vant'
 import NavBar from 'components/NavBar/NavBar'
 import Scroll from 'components/Scroll/Scroll'
 import BuyWindow from 'page/Store/BuyWindow/BuyWindow'
+import Store from 'api/store'
+const _store = new Store()
 
 export default {
+  props: {
+    detail: Object,
+    balance: Number
+  },
   data () {
     return {
-      showBuyWindow: false, // 是否打开购买窗口
-      goodsDetail: {
-        name: '武则天皮肤',
-        price: 122,
-        img: require('../../../common/test/list.png'),
-        desc: '商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍'
-      }
+      showBuyWindow: false // 是否打开购买窗口
     }
   },
   components: {
@@ -44,11 +47,32 @@ export default {
     BuyWindow
   },
   methods: {
+    // 打开购买窗口
     buy() {
       this.showBuyWindow = true
+      console.log(this.detail)
     },
+    // 取消购买
     cancelBuy() {
       this.showBuyWindow = false
+    },
+    // 关闭当前页面
+    close() {
+      this.$emit('closeSellDetail')
+    },
+    // 购买完成
+    buyDone() {
+      this.showBuyWindow = false
+    },
+    // 收藏
+    collection() {
+      _store.collection(this.detail.id)
+        .then(res => {
+          Toast.success({
+            duration: 1000,
+            message: res.message
+          })
+        })
     }
   }
 }
@@ -58,6 +82,16 @@ export default {
   @import '~common/stylus/index.styl'
 
   .buy-detail
+    fixed-all()
+    z-index 10
+    background-color $color-background
+    .collection
+      position absolute
+      padding 18px
+      font-size $font-size-medium-x
+      color #fff
+      top 0
+      right 0
     .buy-detail-wrapper
       margin 0 13px
       .title

@@ -22,6 +22,10 @@ export default {
     showBack: {
       default: true,
       type: Boolean
+    },
+    otherFun: {
+      default: false,
+      type: Boolean
     }
   },
   data () {
@@ -34,7 +38,11 @@ export default {
   },
   methods: {
     back() {
-      this.$router.back()
+      if (!this.otherFun) {
+        this.$router.back()
+      } else {
+        this.$emit('publicGo')
+      }
     }
   }
 }

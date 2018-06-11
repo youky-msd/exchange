@@ -10,41 +10,17 @@
 import F2 from '@antv/f2'
 
 export default {
+  props: {
+    list: Array
+  },
   mounted() {
     setTimeout(() => {
       this._initChartLine()
-    }, 20)
+    }, 1000)
   },
   data () {
     return {
-      data: [{
-        time: '2016-08-08',
-        tem: 10
-      }, {
-        time: '2016-08-09',
-        tem: 22
-      }, {
-        time: '2016-08-10',
-        tem: 20
-      }, {
-        time: '2016-08-11',
-        tem: 26
-      }, {
-        time: '2016-08-12',
-        tem: 20
-      }, {
-        time: '2016-08-13',
-        tem: 26
-      }, {
-        time: '2016-08-14',
-        tem: 28
-      }, {
-        time: '2016-08-15',
-        tem: 20
-      }, {
-        time: '2016-08-16',
-        tem: 18
-      }]
+
     }
   },
   components: {
@@ -66,13 +42,13 @@ export default {
           tickCount: 6,
           range: [0, 1]
         },
-        tem: {
+        price: {
           tickCount: 5,
           min: 0,
           alias: '¥'
         }
       }
-      chart.source(this.data, defs)
+      chart.source(this.list, defs)
       chart.axis('time', {
         label: function label(text, index, total) {
           let textCfg = {}
@@ -87,9 +63,9 @@ export default {
       chart.tooltip({
         showCrosshairs: true
       })
-      chart.line().position('time*tem').shape('smooth')
-      chart.area().position('time*tem').shape('smooth')
-      chart.point().position('time*tem').shape('smooth').style({
+      chart.line().position('time*price').shape('smooth')
+      chart.area().position('time*price').shape('smooth')
+      chart.point().position('time*price').shape('smooth').style({
         stroke: 'red',
         lineWidth: 2
       })

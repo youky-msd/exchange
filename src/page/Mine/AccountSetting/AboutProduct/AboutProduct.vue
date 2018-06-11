@@ -1,6 +1,6 @@
 <template>
   <div class="about-product">
-    <NavBar title="关于产品" :showBack="false"></NavBar>
+    <NavBar title="关于产品"></NavBar>
     <Notice></Notice>
     <div class="about-product-wrapper">
       <div class="logo-wrapper">

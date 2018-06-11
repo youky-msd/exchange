@@ -6,8 +6,8 @@
       <div class="list-title">
         <p class="text">综合排序</p>
         <div class="filter-select">
-          <div class="select-only" @click="toggleOnly">
-            <span class="select-only-icon"><van-icon class="icon" name="success" v-show="only"/></span>
+          <div class="select-only" @click="onlyBuyList">
+            <span class="select-only-icon"><van-icon class="icon" name="success" v-show="isOnlyBuyList"/></span>
             <span class="select-only-text">只看求购</span>
           </div>
         </div>
@@ -34,7 +34,7 @@ export default {
   },
   data () {
     return {
-      only: false,
+      isOnlyBuyList: false, // 只看求购
       list: [] // 商品列表
     }
   },
@@ -46,16 +46,28 @@ export default {
     TopSearch
   },
   methods: {
-    toggleOnly() {
-      this.only = !this.only
-    },
     // 获取商品列表
     getGoodsList() {
       _store.getGoodsList()
         .then(res => {
-          // console.log(res)
           this.list = res.result
         })
+    },
+    // 获取求购列表
+    getAllBuyList() {
+      _store.getAllBuyList(1)
+        .then(res => {
+          this.list = res.result
+        })
+    },
+    // 只看求购
+    onlyBuyList() {
+      this.isOnlyBuyList = !this.isOnlyBuyList
+      if (!this.isOnlyBuyList) {
+        this.getGoodsList()
+      } else {
+        this.getAllBuyList()
+      }
     }
   }
 }

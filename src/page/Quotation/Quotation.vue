@@ -18,11 +18,11 @@
         <ul>
           <li class="quotation-item" v-for="(item, index) in list" :key="index">
             <div class="quotation-content name-wrapper">
-              <span class="name">{{item.name}}</span>
-              <span class="name-en">{{item.en}}</span>
+              <span class="name">{{item.goodsName}}</span>
+              <span class="name-en"> </span>
             </div>
             <div class="quotation-content desc-wrapper">
-              <span class="price">¥: {{item.price}}</span>
+              <span class="price">¥: {{item.avgPrice}}</span>
               <span class="number">数量: {{item.number}}</span>
             </div>
             <div class="quotation-content echarts">
@@ -80,6 +80,7 @@ export default {
     loadQuotationList() {
       _quotation.getQuotationList()
         .then(res => {
+          console.log(res)
           this.list = res.result
         })
     }

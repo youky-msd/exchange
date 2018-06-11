@@ -6,7 +6,7 @@
       <div class="user-info-item">
         <div class="user-info-wrapper">
           <span class="value">昵称:</span>
-          <span class="value">{{userInfo.nickname}}</span>
+          <span class="value">{{user.nickName}}</span>
         </div>
         <router-link to="/mine/account-setting/modify-nickname" class="btn linear">修改昵称</router-link>
       </div>
@@ -40,16 +40,16 @@
 <script type="text/ecmascript-6">
 import NavBar from 'components/NavBar/NavBar'
 import Notice from 'components/Notice/Notice'
+import { mapGetters } from 'vuex'
 
 export default {
   data () {
     return {
-      acceptSend: true, // 是否接受推送
-      userInfo: {
-        nickname: 'Greentea',
-        steamId: '23094230979847509348'
-      }
+      acceptSend: true // 是否接受推送
     }
+  },
+  computed: {
+    ...mapGetters(['user'])
   },
   components: {
     NavBar,

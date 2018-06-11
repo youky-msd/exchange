@@ -22,29 +22,31 @@ import { Toast } from 'vant'
 import NavBar from 'components/NavBar/NavBar'
 import Notice from 'components/Notice/Notice'
 import AccountSetting from 'api/mine/accountSetting'
+import { mapGetters, mapActions } from 'vuex'
 const _accountSetting = new AccountSetting()
 export default {
   data () {
     return {
-      nickName: ''
+      nickName: '' // 昵称
     }
+  },
+  computed: {
+    ...mapGetters(['user'])
   },
   components: {
     NavBar,
     Notice
   },
   methods: {
+    ...mapActions(['setUser']),
     modifyAvatar() {
-      _accountSetting.accountSettingAvatar(this.nickName)
+      _accountSetting.accountSettingNickName(this.user.userId, this.nickName)
         .then(res => {
-          console.log(res)
-          let user = JSON.parse(localStorage.user)
-          user.nickName = this.nickName
-          localStorage.user = JSON.stringify(user)
           Toast.success({
             duration: 1000,
             message: '修改成功!'
           })
+          this.setUser()
           this.$router.back()
         })
     }

@@ -5,11 +5,11 @@
         <slot name="top"></slot>
       </div>
       <div class="list-item-container">
-        <div class="img" @click="link(detail.id)">
+        <div class="img" @click="link()">
           <img v-lazy="detail.image" alt="">
           <div class="tag">精品</div>
         </div>
-        <div class="content" @click="link(detail.id)">
+        <div class="content" @click="link()">
           <slot name="content"></slot>
         </div>
         <div class="content content-right">
@@ -28,6 +28,10 @@ export default {
   props: {
     detail: {
       type: Object
+    },
+    isLink: {
+      default: false,
+      type: Boolean
     }
   },
   data () {
@@ -38,8 +42,10 @@ export default {
 
   },
   methods: {
-    link(id) {
-      this.$router.push('/store/goods-buy')
+    link() {
+      if (this.isLink) {
+        this.$emit('openDetail')
+      }
     }
   }
 }

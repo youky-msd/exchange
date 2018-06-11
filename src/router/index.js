@@ -135,7 +135,7 @@ const routes = [{
   component: Login
 },
 {
-  path: '/store/goods-buy',
+  path: '/store/goods-buy/:goodsId',
   component: GoodsBuy
 },
 {

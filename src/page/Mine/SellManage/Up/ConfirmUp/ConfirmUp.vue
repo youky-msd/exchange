@@ -47,6 +47,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+import { Toast } from 'vant'
 import SellManage from 'api/mine/sellManage'
 const _sellManage = new SellManage()
 
@@ -71,7 +72,12 @@ export default {
     submit() {
       _sellManage.up(this.formData)
         .then(res => {
-          console.log(res)
+          Toast.success({
+            duration: 1000,
+            message: '上架成功'
+          })
+          this.$emit('close')
+          this.$router.back()
         })
     }
   }

@@ -14,11 +14,6 @@ export default {
   },
   data () {
     return {
-      testAlert() {
-        setTimeout(() => {
-          alert('页面基本完成,剩余一些小细节对接接口再进行调整,有什么问题跟我说- -..')
-        }, 1000)
-      }
     }
   }
 }

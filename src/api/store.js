@@ -66,13 +66,26 @@ class Store {
         return Promise.resolve(res.data)
       })
   }
-  // 道具详情-成交记录列表
+  // 道具详情-成交记录分析
   getPropertyDetailStatistics(goodsTypeId) {
     const url = '/api/orders/order-statistics'
     return axios.get(url, {
       params: {
         token,
         goodsTypeId
+      }
+    })
+      .then(res => {
+        return Promise.resolve(res.data)
+      })
+  }
+  // 求购列表(非ID)
+  getAllBuyList(status) {
+    const url = '/api/purchase/seek-purchase-orders'
+    return axios.get(url, {
+      params: {
+        token,
+        status
       }
     })
       .then(res => {
@@ -130,6 +143,17 @@ class Store {
     return axios.post(url, {
       token,
       purchaseId
+    })
+      .then(res => {
+        return Promise.resolve(res.data)
+      })
+  }
+  // 收藏
+  collection(goodsId) {
+    const url = '/api/collect/goods-collect'
+    return axios.post(url, {
+      token,
+      goodsId
     })
       .then(res => {
         return Promise.resolve(res.data)

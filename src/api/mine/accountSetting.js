@@ -3,12 +3,12 @@ let token = localStorage.token
 
 class AccountSetting {
   // 修改用户信息 - 头像
-  accountSettingAvatar(avatar) {
-    const url = '/api/financeaccount/balance-lock'
+  accountSettingAvatar(id, avatar) {
+    const url = '/api/user/update-user'
     return axios.get(url, {
       params: {
         token,
-        id: JSON.parse(localStorage.user).id,
+        id,
         avatar
       }
     })
@@ -16,13 +16,13 @@ class AccountSetting {
         return Promise.resolve(res.data)
       })
   }
-  // 修改用户信息 - 头像
-  accountSettingNickName(nickName) {
-    const url = '/api/financeaccount/balance-lock'
+  // 修改用户信息 - 用户名
+  accountSettingNickName(id, nickName) {
+    const url = '/api/user/update-user'
     return axios.get(url, {
       params: {
         token,
-        id: JSON.parse(localStorage.user).id,
+        id,
         nickName
       }
     })
