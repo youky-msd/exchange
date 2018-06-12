@@ -126,7 +126,7 @@ class Store {
   }
   // 提交订单(购买)
   buy(goodsId, sellPrice) {
-    const url = '/api/purchase/submit-purchase-order'
+    const url = '/api/orders/submit-order-buy'
     return axios.post(url, {
       token,
       payment: 1,

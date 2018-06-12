@@ -20,7 +20,7 @@
           <div class="money-icon"></div>
           <div class="user-money-num">
             <p class="money-text">我的钱包</p>
-            <p class="money-num" v-if="userMoney.accountBalance">{{userMoney.accountBalance}}DDM</p>
+            <p class="money-num" v-if="user.balance">{{user.balance}}DDM</p>
           </div>
           <router-link to="/mine/charge" class="user-money-btn">充值</router-link>
         </router-link>
@@ -93,15 +93,9 @@
 import NavBar from 'components/NavBar/NavBar'
 import Scroll from 'components/Scroll/Scroll'
 import { mapGetters } from 'vuex'
-import Mine from 'api/mine'
-const _mine = new Mine()
 export default {
-  mounted() {
-    this.loadBalanceLock()
-  },
   data () {
     return {
-      userMoney: {} // 用户余额信息
     }
   },
   components: {
@@ -112,12 +106,6 @@ export default {
     ...mapGetters(['user'])
   },
   methods: {
-    loadBalanceLock() {
-      _mine.getBalanceLock()
-        .then(res => {
-          this.userMoney = res.result
-        })
-    }
   }
 }
 </script>

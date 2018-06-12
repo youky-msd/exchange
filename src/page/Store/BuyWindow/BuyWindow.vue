@@ -22,6 +22,7 @@
 <script type="text/ecmascript-6">
 import { Toast } from 'vant'
 import Store from 'api/store'
+import { mapActions } from 'vuex'
 const _store = new Store()
 
 export default {
@@ -39,6 +40,7 @@ export default {
 
   },
   methods: {
+    ...mapActions(['setBalance']),
     // 取消窗口
     cancel() {
       this.$emit('cancel')
@@ -47,11 +49,19 @@ export default {
     buy() {
       _store.buy(this.goodsId, this.sellPrice)
         .then(res => {
-          Toast.success({
-            duration: 1000,
-            message: '购买成功'
-          })
-          this.$emit('buyDone')
+          if (res.code === 0) {
+            Toast.success({
+              duration: 1000,
+              message: '购买成功'
+            })
+            this.setBalance()
+            this.$emit('buyDone')
+          } else {
+            Toast({
+              duration: 1000,
+              message: res.message
+            })
+          }
         })
     }
   }

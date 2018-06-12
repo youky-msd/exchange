@@ -5,9 +5,12 @@
         <slot name="top"></slot>
       </div>
       <div class="list-item-container">
-        <div class="img" @click="link()">
+        <div class="img" @click="link()" v-show="!showAvatar">
           <img v-lazy="detail.image" alt="">
           <div class="tag">精品</div>
+        </div>
+        <div class="avatar" v-show="showAvatar">
+          <img v-lazy="detail.avatar" alt="">
         </div>
         <div class="content" @click="link()">
           <slot name="content"></slot>
@@ -30,6 +33,10 @@ export default {
       type: Object
     },
     isLink: {
+      default: false,
+      type: Boolean
+    },
+    showAvatar: {
       default: false,
       type: Boolean
     }
@@ -67,6 +74,7 @@ export default {
         display flex
         align-items center
         justify-content space-between
+        .avatar,
         .img
           position relative
           border-radius 10px
@@ -81,6 +89,14 @@ export default {
             top 5px
             left 5px
             tag-fine()
+        .avatar
+          flex 0 0 74px
+          overflow hidden
+          box-sizing border-box
+          padding 10px
+          border-radius 50%
+          img
+            border-radius 50%
         .content
           flex 2
           padding-left 15px

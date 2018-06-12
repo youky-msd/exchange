@@ -7,32 +7,32 @@
         <div class="tab-item left" :class="{active: isActive === 0}" @click="selectTab(0)">月</div>
         <div class="tab-item right" :class="{active: isActive === 1}" @click="selectTab(1)">周</div>
       </div>
-      <div class="time-wrapper">
-        <div class="time-item"><span class="tag"></span><span class="text">收入: 100DDM</span></div>
-        <div class="time-item"><span class="tag"></span><span class="text">支出: 100DDM</span></div>
-        <div class="time-item"><span class="tag"></span><span class="text">兑换: 100DDM</span></div>
-        <div class="time-item"><span class="tag"></span><span class="text">充值: 100DDM</span></div>
+      <div class="time-wrapper" v-show="isActive === 0">
+        <div class="time-item"><span class="tag"></span><span class="text">收入: {{monthAccount.income}}</span></div>
+        <div class="time-item"><span class="tag"></span><span class="text">支出: {{monthAccount.expend}}</span></div>
+        <div class="time-item"><span class="tag"></span><span class="text">提现: {{monthAccount.withdraw}}</span></div>
+        <div class="time-item"><span class="tag"></span><span class="text">充值: {{monthAccount.recharge}}</span></div>
+      </div>
+      <div class="time-wrapper" v-show="isActive === 1">
+        <div class="time-item"><span class="tag"></span><span class="text">收入: {{weekAccount.income}}</span></div>
+        <div class="time-item"><span class="tag"></span><span class="text">支出: {{weekAccount.expend}}</span></div>
+        <div class="time-item"><span class="tag"></span><span class="text">提现: {{weekAccount.withdraw}}</span></div>
+        <div class="time-item"><span class="tag"></span><span class="text">充值: {{weekAccount.recharge}}</span></div>
       </div>
     </div>
-    <div class="my-account-detail-wrapper">
+    <div class="my-account-detail-wrapper list">
       <p class="title">账单明细</p>
-      <div class="my-account-containter">
+      <div class="my-account-containter" v-for="(item, index) in accountDetailList" :key="index">
         <div class="detail-item">
-          <p class="time">时间</p>
+          <!-- <p class="time">时间</p> -->
           <div class="time-list-wrapper">
-            <p class="tiem-list-item">2018-4-18 15:30</p>
-            <p class="tiem-list-item">2018-4-18 15:30</p>
-            <p class="tiem-list-item">2018-4-18 15:30</p>
-            <p class="tiem-list-item">2018-4-18 15:30</p>
+            <p class="item-list-item">{{getTime(item.createTime)}}</p>
           </div>
         </div>
         <div class="detail-item">
-          <p class="time">明细(DDM积分)</p>
+          <!-- <p class="time">明细(DDM积分)</p> -->
           <div class="time-list-wrapper">
-            <p class="tiem-list-item">充值成功: +22</p>
-            <p class="tiem-list-item">充值成功: +22</p>
-            <p class="tiem-list-item">充值成功: +22</p>
-            <p class="tiem-list-item">充值成功: +22</p>
+            <p class="item-list-item">{{item.billAmount}}</p>
           </div>
         </div>
       </div>
@@ -47,11 +47,21 @@
 <script type="text/ecmascript-6">
 import NavBar from 'components/NavBar/NavBar'
 import AccountInfo from 'page/Mine/MyAccount/AccountInfo/AccountInfo'
+import tool from 'common/js/tool'
+import MyAccount from 'api/mine/my-account'
+const _myAccount = new MyAccount()
 
 export default {
+  mounted() {
+    this.getAccountDetailList()
+    this.getMonthWeekStatistics()
+  },
   data () {
     return {
-      isActive: 0
+      isActive: 0,
+      accountDetailList: [], // 账单明细列表
+      monthAccount: {}, // 月统计
+      weekAccount: {} // 周统计
     }
   },
   components: {
@@ -59,8 +69,29 @@ export default {
     AccountInfo
   },
   methods: {
+    // 选择 日 / 月
     selectTab(key) {
       this.isActive = key
+    },
+    // 获取账单明细
+    getAccountDetailList() {
+      _myAccount.getAccountDetailList()
+        .then(res => {
+          this.accountDetailList = res.result
+        })
+    },
+    // 时间戳处理
+    getTime(timestamp) {
+      return tool.timestampToTimeHM(timestamp)
+    },
+    // 当月 / 周收支统计
+    getMonthWeekStatistics() {
+      _myAccount.getMonthWeekStatistics()
+        .then(res => {
+          console.log(res)
+          this.monthAccount = res.result.currentMonthAccount
+          this.weekAccount = res.result.currentWeekAccount
+        })
     }
   }
 }
@@ -117,6 +148,11 @@ export default {
       margin-top 10px
       height 190px
       box-linear()
+      &.list
+        fixed-all()
+        top 310px
+        bottom 60px
+        height auto
       .title
         text-align center
         line-height 40px
@@ -130,12 +166,13 @@ export default {
           color $color-text-l
           .time,
           .time-list-wrapper
-            text-align center
+            // text-align center
             font-size $font-size-large
           .time-list-wrapper
             font-size $font-size-small
-            .tiem-list-item
-              padding-bottom 6px
+            .item-list-item
+              line-height 20px
+              text-indent 60px
           .time
             line-height 30px
     .btn-wrapper

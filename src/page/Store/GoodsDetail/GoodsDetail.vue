@@ -2,10 +2,10 @@
   <div class="goods-detail">
     <!-- 出售详情 -->
     <GoodsBuy v-show="ShowSellDetail" @closeSellDetail="closeSellDetail"
-     :detail="sellSelect" :balance="balance"></GoodsBuy>
+     :detail="sellSelect" :balance="user.balance"></GoodsBuy>
     <!-- 购买弹窗 -->
     <BuyWindow v-show="showBuyWindow" @cancel="cancelBuy" @buyDone="buyDone"
-    :balance="balance" :goodsId="selectGoods.goodsId" :sellPrice="selectGoods.sellPrice"></BuyWindow>
+    :balance="user.balance" :goodsId="selectGoods.goodsId" :sellPrice="selectGoods.sellPrice"></BuyWindow>
     <!-- 供应提示弹窗 -->
     <AlertWindow class="alert-window" v-show="showSupplyWindow">
       <p class="title">供应提示</p>
@@ -51,7 +51,7 @@
       </GoodsListItem>
       <!-- 求购 -->
       <GoodsListItem class="goods-list-item" :detail="item" v-show="currentIndex === 1"
-      v-for="item in buyList" :key="item.id">
+      v-for="item in buyList" :key="item.id" :showAvatar="true">
         <template slot="content">
           <p class="price">¥ {{item.totalPrice}}</p>
           <p class="user desc">{{item.nickname}}</p>
@@ -62,7 +62,7 @@
       </GoodsListItem>
       <!-- 成交记录 -->
       <GoodsListItem class="goods-list-item" :detail="item" v-show="currentIndex === 2"
-      v-for="item in logList" :key="item.id">
+      v-for="item in logList" :key="item.id" :showAvatar="true">
         <template slot="content">
           <p class="price">¥ {{item.price}}</p>
           <p class="user desc">{{item.nickname}}</p>
@@ -94,8 +94,7 @@ import ChartLine from 'page/Store/GoodsDetail/ChartLine/ChartLine'
 import GoodsBuy from 'page/Store/GoodsBuy/GoodsBuy'
 import tool from 'common/js/tool.js'
 import Store from 'api/store'
-import User from 'api/user'
-const _user = new User()
+import { mapGetters } from 'vuex'
 const _store = new Store()
 
 export default {
@@ -104,8 +103,6 @@ export default {
     this.getPropertyDetailForSaleList()
     this.getPropertyDetailForBuyList()
     this.getPropertyDetailOrderRecordsList()
-    // this.getPropertyDetailStatistics()
-    this.getBalanceLock()
   },
   data () {
     return {
@@ -118,7 +115,6 @@ export default {
       sellList: [], // 在售列表
       buyList: [], // 求购列表
       logList: [], // 日志记录列表
-      balance: 0, // 余额
       sellSelect: {}, // 当前点击的在售商品
       selectGoods: { // 选择的商品价格
         goodsId: '',
@@ -140,6 +136,9 @@ export default {
     ChartLine,
     GoodsBuy
   },
+  computed: {
+    ...mapGetters(['user'])
+  },
   methods: {
     // 打开在售详情
     openDetail(item) {
@@ -153,8 +152,6 @@ export default {
       this.showBuyWindow = true
       this.selectGoods.goodsId = goods.id
       this.selectGoods.sellPrice = goods.price
-      // 更新余额
-      this.getBalanceLock()
     },
     // 取消购买,关闭窗口
     cancelBuy() {
@@ -224,15 +221,6 @@ export default {
         .then(res => {
           this.logList = res.result
           console.log(this.logList)
-        })
-    },
-    // 获取余额
-    getBalanceLock() {
-      _user.getBalanceLock()
-        .then(res => {
-          if (res.code === 200) {
-            this.balance = res.result.accountBalance
-          }
         })
     },
     // 处理时间

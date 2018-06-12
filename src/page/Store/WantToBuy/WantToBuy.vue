@@ -37,6 +37,7 @@
 import { Toast } from 'vant'
 import NavBar from 'components/NavBar/NavBar'
 import GoodsDetailTitle from 'page/Store/GoodsDetail/GoodsDetailTitle/GoodsDetailTitle'
+import { mapActions } from 'vuex'
 import Store from 'api/store'
 let _store = new Store()
 
@@ -65,6 +66,7 @@ export default {
     GoodsDetailTitle
   },
   methods: {
+    ...mapActions(['setBalance']),
     // 获取道具详情
     getPropertyDetail() {
       _store.getPropertyDetail(this.$route.params.goodsTypeId)
@@ -86,6 +88,7 @@ export default {
             duration: 1000,
             message: '求购成功'
           })
+          this.setBalance()
           setTimeout(() => {
             this.$router.back()
           }, 500)

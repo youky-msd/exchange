@@ -2,23 +2,27 @@
   <div class="account-info">
     <div class="my-account-wrapper">
       <div class="my-account-container">
-        <p class="num">1</p>
-        <p class="desc">DDM积分</p>
+        <p class="num">{{user.balance}}</p>
+        <p class="desc">DDM</p>
       </div>
       <div class="my-account-container">
-        <p class="num">1</p>
-        <p class="desc">锁定DDM积分</p>
+        <p class="num">{{user.lockAmount}}</p>
+        <p class="desc">锁定DDM</p>
       </div>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
 
     }
+  },
+  computed: {
+    ...mapGetters(['user'])
   },
   components: {
 

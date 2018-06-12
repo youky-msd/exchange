@@ -19,11 +19,11 @@
           <li class="quotation-item" v-for="(item, index) in list" :key="index">
             <div class="quotation-content name-wrapper">
               <span class="name">{{item.goodsName}}</span>
-              <span class="name-en"> </span>
+              <!-- <span class="name-en"> </span> -->
             </div>
             <div class="quotation-content desc-wrapper">
               <span class="price">¥: {{item.avgPrice}}</span>
-              <span class="number">数量: {{item.number}}</span>
+              <!-- <span class="number">数量: {{item.number}}</span> -->
             </div>
             <div class="quotation-content echarts">
               <trend
@@ -32,9 +32,12 @@
                 :gradient="['#5bfc5c']"
                 auto-draw
                 smooth
-                :height="72"
+                :height="50"
               >
               </trend>
+              <div class="trend">
+                <p>{{item.upDown}}</p>
+              </div>
             </div>
           </li>
         </ul>
@@ -129,6 +132,9 @@ export default {
             .quotation-content
               flex 1
               box-sizing border-box
+              .trend
+                color $color-text-money
+                text-align center
               &.name-wrapper
                 display flex
                 flex-direction column
