@@ -3,114 +3,123 @@
     <NavBar title="购买管理"></NavBar>
     <Tab :tabList="tabList" @toggleTab="toggleTab"></Tab>
     <Scroll class="scroll">
-      <GoodsList :list="list" :status="listStatus" :isClick="isClick">
-        <template slot-scope="slotProps" slot="publicBtn">
-          <div class="btn" v-show="currentIndex === 0">取消购买</div>
+      <GoodsListItem class="goods-list-item" :detail="item" v-show="currentIndex === 0"
+      v-for="item in buyingList" :key="item.id">
+        <template slot="top">
+          <div class="top">
+            <p>{{item.createTime}}</p>
+            <p>订单号: {{item.orderNo}}</p>
+          </div>
         </template>
-      </GoodsList>
+        <template slot="content">
+          <p class="user desc">{{item.gameName}}</p>
+          <p class="user desc">{{item.goodsName}}</p>
+          <p class="price">¥ {{item.actPrice}}</p>
+        </template>
+        <template slot="btn">
+          <div class="btn" @click.stop="openSupplyWindow(item.id)">取消购买</div>
+        </template>
+        <template slot="bottom">
+          <p class="bottom">简介: {{item.goodsDesc}}</p>
+        </template>
+      </GoodsListItem>
+      <GoodsListItem class="goods-list-item" :detail="item" v-show="currentIndex === 1"
+      v-for="item in buyDoneList" :key="item.id">
+        <template slot="top">
+          <div class="top">
+            <p>{{item.createTime}}</p>
+            <p>订单号: {{item.orderNo}}</p>
+          </div>
+        </template>
+        <template slot="content">
+          <p class="user desc">{{item.gameName}}</p>
+          <p class="user desc">{{item.goodsName}}</p>
+          <p class="price">¥ {{item.actPrice}}</p>
+        </template>
+        <template slot="bottom">
+          <p class="bottom">简介: {{item.goodsDesc}}</p>
+        </template>
+      </GoodsListItem>
+      <GoodsListItem class="goods-list-item" :detail="item" v-show="currentIndex === 2"
+      v-for="item in buyCancelList" :key="item.id">
+        <template slot="top">
+          <div class="top">
+            <p>{{item.createTime}}</p>
+            <p>订单号: {{item.orderNo}}</p>
+          </div>
+        </template>
+        <template slot="content">
+          <p class="user desc">{{item.gameName}}</p>
+          <p class="user desc">{{item.goodsName}}</p>
+          <p class="price">¥ {{item.actPrice}}</p>
+        </template>
+        <template slot="bottom">
+          <p class="bottom">简介: {{item.goodsDesc}}</p>
+        </template>
+      </GoodsListItem>
     </Scroll>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import NavBar from 'components/NavBar/NavBar'
-import GoodsList from 'components/GoodsList/GoodsList'
+import GoodsListItem from 'components/GoodsListItem/GoodsListItem'
 import Scroll from 'components/Scroll/Scroll'
 import Tab from 'components/Tab/Tab'
+import BuyManage from 'api/mine/buyManage'
+const _buyManage = new BuyManage()
 
 export default {
+  mounted() {
+    this.getBuyingList()
+    this.getBuyDoneList()
+    this.getBuyCancelList()
+  },
   data () {
     return {
       currentIndex: 0, // 当前索引
       isClick: true, // 是否可以点击
       listStatus: '发起', // 列表的时间状态
       tabList: ['正在购买', '购买完成', '取消购买'], // tab列表
-      list: [{
-        name: 'DOTA2',
-        img: require('../../../common/test/list.png'),
-        price: 123,
-        time: '2018-1-12 18:23',
-        id: 3
-      },
-      {
-        name: 'DOTA2',
-        img: require('../../../common/test/list.png'),
-        price: 123,
-        time: '2018-1-12 18:23',
-        id: 3
-      },
-      {
-        name: 'DOTA2',
-        img: require('../../../common/test/list.png'),
-        price: 123,
-        time: '2018-1-12 18:23',
-        id: 3
-      },
-      {
-        name: 'DOTA2',
-        img: require('../../../common/test/list.png'),
-        price: 123,
-        time: '2018-1-12 18:23',
-        id: 3
-      },
-      {
-        name: 'DOTA2',
-        img: require('../../../common/test/list.png'),
-        price: 123,
-        time: '2018-1-12 18:23',
-        id: 3
-      },
-      {
-        name: 'DOTA2',
-        img: require('../../../common/test/list.png'),
-        price: 123,
-        time: '2018-1-12 18:23',
-        id: 3
-      },
-      {
-        name: 'DOTA2',
-        img: require('../../../common/test/list.png'),
-        price: 123,
-        time: '2018-1-12 18:23',
-        id: 3
-      },
-      {
-        name: 'DOTA2',
-        img: require('../../../common/test/list.png'),
-        price: 123,
-        time: '2018-1-12 18:23',
-        id: 3
-      },
-      {
-        name: 'DOTA2',
-        img: require('../../../common/test/list.png'),
-        price: 123,
-        time: '2018-1-12 18:23',
-        id: 3
-      },
-      {
-        name: 'DOTA2',
-        img: require('../../../common/test/list.png'),
-        price: 123,
-        time: '2018-1-12 18:23',
-        id: 3
-      }]
+      buyingList: [], // 正在购买
+      buyDoneList: [], // 购买完成
+      buyCancelList: [] // 取消购买
     }
   },
   components: {
     NavBar,
-    GoodsList,
+    GoodsListItem,
     Scroll,
     Tab
   },
   methods: {
+    // 切换tab
     toggleTab(index) {
       this.currentIndex = index
-      if (index === 0) {
-        this.isClick = true
-      } else {
-        this.isClick = false
-      }
+    },
+    // 正在购买列表
+    getBuyingList() {
+      _buyManage.buyLogList(1)
+        .then(res => {
+          this.buyingList = res.result
+          console.log(res)
+        })
+    },
+    // 购买完成列表
+    getBuyDoneList() {
+      _buyManage.buyLogList(2)
+        .then(res => {
+          console.log(res)
+          this.buyDoneList = res.result
+        })
+    },
+    // 取消购买列表
+    getBuyCancelList() {
+      _buyManage.buyLogList(3)
+        .then(res => {
+          this.buyCancelList = res.result
+          console.log(res)
+        })
     }
   }
 }
@@ -123,7 +132,15 @@ export default {
     .scroll
       fixed-all()
       top 92px
-      .btn
-        btn-linear()
-        width 70px
+      padding-top 10px
+      .goods-list-item
+        .top
+          display flex
+          justify-content space-between
+          line-height 16px
+        .bottom
+          line-height 16px
+        .btn
+          btn-linear()
+          width 70px
 </style>

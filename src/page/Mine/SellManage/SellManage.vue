@@ -6,94 +6,105 @@
       <router-link class="link" to="/mine/up">上架</router-link>
     </div>
     <Scroll class="scroll">
+      <!-- 在售 -->
       <GoodsListItem class="goods-list-item" :detail="item"
-      v-for="item in list" :key="item.id" v-show="currentIndex === 0">
+      v-for="item in sellList" :key="item.id" v-show="currentIndex === 0">
         <template slot="top">
           <div class="top-wrapper">
-            <p class="time">{{item.time}}</p>
-            <p class="order">{{item.order}}</p>
+            <p class="time">{{item.createTime}}</p>
+            <p class="order">{{item.orderNo}}</p>
           </div>
         </template>
         <template slot="content">
-          <p class="name">{{item.name}}</p>
-          <p class="user desc">{{item.score}}DDM积分*1</p>
+          <p class="name">{{item.gameName}}</p>
+          <p class="name">{{item.goodsName}}</p>
+          <p class="user desc">{{item.goodsPrice}}DDM积分*1{{item.sellCnt}}</p>
         </template>
         <template slot="btn">
-          <div class="btn">下架</div>
+          <div class="btn" @click="down(item.goodsId)">下架</div>
         </template>
         <template slot="bottom">
-          <p class="desc">{{item.desc}}</p>
+          <p class="desc">{{item.goodsDesc}}</p>
         </template>
       </GoodsListItem>
+      <!-- 交易中 -->
       <GoodsListItem class="goods-list-item" :detail="item"
       v-for="item in exchangingList" :key="item.id" v-show="currentIndex === 1">
         <template slot="top">
           <div class="top-wrapper">
-            <p class="time">{{item.time}}</p>
-            <p class="order">{{item.order}}</p>
+            <p class="time">{{item.createTime}}</p>
+            <p class="order">{{item.orderNo}}</p>
           </div>
         </template>
         <template slot="content">
-          <p class="name">{{item.name}}</p>
-          <p class="user desc">{{item.score}}DDM积分*1</p>
+          <p class="name">{{item.gameName}}</p>
+          <p class="name">{{item.goodsName}}</p>
+          <p class="user desc">{{item.goodsPrice}}DDM积分*1{{item.sellCnt}}</p>
         </template>
         <template slot="bottom">
-          <p class="desc">{{item.desc}}</p>
+          <p class="desc">{{item.goodsDesc}}</p>
         </template>
       </GoodsListItem>
+      <!-- 已售 -->
       <GoodsListItem class="goods-list-item" :detail="item"
       v-for="item in hasSellList" :key="item.id" v-show="currentIndex === 2">
         <template slot="top">
           <div class="top-wrapper">
-            <p class="time">{{item.time}}</p>
-            <p class="order">{{item.order}}</p>
+            <p class="time">{{item.createTime}}</p>
+            <p class="order">{{item.orderNo}}</p>
           </div>
         </template>
         <template slot="content">
-          <p class="name">{{item.name}}</p>
-          <p class="user desc">{{item.score}}DDM积分*1</p>
+          <p class="name">{{item.gameName}}</p>
+          <p class="name">{{item.goodsName}}</p>
+          <p class="user desc">{{item.goodsPrice}}DDM积分*1{{item.sellCnt}}</p>
         </template>
         <template slot="bottom">
           <div class="desc-wrapper">
-            <p class="desc-item">简介: {{item.desc}}</p>
-            <p class="desc-item">商品上架时间: {{item.upTime}}</p>
+            <p class="desc-item">简介: {{item.goodsDesc}}</p>
+            <p class="desc-item">商品上架时间: {{item.createTime}}</p>
             <p class="desc-item">商品出售时间: {{item.sellTime}}</p>
-            <p class="desc-item">商品上架价格: {{item.upPrice}}</p>
-            <p class="desc-item">商品出售服务费: {{item.sellServicePrice}}</p>
-            <p class="desc-item">商品实际收入: {{item.profit}}</p>
+            <p class="desc-item">商品出售价格: {{item.goodsPrice}}</p>
+            <p class="desc-item">商品出售价格: {{item.goodsPrice}}</p>
+            <p class="desc-item">商品出售服务费: {{item.charge}}</p>
+            <p class="desc-item">商品实际收入: {{item.actPrice}}</p>
           </div>
         </template>
       </GoodsListItem>
+      <!-- 已下架 -->
       <GoodsListItem class="goods-list-item" :detail="item"
       v-for="item in downList" :key="item.id" v-show="currentIndex === 3">
         <template slot="top">
           <div class="top-wrapper">
-            <p class="time">{{item.time}}</p>
-            <p class="order">{{item.order}}</p>
+            <p class="time">{{item.createTime}}</p>
+            <p class="order">{{item.orderNo}}</p>
           </div>
         </template>
         <template slot="content">
-          <p class="name">{{item.name}}</p>
-          <p class="user desc">{{item.score}}DDM积分*1</p>
+          <p class="name">{{item.gameName}}</p>
+          <p class="name">{{item.goodsName}}</p>
+          <p class="user desc">{{item.goodsPrice}}DDM积分*1{{item.sellCnt}}</p>
         </template>
         <template slot="bottom">
-          <p class="desc">{{item.desc}}</p>
+          <p class="desc">{{item.goodsDesc}}</p>
         </template>
       </GoodsListItem>
+      <!-- 已取消 -->
       <GoodsListItem class="goods-list-item" :detail="item"
       v-for="item in cancelList" :key="item.id" v-show="currentIndex === 4">
         <template slot="top">
           <div class="top-wrapper">
-            <p class="time">{{item.time}}</p>
-            <p class="order">{{item.order}}</p>
+            <p class="time">{{item.createTime}}</p>
+            <p class="order">{{item.orderNo}}</p>
           </div>
         </template>
         <template slot="content">
-          <p class="name">{{item.name}}</p>
-          <p class="user desc">{{item.score}}DDM积分*1</p>
+          <p class="name">{{item.gameName}}</p>
+          <p class="name">{{item.goodsName}}</p>
+          <p class="user desc">{{item.goodsPrice}}DDM积分*1{{item.sellCnt}}</p>
         </template>
         <template slot="bottom">
-          <p class="desc">{{item.desc}}</p>
+          <p class="desc">{{item.goodsDesc}}</p>
         </template>
       </GoodsListItem>
     </Scroll>
@@ -101,116 +112,94 @@
 </template>
 
 <script type="text/ecmascript-6">
+import { Toast } from 'vant'
 import NavBar from 'components/NavBar/NavBar'
-// import GoodsList from 'components/GoodsList/GoodsList'
 import GoodsListItem from 'components/GoodsListItem/GoodsListItem'
 import Scroll from 'components/Scroll/Scroll'
 import Tab from 'components/Tab/Tab'
+import SellManage from 'api/mine/sellManage'
+const _sellManage = new SellManage()
 
 export default {
+  mounted() {
+    this.getSellList()
+    this.getExchangingList()
+    this.getHasSellList()
+    this.getDownList()
+    this.getCancelList()
+  },
   data () {
     return {
       currentIndex: 0,
       listStatus: '下架时间: ', // 列表的时间状态
       tabList: ['在售', '交易中', '已售', '已下架', '已取消'], // tab列表
-      list: [{
-        name: 'DOTA2',
-        img: require('../../../common/test/list.png'),
-        price: 123,
-        order: 465783512315,
-        time: '2018-1-12 18:23',
-        id: 1,
-        desc: '简介: 嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿'
-      },
-      {
-        name: 'DOTA2',
-        img: require('../../../common/test/list.png'),
-        price: 123,
-        order: 465783512315,
-        time: '2018-1-12 18:23',
-        id: 2,
-        desc: '简介: 嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿'
-      },
-      {
-        name: 'DOTA2',
-        img: require('../../../common/test/list.png'),
-        price: 123,
-        order: 465783512315,
-        time: '2018-1-12 18:23',
-        id: 3,
-        desc: '简介: 嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿'
-      },
-      {
-        name: 'DOTA2',
-        img: require('../../../common/test/list.png'),
-        price: 123,
-        order: 465783512315,
-        time: '2018-1-12 18:23',
-        id: 4,
-        desc: '简介: 嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿'
-      },
-      {
-        name: 'DOTA2',
-        img: require('../../../common/test/list.png'),
-        price: 123,
-        order: 465783512315,
-        time: '2018-1-12 18:23',
-        id: 5,
-        desc: '简介: 嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿'
-      }],
-      exchangingList: [{
-        name: 'DOTA2',
-        img: require('../../../common/test/list.png'),
-        price: 123,
-        order: 465783512315,
-        time: '2018-1-12 18:23',
-        id: 6,
-        desc: '简介: 嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿'
-      }],
-      hasSellList: [{
-        name: 'DOTA2',
-        img: require('../../../common/test/list.png'),
-        price: 123,
-        order: 465783512315,
-        time: '2018-1-12 18:23',
-        id: 7,
-        desc: '嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿',
-        upTime: '2018-6-2',
-        sellTime: '2018-6-3',
-        upPrice: 100,
-        sellServicePrice: 10,
-        profit: 90
-      }],
-      downList: [{
-        name: 'DOTA2',
-        img: require('../../../common/test/list.png'),
-        price: 123,
-        order: 465783512315,
-        time: '2018-1-12 18:23',
-        id: 8,
-        desc: '简介: 嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿'
-      }],
-      cancelList: [{
-        name: 'DOTA2',
-        img: require('../../../common/test/list.png'),
-        price: 123,
-        order: 465783512315,
-        time: '2018-1-12 18:23',
-        id: 9,
-        desc: '简介: 嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿'
-      }]
+      sellList: [], // 在售列表
+      exchangingList: [], // 交易中列表
+      hasSellList: [], // 已售列表
+      downList: [], // 已下架列表
+      cancelList: [] // 已取消列表
     }
   },
   components: {
     NavBar,
-    // GoodsList,
     GoodsListItem,
     Scroll,
     Tab
   },
   methods: {
+    // 切换tab
     toggleTab(index) {
       this.currentIndex = index
+    },
+    // 在售列表
+    getSellList() {
+      _sellManage.getGoodsManageList(1)
+        .then(res => {
+          console.log(res)
+          this.sellList = res.result
+        })
+    },
+    // 交易中列表
+    getExchangingList() {
+      _sellManage.getSellManageLogList(1)
+        .then(res => {
+          this.exchangingList = res.result
+        })
+    },
+    // 已售订单列表
+    getHasSellList() {
+      _sellManage.getSellManageLogList(2)
+        .then(res => {
+          this.hasSellList = res.result
+          console.log(this.hasSellList)
+        })
+    },
+    // 已下架列表
+    getDownList() {
+      _sellManage.getGoodsManageList(2)
+        .then(res => {
+          this.downList = res.result
+        })
+    },
+    // 取消订单列表
+    getCancelList() {
+      _sellManage.getSellManageLogList(3)
+        .then(res => {
+          this.cancelList = res.result
+        })
+    },
+    // 下架
+    down(id) {
+      _sellManage.goodsDown(id)
+        .then(res => {
+          if (res.code === 0) {
+            Toast.success({
+              duration: 1000,
+              message: '下架成功'
+            })
+            this.getSellList()
+          }
+        })
     }
   }
 }

@@ -44,6 +44,52 @@ class SellManage {
         return Promise.resolve(res.data)
       })
   }
+  // 出售管理列表查询
+  /*
+   * 1. 交易中订单
+   * 2. 已售订单
+   * 3. 取消订单
+  */
+  getSellManageLogList(type) {
+    const url = '/api/orders/user-sell-orders'
+    return axios.get(url, {
+      params: {
+        token,
+        type
+      }
+    })
+      .then(res => {
+        return Promise.resolve(res.data)
+      })
+  }
+  // 商品管理列表
+  /*
+   * 1. 在售
+   * 2. 下架
+   */
+  getGoodsManageList(type) {
+    const url = '/api/goods/user-goods-list'
+    return axios.get(url, {
+      params: {
+        token,
+        type
+      }
+    })
+      .then(res => {
+        return Promise.resolve(res.data)
+      })
+  }
+  // 商品下架
+  goodsDown(goodsId) {
+    const url = '/api/goods/sold-out'
+    return axios.post(url, {
+      token,
+      goodsId
+    })
+      .then(res => {
+        return Promise.resolve(res.data)
+      })
+  }
 }
 
 export default SellManage

@@ -48,7 +48,7 @@
 import NavBar from 'components/NavBar/NavBar'
 import AccountInfo from 'page/Mine/MyAccount/AccountInfo/AccountInfo'
 import tool from 'common/js/tool'
-import MyAccount from 'api/mine/my-account'
+import MyAccount from 'api/mine/myAccount'
 const _myAccount = new MyAccount()
 
 export default {
