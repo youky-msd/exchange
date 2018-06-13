@@ -25,9 +25,9 @@
               <span class="price">¥: {{item.avgPrice}}</span>
               <!-- <span class="number">数量: {{item.number}}</span> -->
             </div>
-            <div class="quotation-content echarts">
+            <div class="quotation-content echarts" v-show="item.trendList.length > 1">
               <trend
-                :data="[0, 2, 5, 9, 0, 9, 1, 8, 2, 9, 0]"
+                :data="item.trendList"
                 :stroke-width="5"
                 :gradient="['#5bfc5c']"
                 auto-draw
@@ -35,8 +35,22 @@
                 :height="50"
               >
               </trend>
-              <div class="trend">
+              <div class="trend" v-show="item.trendList.length > 1">
                 <p>{{item.upDown}}</p>
+              </div>
+            </div>
+            <div class="quotation-content echarts" v-show="item.trendList.length <= 1">
+              <trend
+                :data="[0,0]"
+                :stroke-width="5"
+                :gradient="['#5bfc5c']"
+                auto-draw
+                smooth
+                :height="50"
+              >
+              </trend>
+              <div class="trend" v-show="item.trendList.length <= 1">
+                <p>暂无数据</p>
               </div>
             </div>
           </li>
@@ -61,14 +75,7 @@ export default {
   },
   data () {
     return {
-      lineData: {
-        datasets: [
-          {
-            backgroundColor: '#f87979',
-            data: [40, 20]
-          }
-        ]
-      },
+      lineData: [], // 趋势线
       list: []
     }
   },
@@ -83,8 +90,19 @@ export default {
     loadQuotationList() {
       _quotation.getQuotationList()
         .then(res => {
-          console.log(res)
+          res.result.forEach(element => {
+            let arr = []
+            for (const key in element) {
+              if (key === 'trendList') {
+                element[key].forEach(item => {
+                  arr.push(item.avgPrice)
+                })
+              }
+            }
+            element.trendList = arr
+          })
           this.list = res.result
+          // console.log(this.lineData)
         })
     }
   }

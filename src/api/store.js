@@ -159,6 +159,10 @@ class Store {
         return Promise.resolve(res.data)
       })
   }
+  // 搜索
+  search() {
+
+  }
 }
 
 export default Store
