@@ -8,14 +8,17 @@
       </div>
     </div>
     <div class="btn-wrapper">
-      <div class="btn">添加</div>
+      <div class="btn" @click="addAddress">添加</div>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import { Toast } from 'vant'
 import NavBar from 'components/NavBar/NavBar'
 import Notice from 'components/Notice/Notice'
+import Exchange from 'api/mine/exchange'
+const _exchange = new Exchange()
 
 export default {
   data () {
@@ -26,6 +29,20 @@ export default {
   components: {
     NavBar,
     Notice
+  },
+  methods: {
+    addAddress() {
+      _exchange.addAddress(2, this.address)
+        .then(res => {
+          if (res.code === 0) {
+            Toast.success({
+              duration: 1000,
+              message: '添加地址成功'
+            })
+          }
+          this.$router.back()
+        })
+    }
   }
 }
 </script>

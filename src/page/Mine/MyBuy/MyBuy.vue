@@ -6,33 +6,69 @@
       <!-- <GoodsList :list="list" :status="listStatus" :isClick="isClick"></GoodsList> -->
       <GoodsListItem class="goods-list-item" :detail="item" v-show="currentIndex === 0"
       v-for="item in buylist" :key="item.id">
+        <template slot="top">
+          <div class="top">
+            <p>{{item.createTime}}</p>
+            <p>订单号: {{item.orderNo}}</p>
+          </div>
+        </template>
         <template slot="content">
+          <p class="user desc">{{item.goodName}}</p>
           <p class="price">¥ {{item.price}}</p>
-          <p class="user desc">{{item.desc}}</p>
         </template>
         <template slot="btn">
-          <div class="btn" @click.stop="cancel">取消求购</div>
+          <div class="btn" @click.stop="cancelBuy(item.orderNo)">取消求购</div>
+        </template>
+        <template slot="bottom">
+          <p class="bottom">简介: {{item.goodsDesc}}</p>
         </template>
       </GoodsListItem>
       <GoodsListItem class="goods-list-item" :detail="item" v-show="currentIndex === 1"
       v-for="item in exchangingList" :key="item.id">
+        <template slot="top">
+          <div class="top">
+            <p>{{item.createTime}}</p>
+            <p>订单号: {{item.orderNo}}</p>
+          </div>
+        </template>
         <template slot="content">
+          <p class="user desc">{{item.goodName}}</p>
           <p class="price">¥ {{item.price}}</p>
-          <p class="user desc">{{item.desc}}</p>
+        </template>
+        <template slot="bottom">
+          <p class="bottom">简介: {{item.goodsDesc}}</p>
         </template>
       </GoodsListItem>
       <GoodsListItem class="goods-list-item" :detail="item" v-show="currentIndex === 2"
       v-for="item in doneList" :key="item.id">
+        <template slot="top">
+          <div class="top">
+            <p>{{item.createTime}}</p>
+            <p>订单号: {{item.orderNo}}</p>
+          </div>
+        </template>
         <template slot="content">
+          <p class="user desc">{{item.goodName}}</p>
           <p class="price">¥ {{item.price}}</p>
-          <p class="user desc">{{item.desc}}</p>
+        </template>
+        <template slot="bottom">
+          <p class="bottom">简介: {{item.goodsDesc}}</p>
         </template>
       </GoodsListItem>
       <GoodsListItem class="goods-list-item" :detail="item" v-show="currentIndex === 3"
       v-for="item in cancelList" :key="item.id">
+        <template slot="top">
+          <div class="top">
+            <p>{{item.createTime}}</p>
+            <p>订单号: {{item.orderNo}}</p>
+          </div>
+        </template>
         <template slot="content">
           <p class="price">¥ {{item.price}}</p>
           <p class="user desc">{{item.desc}}</p>
+        </template>
+        <template slot="bottom">
+          <p class="bottom">简介: {{item.goodsDesc}}</p>
         </template>
       </GoodsListItem>
     </Scroll>
@@ -40,6 +76,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+import { Toast } from 'vant'
 import NavBar from 'components/NavBar/NavBar'
 import Scroll from 'components/Scroll/Scroll'
 import Tab from 'components/Tab/Tab'
@@ -81,6 +118,7 @@ export default {
     getBuyList() {
       _myBuy.getWantToBuyList(1)
         .then(res => {
+          this.buylist = res.result
           console.log(res)
         })
     },
@@ -88,6 +126,7 @@ export default {
     getExchangingList() {
       _myBuy.getWantToBuyList(2)
         .then(res => {
+          this.exchangingList = res.result
           console.log(res)
         })
     },
@@ -95,6 +134,7 @@ export default {
     getDoneList() {
       _myBuy.getWantToBuyList(3)
         .then(res => {
+          this.doneList = res.result
           console.log(res)
         })
     },
@@ -102,7 +142,22 @@ export default {
     getCancelList() {
       _myBuy.getWantToBuyList(4)
         .then(res => {
+          this.cancelList = res.result
           console.log(res)
+        })
+    },
+    // 取消求购
+    cancelBuy(orderNo) {
+      _myBuy.cancelBuy(orderNo)
+        .then(res => {
+          if (res.result === 0) {
+            Toast.success({
+              duration: 1000,
+              message: '已取消求购'
+            })
+            this.getBuyList()
+            console.log(res)
+          }
         })
     }
   }
@@ -114,6 +169,15 @@ export default {
 
   .collection
     .scroll
+      padding-top 10px
       fixed-all()
       top 92px
+      .top
+        display flex
+        justify-content space-between
+        line-height 16px
+      .bottom
+        line-height 16px
+      .btn
+        padding 0 5px
 </style>

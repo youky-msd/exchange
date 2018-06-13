@@ -24,9 +24,9 @@
         <div class="address-select-list">
           <ul>
             <li class="address-select-item" v-for="(item, index) in addressList" :key="index"
-            @click="selectAddress(item.id)">
-              <span class="text">{{item.text}}</span>
-              <van-icon name="checked" class="icon" :class="{selected: item.id === currentSelectAddress}"/>
+            @click="selectAddress(item.cardWalletId)">
+              <span class="text">{{item.ddmAddress}}</span>
+              <van-icon name="checked" class="icon" :class="{selected: item.cardWalletId === currentSelectAddress}"/>
             </li>
           </ul>
         </div>
@@ -45,20 +45,18 @@
 <script type="text/ecmascript-6">
 import NavBar from 'components/NavBar/NavBar'
 import AccountInfo from 'page/Mine/MyAccount/AccountInfo/AccountInfo'
+import Exchange from 'api/mine/exchange'
+const _exchange = new Exchange()
 
 export default {
+  mounted() {
+    this.getAddressList()
+  },
   data () {
     return {
       chargeNum: '', // 充值数量
       currentSelectAddress: 1, // 当前选择的地址ID
-      addressList: [{
-        text: '天津市和平区小白楼',
-        id: 1
-      },
-      {
-        text: '天津市和平区小白楼',
-        id: 2
-      }]
+      addressList: [] // 地址列表
     }
   },
   components: {
@@ -66,8 +64,22 @@ export default {
     AccountInfo
   },
   methods: {
+    // 选择地址
     selectAddress(id) {
       this.currentSelectAddress = id
+      console.log(this.currentSelectAddress)
+    },
+    // 地址列表
+    getAddressList() {
+      _exchange.getAddressList(2)
+        .then(res => {
+          this.addressList = res.result
+          console.log(res)
+        })
+    },
+    // 兑换(提现)
+    withdrawApply() {
+      // _exchange.withdrawApply()
     }
   }
 }

@@ -21,6 +21,19 @@ class MyBuy {
         return Promise.resolve(res.data)
       })
   }
+  // 取消求购
+  cancelBuy(orderId) {
+    const url = '/api/purchase/cancel-seek'
+    return axios.get(url, {
+      params: {
+        token,
+        orderId
+      }
+    })
+      .then(res => {
+        return Promise.resolve(res.data)
+      })
+  }
 }
 
 export default MyBuy
