@@ -8,10 +8,10 @@
     <div class="exchange-main-wrapper">
       <div class="exchange-input-wrapper">
         <div class="input-wrapper">
-          <input type="number" v-model="chargeNum" placeholder="请输入DDM积分兑换数量">
+          <input type="number" v-model="chargeNum" placeholder="请输入DDM积分兑换数量" @keyup="calculator">
         </div>
         <div class="input-wrapper">
-          <input type="number" v-model="chargeNum" placeholder="根据数量换算DDM数量" disabled>
+          <input type="number" v-model="DDM" placeholder="根据数量换算DDM数量" disabled>
         </div>
         <div class="exchange-desc">
           <div class="text">DDM地址</div>
@@ -35,35 +35,47 @@
     <div class="exchange-btn-wrapper">
       <div class="all-desc">
         <span class="text">手续费: </span>
-        <span class="num">100</span>
+        <span class="num">{{serviceCharge}}</span>
       </div>
-      <div class="btn">兑换</div>
+      <div class="btn" @click="withdrawApply">兑换</div>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import { Toast } from 'vant'
 import NavBar from 'components/NavBar/NavBar'
 import AccountInfo from 'page/Mine/MyAccount/AccountInfo/AccountInfo'
+import { mapActions } from 'vuex'
 import Exchange from 'api/mine/exchange'
 const _exchange = new Exchange()
 
 export default {
   mounted() {
     this.getAddressList()
+    this.getChargeRate()
+    this.getDDMRate()
   },
   data () {
     return {
-      chargeNum: '', // 充值数量
-      currentSelectAddress: 1, // 当前选择的地址ID
-      addressList: [] // 地址列表
+      chargeNum: '', // 兑换金额
+      currentSelectAddress: '', // 当前选择的地址ID
+      addressList: [], // 地址列表
+      serviceChargeRate: 0, // 手续费比例
+      chargeDDMRate: 0, // 充值DDM比例
+      serviceCharge: '', // 服务费
+      DDM: '' // DDM
     }
+  },
+  computed: {
+
   },
   components: {
     NavBar,
     AccountInfo
   },
   methods: {
+    ...mapActions(['setUser']),
     // 选择地址
     selectAddress(id) {
       this.currentSelectAddress = id
@@ -73,13 +85,57 @@ export default {
     getAddressList() {
       _exchange.getAddressList(2)
         .then(res => {
-          this.addressList = res.result
           console.log(res)
+          this.addressList = res.result
         })
     },
     // 兑换(提现)
     withdrawApply() {
-      // _exchange.withdrawApply()
+      let param = {
+        amount: this.chargeNum,
+        exchangeAmount: this.chargeNum / this.chargeDDMRate,
+        actualAmount: this.DDM,
+        charge: this.serviceCharge,
+        channel: 2,
+        cardId: this.currentSelectAddress
+      }
+      _exchange.withdrawApply(param)
+        .then(res => {
+          if (res.code === 0) {
+            Toast.success({
+              duration: 1000,
+              message: '提现成功'
+            })
+            this.setUser()
+          }
+        })
+    },
+    // 手续费比例
+    getChargeRate() {
+      _exchange.getChargeRate()
+        .then(res => {
+          this.serviceChargeRate = res.result.value
+        })
+    },
+    // 充值DDM汇率
+    getDDMRate() {
+      _exchange.getDDMRate()
+        .then(res => {
+          this.chargeDDMRate = res.result.value
+        })
+    },
+    // 总体计算
+    calculator() {
+      this.getServiceCharge()
+      this.getChargeDDM()
+    },
+    // 换算手续费
+    getServiceCharge() {
+      this.serviceCharge = Math.round(this.chargeNum * this.serviceChargeRate * 100) / 100
+    },
+    // 换算DDM
+    getChargeDDM() {
+      this.DDM = Math.round((this.chargeNum - this.serviceCharge) / this.chargeDDMRate * 100) / 100
     }
   }
 }

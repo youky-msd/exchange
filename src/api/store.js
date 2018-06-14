@@ -160,8 +160,17 @@ class Store {
       })
   }
   // 搜索
-  search() {
-
+  search(keyword) {
+    const url = '/api/goodstype/list'
+    return axios.get(url, {
+      params: {
+        token,
+        keyword
+      }
+    })
+      .then(res => {
+        return Promise.resolve(res.data)
+      })
   }
 }
 

@@ -17,7 +17,7 @@
           <p class="price">¥ {{item.price}}</p>
         </template>
         <template slot="btn">
-          <div class="btn" @click.stop="cancelBuy(item.orderNo)">取消求购</div>
+          <div class="btn" @click.stop="cancelBuy(item.id)">取消求购</div>
         </template>
         <template slot="bottom">
           <p class="bottom">简介: {{item.goodsDesc}}</p>
@@ -150,7 +150,7 @@ export default {
     cancelBuy(orderNo) {
       _myBuy.cancelBuy(orderNo)
         .then(res => {
-          if (res.result === 0) {
+          if (res.code === 0) {
             Toast.success({
               duration: 1000,
               message: '已取消求购'

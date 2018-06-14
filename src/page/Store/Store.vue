@@ -1,6 +1,6 @@
 <template>
   <div class="store">
-    <TopSearch class="search"></TopSearch>
+    <TopSearch class="search" @quickSearch="quickSearch"></TopSearch>
     <Notice></Notice>
     <div class="list-wrapper-top">
       <div class="list-title">
@@ -30,7 +30,8 @@ let _store = new Store()
 
 export default {
   mounted() {
-    this.getGoodsList()
+    // this.getGoodsList()
+    this.routerSearch()
   },
   data () {
     return {
@@ -68,7 +69,33 @@ export default {
       } else {
         this.getAllBuyList()
       }
+    },
+    // 跳转搜索
+    routerSearch() {
+      if (this.$route.query.search) {
+        _store.search(this.$route.query.search)
+          .then(res => {
+            this.list = res.result
+          })
+      } else {
+        if (!this.isOnlyBuyList) {
+          this.getGoodsList()
+        } else {
+          this.getAllBuyList()
+        }
+      }
+    },
+    // 快速查询
+    quickSearch(value) {
+      console.log('Kuaicha')
+      _store.search(value)
+        .then(res => {
+          this.list = res.result
+        })
     }
+  },
+  watch: {
+    '$route': 'routerSearch'
   }
 }
 </script>

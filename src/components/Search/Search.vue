@@ -13,6 +13,9 @@
 <script type="text/ecmascript-6">
 
 export default {
+  mounted() {
+    this.backWrite()
+  },
   data () {
     return {
       value: '' // 搜索关键字
@@ -22,15 +25,37 @@ export default {
 
   },
   methods: {
+    // 搜索
     search() {
-      this.$router.push({
-        path: '/store',
-        query: {
-          search: this.value
-        }
-      })
+      if (this.value) {
+        this.$router.push({
+          path: '/store',
+          query: {
+            search: this.value
+          }
+        })
+      } else {
+        this.$router.push({
+          path: '/store'
+        })
+      }
+    },
+    // 回填
+    backWrite() {
+      console.log(this.$route.path)
+      if (this.$route.query.search) {
+        this.value = this.$route.query.search
+      }
     }
   }
+  // watch: {
+  //   value(cul, old) {
+  //     if (this.$route.path === '/store') {
+  //       this.$emit('quickSearch', cul)
+  //       console.log('变化', cul)
+  //     }
+  //   }
+  // }
 }
 </script>
 
