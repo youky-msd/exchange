@@ -1,5 +1,4 @@
 import axios from '../config'
-let token = localStorage.token
 
 class AccountSetting {
   // 修改用户信息 - 头像
@@ -7,7 +6,7 @@ class AccountSetting {
     const url = '/api/user/update-user'
     return axios.get(url, {
       params: {
-        token,
+        token: localStorage.token || '9898962464',
         id,
         avatar
       }
@@ -21,7 +20,7 @@ class AccountSetting {
     const url = '/api/user/update-user'
     return axios.get(url, {
       params: {
-        token,
+        token: localStorage.token || '9898962464',
         id,
         nickName
       }

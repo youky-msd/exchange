@@ -1,6 +1,8 @@
 <template>
   <div class="Main">
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
     <Nav />
   </div>
 </template>

@@ -1,5 +1,4 @@
 import axios from './config'
-let token = localStorage.token
 
 class Index {
   // banner
@@ -7,7 +6,7 @@ class Index {
     const url = '/api/banner/banner-list'
     return axios.get(url, {
       params: {
-        token
+        token: localStorage.token || '9898962464'
       }
     })
       .then(res => {
@@ -19,7 +18,7 @@ class Index {
     const url = '/api/advertisement/advertisement-list'
     return axios.get(url, {
       params: {
-        token
+        token: localStorage.token || '9898962464'
       }
     })
       .then(res => {
@@ -31,7 +30,7 @@ class Index {
     const url = 'api/index/hot-game-list'
     return axios.get(url, {
       params: {
-        token
+        token: localStorage.token || '9898962464'
       }
     })
       .then(res => {

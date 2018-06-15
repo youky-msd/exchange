@@ -10,9 +10,7 @@ import { mapActions } from 'vuex'
 
 export default {
   mounted() {
-    if (localStorage.token) {
-      this.setUser()
-    }
+    this.setUser()
   },
   data () {
     return {

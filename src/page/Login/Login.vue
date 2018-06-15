@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <NavBar title="登录"></NavBar>
+    <NavBar title="登录" :showBack="false"></NavBar>
     <div class="container">
       <div class="logo-wrapper">
         <img src="../../common/img/logo.png" alt="">

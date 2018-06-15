@@ -1,5 +1,4 @@
 import axios from './config'
-let token = localStorage.token
 
 class Store {
   // 获取道具列表
@@ -7,7 +6,7 @@ class Store {
     const url = '/api/goodstype/list'
     return axios.get(url, {
       params: {
-        token
+        token: localStorage.token || '9898962464'
       }
     })
       .then(res => {
@@ -19,7 +18,7 @@ class Store {
     const url = '/api/goodstype/detail'
     return axios.get(url, {
       params: {
-        token,
+        token: localStorage.token || '9898962464',
         goodsTypeId
       }
     })
@@ -32,7 +31,7 @@ class Store {
     const url = '/api/goods/for-sale-list'
     return axios.get(url, {
       params: {
-        token,
+        token: localStorage.token || '9898962464',
         goodsTypeId
       }
     })
@@ -45,7 +44,7 @@ class Store {
     const url = '/api/purchase/for-list'
     return axios.get(url, {
       params: {
-        token,
+        token: localStorage.token || '9898962464',
         goodsTypeId
       }
     })
@@ -58,7 +57,7 @@ class Store {
     const url = '/api/orders/order-records'
     return axios.get(url, {
       params: {
-        token,
+        token: localStorage.token || '9898962464',
         goodsTypeId
       }
     })
@@ -71,7 +70,7 @@ class Store {
     const url = '/api/orders/order-statistics'
     return axios.get(url, {
       params: {
-        token,
+        token: localStorage.token || '9898962464',
         goodsTypeId
       }
     })
@@ -84,7 +83,7 @@ class Store {
     const url = '/api/purchase/seek-purchase-orders'
     return axios.get(url, {
       params: {
-        token,
+        token: localStorage.token || '9898962464',
         status
       }
     })
@@ -97,7 +96,7 @@ class Store {
     const url = 'api/goods/detail'
     return axios.get(url, {
       params: {
-        token,
+        token: localStorage.token || '9898962464',
         goodsId
       }
     })
@@ -109,7 +108,7 @@ class Store {
   purchaseOrder({gameId, typeId, name, purchasePrice, totalPrice, count, payment, qq, email}) {
     const url = '/api/purchase/submit-purchase-order'
     return axios.post(url, {
-      token,
+      token: localStorage.token || '9898962464',
       gameId,
       typeId,
       name,
@@ -128,7 +127,7 @@ class Store {
   buy(goodsId, sellPrice) {
     const url = '/api/orders/submit-order-buy'
     return axios.post(url, {
-      token,
+      token: localStorage.token || '9898962464',
       payment: 1,
       goodsId,
       sellPrice
@@ -141,7 +140,7 @@ class Store {
   supply(purchaseId) {
     const url = '/api/purchase/supply'
     return axios.post(url, {
-      token,
+      token: localStorage.token || '9898962464',
       purchaseId
     })
       .then(res => {
@@ -152,7 +151,7 @@ class Store {
   collection(goodsId) {
     const url = '/api/collect/goods-collect'
     return axios.post(url, {
-      token,
+      token: localStorage.token || '9898962464',
       goodsId
     })
       .then(res => {
@@ -164,7 +163,7 @@ class Store {
     const url = '/api/goodstype/list'
     return axios.get(url, {
       params: {
-        token,
+        token: localStorage.token || '9898962464',
         keyword
       }
     })

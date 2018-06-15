@@ -1,5 +1,4 @@
 import axios from '../config'
-let token = localStorage.token
 
 class MyBuy {
   // 求购列表
@@ -13,7 +12,7 @@ class MyBuy {
     const url = '/api/purchase/seek-purchase-orders'
     return axios.get(url, {
       params: {
-        token,
+        token: localStorage.token || '',
         status
       }
     })
@@ -26,7 +25,7 @@ class MyBuy {
     const url = '/api/purchase/cancel-seek'
     return axios.get(url, {
       params: {
-        token,
+        token: localStorage.token || '9898962464',
         orderId
       }
     })

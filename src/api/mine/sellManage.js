@@ -1,12 +1,11 @@
 import axios from '../config'
-let token = localStorage.token
 
 class SellManage {
   // 上架
   up({bizId, goodsTypeId, qq, email, price, goodsName, description}) {
     const url = '/api/goods/save'
     return axios.post(url, {
-      token,
+      token: localStorage.token || '9898962464',
       bizId,
       goodsTypeId,
       qq,
@@ -24,7 +23,7 @@ class SellManage {
     const url = '/api/game/all-games'
     return axios.get(url, {
       params: {
-        token
+        token: localStorage.token || '9898962464'
       }
     })
       .then(res => {
@@ -36,7 +35,7 @@ class SellManage {
     const url = '/api/goodstype/get-list-biz'
     return axios.get(url, {
       params: {
-        token,
+        token: localStorage.token || '9898962464',
         bizId
       }
     })
@@ -54,7 +53,7 @@ class SellManage {
     const url = '/api/orders/user-sell-orders'
     return axios.get(url, {
       params: {
-        token,
+        token: localStorage.token || '9898962464',
         type
       }
     })
@@ -71,7 +70,7 @@ class SellManage {
     const url = '/api/goods/user-goods-list'
     return axios.get(url, {
       params: {
-        token,
+        token: localStorage.token || '9898962464',
         type
       }
     })
@@ -83,7 +82,7 @@ class SellManage {
   goodsDown(goodsId) {
     const url = '/api/goods/sold-out'
     return axios.post(url, {
-      token,
+      token: localStorage.token || '9898962464',
       goodsId
     })
       .then(res => {

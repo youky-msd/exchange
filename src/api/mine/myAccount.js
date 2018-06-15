@@ -1,5 +1,4 @@
 import axios from '../config'
-let token = localStorage.token
 
 class MyAccount {
   // 账单明细详情列表
@@ -7,7 +6,7 @@ class MyAccount {
     const url = '/api/financeaccount/bill-list'
     return axios.get(url, {
       params: {
-        token
+        token: localStorage.token || '9898962464'
       }
     })
       .then(res => {
@@ -19,7 +18,7 @@ class MyAccount {
     const url = '/api/financeaccount/month-week-statistics'
     return axios.get(url, {
       params: {
-        token
+        token: localStorage.token || '9898962464'
       }
     })
       .then(res => {

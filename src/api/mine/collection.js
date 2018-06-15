@@ -1,5 +1,4 @@
 import axios from '../config'
-let token = localStorage.token
 
 class Collection {
   // 获取收藏列表
@@ -7,7 +6,7 @@ class Collection {
     const url = '/api/collect/list'
     return axios.get(url, {
       params: {
-        token
+        token: localStorage.token || '9898962464'
       }
     })
       .then(res => {
@@ -18,7 +17,7 @@ class Collection {
   deleteCollection(collectId) {
     const url = '/api/collect/delete'
     return axios.post(url, {
-      token,
+      token: localStorage.token || '9898962464',
       collectId
     })
       .then(res => {

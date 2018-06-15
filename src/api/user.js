@@ -30,7 +30,7 @@ class User {
     const url = '/api/token/retrieve-token'
     return axios.get(url, {
       params: {
-        token: localStorage.token || ''
+        token: localStorage.token || '9898962464'
       }
     })
       .then(res => {
@@ -42,7 +42,7 @@ class User {
     const url = '/api/user/info'
     return axios.get(url, {
       params: {
-        token: localStorage.token || ''
+        token: localStorage.token || '9898962464'
       }
     })
       .then(res => {
@@ -54,7 +54,19 @@ class User {
     const url = '/api/financeaccount/balance-lock'
     return axios.get(url, {
       params: {
-        token: localStorage.token || ''
+        token: localStorage.token || '9898962464'
+      }
+    })
+      .then(res => {
+        return Promise.resolve(res.data)
+      })
+  }
+  // 登出
+  logout() {
+    const url = 'api/user/logout'
+    return axios.get(url, {
+      params: {
+        token: localStorage.token || '9898962464'
       }
     })
       .then(res => {

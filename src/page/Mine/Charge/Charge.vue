@@ -7,7 +7,7 @@
     </div>
     <div class="charge-input-wrapper">
       <div class="input-wrapper">
-        <input type="number" placeholder="请输入充值数量">
+        <input type="number" v-model="amount" placeholder="请输入充值数量">
       </div>
     </div>
     <div class="select-charge-type-wrapper">
@@ -24,26 +24,31 @@
     </div>
     <p class="charge-desc">注: 一元人民币等价一个DDM积分</p>
     <div class="btn-wrapper">
-      <div class="btn">充值</div>
+      <div class="btn" @click="charge">充值</div>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+// import { Toast } from 'vant'
 import NavBar from 'components/NavBar/NavBar'
 import AccountInfo from 'page/Mine/MyAccount/AccountInfo/AccountInfo'
+import { mapActions } from 'vuex'
+import Charge from 'api/mine/charge'
+const _charge = new Charge()
 
 export default {
   data () {
     return {
-      currentChargeType: 'alipay', // 当前充值类型
+      amount: '', // 充值金额
+      currentChargeType: 1, // 当前充值类型
       chargeTypeList: [{ // 充值类型列表
         text: '支付宝',
-        type: 'alipay'
+        type: 1
       },
       {
         text: '微信',
-        type: 'weixin'
+        type: 2
       }]
     }
   },
@@ -52,8 +57,18 @@ export default {
     AccountInfo
   },
   methods: {
+    ...mapActions(['setUser']),
+    // 选择充值类型
     selectChargeType(type) {
       this.currentChargeType = type
+    },
+    // 充值
+    charge() {
+      _charge.charge(this.amount, this.currentChargeType)
+        .then(res => {
+          console.log(res)
+          document.write(res)
+        })
     }
   }
 }

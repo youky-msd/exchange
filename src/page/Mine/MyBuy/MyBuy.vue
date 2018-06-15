@@ -20,7 +20,7 @@
           <div class="btn" @click.stop="cancelBuy(item.id)">取消求购</div>
         </template>
         <template slot="bottom">
-          <p class="bottom">简介: {{item.goodsDesc}}</p>
+          <p class="bottom">简介: {{item.description}}</p>
         </template>
       </GoodsListItem>
       <GoodsListItem class="goods-list-item" :detail="item" v-show="currentIndex === 1"
@@ -36,7 +36,7 @@
           <p class="price">¥ {{item.price}}</p>
         </template>
         <template slot="bottom">
-          <p class="bottom">简介: {{item.goodsDesc}}</p>
+          <p class="bottom">简介: {{item.description}}</p>
         </template>
       </GoodsListItem>
       <GoodsListItem class="goods-list-item" :detail="item" v-show="currentIndex === 2"
@@ -52,7 +52,7 @@
           <p class="price">¥ {{item.price}}</p>
         </template>
         <template slot="bottom">
-          <p class="bottom">简介: {{item.goodsDesc}}</p>
+          <p class="bottom">简介: {{item.description}}</p>
         </template>
       </GoodsListItem>
       <GoodsListItem class="goods-list-item" :detail="item" v-show="currentIndex === 3"
@@ -68,7 +68,7 @@
           <p class="user desc">{{item.desc}}</p>
         </template>
         <template slot="bottom">
-          <p class="bottom">简介: {{item.goodsDesc}}</p>
+          <p class="bottom">简介: {{item.description}}</p>
         </template>
       </GoodsListItem>
     </Scroll>

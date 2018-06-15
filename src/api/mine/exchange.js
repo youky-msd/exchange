@@ -1,5 +1,4 @@
 import axios from '../config'
-let token = localStorage.token
 
 class Exchange {
   // 提现申请接口
@@ -14,7 +13,7 @@ class Exchange {
   withdrawApply({amount, exchangeAmount, actualAmount, charge, channel, cardId}) {
     const url = '/api/withdrawcashapply/apply'
     return axios.post(url, {
-      token,
+      token: localStorage.token || '9898962464',
       amount,
       exchangeAmount,
       actualAmount,
@@ -31,7 +30,7 @@ class Exchange {
     const url = '/api/bankwallent/list'
     return axios.get(url, {
       params: {
-        token,
+        token: localStorage.token || '9898962464',
         type
       }
     })
@@ -43,7 +42,7 @@ class Exchange {
   addAddress(type, ddmAddress) {
     const url = '/api/bankwallent/save'
     return axios.post(url, {
-      token,
+      token: localStorage.token || '9898962464',
       type,
       ddmAddress
     })
@@ -56,7 +55,7 @@ class Exchange {
     const url = '/api/bankwallent/delete'
     return axios.get(url, {
       params: {
-        token,
+        token: localStorage.token || '9898962464',
         bankCardId
       }
     })
@@ -69,7 +68,7 @@ class Exchange {
     const url = '/api/sysconf/get-by-key'
     return axios.get(url, {
       params: {
-        token,
+        token: localStorage.token || '9898962464',
         key
       }
     })
@@ -82,7 +81,7 @@ class Exchange {
     const url = '/api/sysconf/get-by-key'
     return axios.get(url, {
       params: {
-        token,
+        token: localStorage.token || '9898962464',
         key
       }
     })

@@ -1,5 +1,4 @@
 import axios from './config'
-let token = localStorage.token
 
 class Quotation {
   // 行情列表
@@ -7,7 +6,7 @@ class Quotation {
     const url = 'api/quotation/quotation-list'
     return axios.get(url, {
       params: {
-        token
+        token: localStorage.token || '9898962464'
       }
     })
       .then(res => {

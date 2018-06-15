@@ -1,5 +1,4 @@
 import axios from '../config'
-let token = localStorage.token
 
 class Info {
   // 获取消息列表
@@ -7,7 +6,7 @@ class Info {
     const url = '/api/message/message-list'
     return axios.get(url, {
       params: {
-        token
+        token: localStorage.token || '9898962464'
       }
     })
       .then(res => {
@@ -18,7 +17,7 @@ class Info {
   deleteInfo(muid) {
     const url = '/api/message/delete-message'
     return axios.post(url, {
-      token,
+      token: localStorage.token || '9898962464',
       muid
     })
       .then(res => {

@@ -11,19 +11,36 @@
       <Tab :tabList="tabList" @toggleTab="toggleTab"></Tab>
     </div>
     <Scroll class="scroll">
-      <div class="list">
+      <div class="list" v-show="currentSelectIndex === 0">
         <ul>
-          <li class="list-item" v-for="item in exchangeLogList"
+          <li class="list-item" v-for="item in chargeLogList"
            :key="item.id" @click="addSelect(item)">
             <div class="select-wrapper" v-show="isShowEdit">
               <van-icon name="checked" class="icon" :class="{selected: item.selected}"/>
             </div>
             <div class="list-item-log-wrapper">
-              <p class="text"><span class="text-desc">您在售的物品</span><span class="text-name">{{item.name}}</span></p>
-              <p class="time">{{item.time}}</p>
+              <p class="text"><span class="text-desc">充值渠道</span><span class="text-name">{{item.channelName}}</span></p>
+              <p class="time">充值金额 {{item.exgAmount}}</p>
             </div>
             <div class="list-item-log-wrapper right">
-              <p class="status">{{item.status}}</p>
+              <p class="status">{{item.createTime}}</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="list" v-show="currentSelectIndex === 1">
+        <ul>
+          <li class="list-item" v-for="item in widthdrawLogList"
+           :key="item.id" @click="addSelect(item)">
+            <div class="select-wrapper" v-show="isShowEdit">
+              <van-icon name="checked" class="icon" :class="{selected: item.selected}"/>
+            </div>
+            <div class="list-item-log-wrapper">
+              <p class="text"><span class="text-desc">兑换方式</span><span class="text-name"> {{item.type === 2 ? 'DDM':'银行卡'}}</span></p>
+              <p class="time">兑换实际金额 {{item.exchangeAmount}}</p>
+            </div>
+            <div class="list-item-log-wrapper right">
+              <p class="status">{{item.createTime}}</p>
             </div>
           </li>
         </ul>
@@ -37,78 +54,29 @@ import NavBar from 'components/NavBar/NavBar'
 import Notice from 'components/Notice/Notice'
 import Scroll from 'components/Scroll/Scroll'
 import Tab from 'components/Tab/Tab'
+import Charge from 'api/mine/charge'
+const _charge = new Charge()
 
 export default {
+  mounted() {
+    this.getChargeLogList()
+    this.getWithdrawLogList()
+  },
   data () {
     return {
+      currentSelectIndex: 0, // 当前索引
       isShowEdit: false, // 是否打开编辑
       selectList: [], // 选中的列表
       tabList: ['充值记录', '兑换记录'], // tab 标题
-      exchangeLogList: [{ // 交易信息列表
+      chargeLogList: [{ // 充值记录列表
         name: '光明骑士',
         price: 88.4,
         status: '已出售',
         time: '2018-5-20 18:00',
         id: 1,
         selected: false
-      },
-      {
-        name: '光明骑士',
-        price: 88.4,
-        status: '已出售',
-        time: '2018-5-20 18:00',
-        id: 2,
-        selected: false
-      },
-      {
-        name: '光明骑士',
-        price: 88.4,
-        status: '已出售',
-        time: '2018-5-20 18:00',
-        id: 3,
-        selected: false
-      },
-      {
-        name: '光明骑士',
-        price: 88.4,
-        status: '已出售',
-        time: '2018-5-20 18:00',
-        id: 4,
-        selected: false
-      },
-      {
-        name: '光明骑士',
-        price: 88.4,
-        status: '已出售',
-        time: '2018-5-20 18:00',
-        id: 5,
-        selected: false
-      },
-      {
-        name: '光明骑士',
-        price: 88.4,
-        status: '已出售',
-        time: '2018-5-20 18:00',
-        id: 6,
-        selected: false
-      },
-      {
-        name: '光明骑士',
-        price: 88.4,
-        status: '已出售',
-        time: '2018-5-20 18:00',
-        id: 7,
-        selected: false
-      },
-      {
-        name: '光明骑士',
-        price: 88.4,
-        status: '已出售',
-        time: '2018-5-20 18:00',
-        id: 8,
-        selected: false
       }],
-      systemLogList: [] // 系统信息列表
+      widthdrawLogList: [] // 兑换列表
     }
   },
   components: {
@@ -120,6 +88,7 @@ export default {
   methods: {
     toggleTab(index) {
       // 根据索引判断取哪个list
+      this.currentSelectIndex = index
     },
     hasSelect(id) {
       this.selectList.some((item, index) => {
@@ -170,6 +139,22 @@ export default {
     // 取消编辑
     cancelEdit() {
       this.isShowEdit = false
+    },
+    // 充值记录
+    getChargeLogList() {
+      _charge.chargeLog()
+        .then(res => {
+          this.chargeLogList = res.result
+          console.log(res)
+        })
+    },
+    // 兑换记录
+    getWithdrawLogList() {
+      _charge.withdrawLog()
+        .then(res => {
+          this.widthdrawLogList = res.result
+          console.log(res)
+        })
     }
   }
 }

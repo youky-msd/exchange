@@ -1,5 +1,4 @@
 import axios from '../config'
-let token = localStorage.token
 
 class BuyManage {
   // 购买记录查询
@@ -10,7 +9,7 @@ class BuyManage {
     const url = '/api/orders/user-buy-orders'
     return axios.get(url, {
       params: {
-        token,
+        token: localStorage.token || '9898962464',
         type
       }
     })
