@@ -68,10 +68,12 @@ export default {
     collection() {
       _store.collection(this.detail.id)
         .then(res => {
-          Toast.success({
-            duration: 1000,
-            message: res.message
-          })
+          if (res.code === 0) {
+            Toast.success({
+              duration: 1000,
+              message: '收藏成功'
+            })
+          }
         })
     }
   }

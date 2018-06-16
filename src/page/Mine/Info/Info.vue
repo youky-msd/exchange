@@ -1,5 +1,12 @@
 <template>
   <div class="info">
+    <AlertWindow v-show="showDetail">
+      <div class="alert-detail">
+        <div class="title">{{currentInfoDetail.title}}</div>
+        <div class="detail">{{currentInfoDetail.content}}</div>
+        <div class="btn" @click="ok">确定</div>
+      </div>
+    </AlertWindow>
     <NavBar title="消息中心"></NavBar>
     <Notice></Notice>
     <div class="edit-wrapper">
@@ -14,7 +21,7 @@
       <div class="list">
         <ul>
           <li class="list-item" v-for="item in infoList"
-           :key="item.id" @click="addSelect(item)">
+           :key="item.id" @click="addSelectOrDetail(item)">
             <div class="select-wrapper" v-show="isShowEdit">
               <van-icon name="checked" class="icon" :class="{selected: item.selected}"/>
             </div>
@@ -37,6 +44,7 @@ import { Toast } from 'vant'
 import NavBar from 'components/NavBar/NavBar'
 import Notice from 'components/Notice/Notice'
 import Scroll from 'components/Scroll/Scroll'
+import AlertWindow from 'components/AlertWindow/AlertWindow'
 import Tab from 'components/Tab/Tab'
 import tool from 'common/js/tool'
 import Info from 'api/mine/info'
@@ -51,14 +59,17 @@ export default {
       isShowEdit: false, // 是否打开编辑
       selectList: [], // 选中的列表
       // tabList: ['交易消息', '系统消息'], // tab 标题
-      infoList: [] // 交易信息列表
+      infoList: [], // 交易信息列表
+      showDetail: false, // 是否显示消息详情
+      currentInfoDetail: {} // 当前消息
     }
   },
   components: {
     NavBar,
     Notice,
     Scroll,
-    Tab
+    Tab,
+    AlertWindow
   },
   methods: {
     toggleTab(index) {
@@ -71,6 +82,21 @@ export default {
           return true
         }
       })
+    },
+    // 关闭详情窗口
+    ok() {
+      this.showDetail = false
+    },
+    // 多重操作
+    addSelectOrDetail(selectList) {
+      if (this.isShowEdit) {
+        // 编辑操作
+        this.addSelect(selectList)
+      } else {
+        // 查看详情操作
+        this.showDetail = true
+        this.currentInfoDetail = selectList
+      }
     },
     // 选中操作
     addSelect(selectList) {
@@ -155,6 +181,17 @@ export default {
 
   .info
     // position relative
+    .alert-detail
+      position relative
+      height 100%
+      .title
+        padding-bottom 10px
+      .detail
+        line-height 20px
+      .btn
+        position absolute
+        btn-big()
+        bottom 0
     .edit-wrapper
       position absolute
       z-index 2

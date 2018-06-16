@@ -8,6 +8,15 @@ let tools = {
       return true
     }
   },
+  // qq
+  qq(str) {
+    let reg = /^[1-9][0-9]{4,14}$/
+    if (!reg.test(str)) {
+      return false
+    } else {
+      return true
+    }
+  },
   // 时间处理
   timestampToTime(timestamp) {
     let date = new Date(timestamp) // 时间戳为10位需*1000，时间戳为13位的话不需乘1000

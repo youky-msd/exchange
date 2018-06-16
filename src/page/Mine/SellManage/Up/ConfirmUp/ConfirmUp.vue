@@ -72,12 +72,14 @@ export default {
     submit() {
       _sellManage.up(this.formData)
         .then(res => {
-          Toast.success({
-            duration: 1000,
-            message: '上架成功'
-          })
-          this.$emit('close')
-          this.$router.back()
+          if (res.code === 0) {
+            Toast.success({
+              duration: 1000,
+              message: '上架成功'
+            })
+            this.$emit('close')
+            this.$router.back()
+          }
         })
     }
   }
@@ -123,9 +125,12 @@ export default {
           display flex
           justify-content center
           .text
+            flex 1
             display block
-            width 60px
+            text-align center
           .content
+            flex 1
+            text-align center
             padding-left 20px
     .btn-wrapper
       padding-top 80px

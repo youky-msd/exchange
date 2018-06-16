@@ -25,7 +25,7 @@
               <span class="price">¥: {{item.avgPrice}}</span>
               <!-- <span class="number">数量: {{item.number}}</span> -->
             </div>
-            <div class="quotation-content echarts" v-show="item.trendList.length > 1">
+            <router-link tag="div" to="/store" class="quotation-content echarts" v-show="item.trendList.length > 1">
               <trend
                 :data="item.trendList"
                 :stroke-width="5"
@@ -38,8 +38,8 @@
               <div class="trend" v-show="item.trendList.length > 1">
                 <p>{{item.upDown}}</p>
               </div>
-            </div>
-            <div class="quotation-content echarts" v-show="item.trendList.length <= 1">
+            </router-link>
+            <router-link tag="div" to="/store" class="quotation-content echarts" v-show="item.trendList.length <= 1">
               <trend
                 :data="[0,0]"
                 :stroke-width="5"
@@ -52,7 +52,7 @@
               <div class="trend" v-show="item.trendList.length <= 1">
                 <p>暂无数据</p>
               </div>
-            </div>
+            </router-link>
           </li>
         </ul>
       </div>

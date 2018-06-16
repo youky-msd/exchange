@@ -59,6 +59,10 @@ const routes = [{
   component: GoodsDetail
 },
 {
+  path: '/store/:gameId',
+  component: Store
+},
+{
   path: '/mine/info',
   component: Info
 },

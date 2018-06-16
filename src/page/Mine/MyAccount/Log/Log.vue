@@ -23,7 +23,7 @@
               <p class="time">充值金额 {{item.exgAmount}}</p>
             </div>
             <div class="list-item-log-wrapper right">
-              <p class="status">{{item.createTime}}</p>
+              <p class="status">{{getTime(item.createTime)}}</p>
             </div>
           </li>
         </ul>
@@ -40,7 +40,7 @@
               <p class="time">兑换实际金额 {{item.exchangeAmount}}</p>
             </div>
             <div class="list-item-log-wrapper right">
-              <p class="status">{{item.createTime}}</p>
+              <p class="status">{{getTime(item.createTime)}}</p>
             </div>
           </li>
         </ul>
@@ -53,6 +53,7 @@
 import NavBar from 'components/NavBar/NavBar'
 import Notice from 'components/Notice/Notice'
 import Scroll from 'components/Scroll/Scroll'
+import tool from 'common/js/tool.js'
 import Tab from 'components/Tab/Tab'
 import Charge from 'api/mine/charge'
 const _charge = new Charge()
@@ -155,6 +156,10 @@ export default {
           this.widthdrawLogList = res.result
           console.log(res)
         })
+    },
+    // 处理时间
+    getTime(timestamp) {
+      return tool.timestampToTime(timestamp)
     }
   }
 }

@@ -27,7 +27,7 @@
       <p class="desc">3.上架后如取消求购,金额将24小时返回账户</p>
     </div>
     <div class="buy-bottom-wrapper">
-      <p class="price">应付: <span class="num">DDM积分</span></p>
+      <p class="price">应付: <span class="num">{{formParams.purchasePrice * formParams.count}} DDM积分</span></p>
       <div class="buy-btn" @click="purchaseOrder">支付</div>
     </div>
   </div>
@@ -84,14 +84,16 @@ export default {
       this.formParams.totalPrice = parseInt(this.formParams.count) * parseInt(this.formParams.purchasePrice)
       _store.purchaseOrder(this.formParams)
         .then(res => {
-          Toast.success({
-            duration: 1000,
-            message: '求购成功'
-          })
-          this.setBalance()
-          setTimeout(() => {
-            this.$router.back()
-          }, 500)
+          if (res.code === 0) {
+            Toast.success({
+              duration: 1000,
+              message: '求购成功'
+            })
+            this.setBalance()
+            setTimeout(() => {
+              this.$router.back()
+            }, 500)
+          }
         })
     }
   }

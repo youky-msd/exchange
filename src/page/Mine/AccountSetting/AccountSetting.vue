@@ -10,12 +10,14 @@
         </div>
         <router-link to="/mine/account-setting/modify-nickname" class="btn linear">修改昵称</router-link>
       </div>
-      <div class="user-info-item">
+      <!-- <div class="user-info-item">
         <div class="user-info-wrapper">
           <span class="value">头像</span>
         </div>
-        <span class="btn">设置头像</span>
-      </div>
+        <van-uploader :after-read="onRead">
+          <span class="btn">设置头像</span>
+        </van-uploader>
+      </div> -->
       <div class="user-info-item">
         <div class="user-info-wrapper">
           <span class="value">接收推送通知</span>
@@ -59,6 +61,7 @@ export default {
     Notice
   },
   methods: {
+    // 退出登录
     logout() {
       _user.logout()
         .then(res => {
@@ -71,6 +74,10 @@ export default {
             this.$router.push('/login')
           }
         })
+    },
+    // 头像设置
+    onRead(file) {
+      console.log(file)
     }
   }
 }

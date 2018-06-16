@@ -106,9 +106,27 @@ export default {
     ConfirmUp
   },
   methods: {
+    // 判断是否填写
+    judge() {
+      let flag = true
+      for (const key in this.formParam) {
+        const element = this.formParam[key]
+        if (!element) {
+          flag = false
+        }
+      }
+      return flag
+    },
     // 打开确认窗口
     openWindow() {
-      this.showWindow = true
+      if (this.judge()) {
+        this.showWindow = true
+      } else {
+        Toast({
+          duration: 1000,
+          message: '请填写完整'
+        })
+      }
     },
     // 关闭确认窗口
     closeWindow() {

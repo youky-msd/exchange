@@ -13,9 +13,10 @@
         </div>
         <div class="nav-wrapper">
           <ul>
-            <router-link :to="{path: '/store'}" tag="li" class="nav-item">
-              <img src="../../common/test/nav1.png" alt="">
-              <p class="text">绝地求生</p>
+            <router-link :to="{path: `/store/${item.gameId}`}" tag="li" class="nav-item"
+            v-for="(item, index) in HotGameList" :key="index">
+              <img v-lazy="item.gameImage" alt="">
+              <p class="text">{{item.gameName}}</p>
             </router-link>
           </ul>
         </div>
@@ -83,7 +84,7 @@ export default {
     getHotGame() {
       _index.getHotGame()
         .then(res => {
-          // console.log(res)
+          console.log(res)
           this.HotGameList = res.result
         })
     },

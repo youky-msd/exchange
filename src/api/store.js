@@ -6,7 +6,8 @@ class Store {
     const url = '/api/goodstype/list'
     return axios.get(url, {
       params: {
-        token: localStorage.token || '9898962464'
+        token: localStorage.token || '9898962464',
+        pageSize: 50
       }
     })
       .then(res => {
@@ -32,6 +33,7 @@ class Store {
     return axios.get(url, {
       params: {
         token: localStorage.token || '9898962464',
+        pageSize: 50,
         goodsTypeId
       }
     })
@@ -45,6 +47,7 @@ class Store {
     return axios.get(url, {
       params: {
         token: localStorage.token || '9898962464',
+        pageSize: 50,
         goodsTypeId
       }
     })
@@ -58,6 +61,7 @@ class Store {
     return axios.get(url, {
       params: {
         token: localStorage.token || '9898962464',
+        pageSize: 50,
         goodsTypeId
       }
     })
@@ -84,6 +88,7 @@ class Store {
     return axios.get(url, {
       params: {
         token: localStorage.token || '9898962464',
+        pageSize: 50,
         status
       }
     })
