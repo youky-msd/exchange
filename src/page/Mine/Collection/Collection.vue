@@ -118,8 +118,6 @@ export default {
           this.list.forEach(item => {
             item.selected = false
           })
-          console.log(this.list)
-          console.log(res)
         })
     },
     deleteCollection() {

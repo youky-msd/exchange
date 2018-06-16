@@ -11,7 +11,7 @@
       v-for="item in sellList" :key="item.id" v-show="currentIndex === 0">
         <template slot="top">
           <div class="top-wrapper">
-            <p class="time">{{item.createTime}}</p>
+            <p class="time">{{getTime(item.createTime)}}</p>
             <p class="order">{{item.orderNo}}</p>
           </div>
         </template>
@@ -32,7 +32,7 @@
       v-for="item in exchangingList" :key="item.id" v-show="currentIndex === 1">
         <template slot="top">
           <div class="top-wrapper">
-            <p class="time">{{item.createTime}}</p>
+            <p class="time">{{getTime(item.createTime)}}</p>
             <p class="order">{{item.orderNo}}</p>
           </div>
         </template>
@@ -50,14 +50,14 @@
       v-for="item in hasSellList" :key="item.id" v-show="currentIndex === 2">
         <template slot="top">
           <div class="top-wrapper">
-            <p class="time">{{item.createTime}}</p>
+            <p class="time">{{getTime(item.createTime)}}</p>
             <p class="order">{{item.orderNo}}</p>
           </div>
         </template>
         <template slot="content">
           <p class="name">{{item.gameName}}</p>
           <p class="name">{{item.goodsName}}</p>
-          <p class="user desc">{{item.goodsPrice}}DDM积分*1{{item.sellCnt}}</p>
+          <p class="user desc">{{item.goodsPrice}}DDM积分 * {{item.sellCnt}}</p>
         </template>
         <template slot="bottom">
           <div class="desc-wrapper">
@@ -76,7 +76,7 @@
       v-for="item in downList" :key="item.id" v-show="currentIndex === 3">
         <template slot="top">
           <div class="top-wrapper">
-            <p class="time">{{item.createTime}}</p>
+            <p class="time">{{getTime(item.createTime)}}</p>
             <p class="order">{{item.orderNo}}</p>
           </div>
         </template>
@@ -94,7 +94,7 @@
       v-for="item in cancelList" :key="item.id" v-show="currentIndex === 4">
         <template slot="top">
           <div class="top-wrapper">
-            <p class="time">{{item.createTime}}</p>
+            <p class="time">{{getTime(item.createTime)}}</p>
             <p class="order">{{item.orderNo}}</p>
           </div>
         </template>
@@ -117,6 +117,7 @@ import NavBar from 'components/NavBar/NavBar'
 import GoodsListItem from 'components/GoodsListItem/GoodsListItem'
 import Scroll from 'components/Scroll/Scroll'
 import Tab from 'components/Tab/Tab'
+import tool from 'common/js/tool'
 import SellManage from 'api/mine/sellManage'
 const _sellManage = new SellManage()
 
@@ -155,7 +156,6 @@ export default {
     getSellList() {
       _sellManage.getGoodsManageList(1)
         .then(res => {
-          console.log(res)
           this.sellList = res.result
         })
     },
@@ -171,7 +171,6 @@ export default {
       _sellManage.getSellManageLogList(2)
         .then(res => {
           this.hasSellList = res.result
-          console.log(this.hasSellList)
         })
     },
     // 已下架列表
@@ -200,6 +199,10 @@ export default {
             this.getSellList()
           }
         })
+    },
+    // 时间戳处理
+    getTime(timestamp) {
+      return tool.timestampToTimeHM(timestamp)
     }
   }
 }

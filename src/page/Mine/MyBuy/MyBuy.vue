@@ -8,7 +8,7 @@
       v-for="item in buylist" :key="item.id">
         <template slot="top">
           <div class="top">
-            <p>{{item.createTime}}</p>
+            <p>{{getTime(item.createTime)}}</p>
             <p>订单号: {{item.orderNo}}</p>
           </div>
         </template>
@@ -27,7 +27,7 @@
       v-for="item in exchangingList" :key="item.id">
         <template slot="top">
           <div class="top">
-            <p>{{item.createTime}}</p>
+            <p>{{getTime(item.createTime)}}</p>
             <p>订单号: {{item.orderNo}}</p>
           </div>
         </template>
@@ -43,7 +43,7 @@
       v-for="item in doneList" :key="item.id">
         <template slot="top">
           <div class="top">
-            <p>{{item.createTime}}</p>
+            <p>{{getTime(item.createTime)}}</p>
             <p>订单号: {{item.orderNo}}</p>
           </div>
         </template>
@@ -59,7 +59,7 @@
       v-for="item in cancelList" :key="item.id">
         <template slot="top">
           <div class="top">
-            <p>{{item.createTime}}</p>
+            <p>{{getTime(item.createTime)}}</p>
             <p>订单号: {{item.orderNo}}</p>
           </div>
         </template>
@@ -81,6 +81,7 @@ import NavBar from 'components/NavBar/NavBar'
 import Scroll from 'components/Scroll/Scroll'
 import Tab from 'components/Tab/Tab'
 import GoodsListItem from 'components/GoodsListItem/GoodsListItem'
+import tool from 'common/js/tool'
 import MyBuy from 'api/mine/myBuy'
 const _myBuy = new MyBuy()
 
@@ -119,7 +120,6 @@ export default {
       _myBuy.getWantToBuyList(1)
         .then(res => {
           this.buylist = res.result
-          console.log(res)
         })
     },
     // 交易中列表
@@ -127,7 +127,6 @@ export default {
       _myBuy.getWantToBuyList(2)
         .then(res => {
           this.exchangingList = res.result
-          console.log(res)
         })
     },
     // 已完成列表
@@ -135,7 +134,6 @@ export default {
       _myBuy.getWantToBuyList(3)
         .then(res => {
           this.doneList = res.result
-          console.log(res)
         })
     },
     // 已取消列表
@@ -143,7 +141,6 @@ export default {
       _myBuy.getWantToBuyList(4)
         .then(res => {
           this.cancelList = res.result
-          console.log(res)
         })
     },
     // 取消求购
@@ -156,9 +153,12 @@ export default {
               message: '已取消求购'
             })
             this.getBuyList()
-            console.log(res)
           }
         })
+    },
+    // 时间戳处理
+    getTime(timestamp) {
+      return tool.timestampToTimeHM(timestamp)
     }
   }
 }

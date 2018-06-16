@@ -32,15 +32,18 @@
       </div>
     </div>
     <div class="logout-wrapper">
-      <div class="logout">退出当前账号</div>
+      <div class="logout" @click="logout">退出当前账号</div>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import { Toast } from 'vant'
 import NavBar from 'components/NavBar/NavBar'
 import Notice from 'components/Notice/Notice'
 import { mapGetters } from 'vuex'
+import User from 'api/user'
+const _user = new User()
 
 export default {
   data () {
@@ -54,6 +57,21 @@ export default {
   components: {
     NavBar,
     Notice
+  },
+  methods: {
+    logout() {
+      _user.logout()
+        .then(res => {
+          if (res.code === 0) {
+            Toast.success({
+              duration: 500,
+              message: '已注销'
+            })
+            localStorage.removeItem('token')
+            this.$router.push('/login')
+          }
+        })
+    }
   }
 }
 </script>

@@ -7,7 +7,7 @@
       v-for="item in buyingList" :key="item.id">
         <template slot="top">
           <div class="top">
-            <p>{{item.createTime}}</p>
+            <p>{{getTime(item.createTime)}}</p>
             <p>订单号: {{item.orderNo}}</p>
           </div>
         </template>
@@ -27,7 +27,7 @@
       v-for="item in buyDoneList" :key="item.id">
         <template slot="top">
           <div class="top">
-            <p>{{item.createTime}}</p>
+            <p>{{getTime(item.createTime)}}</p>
             <p>订单号: {{item.orderNo}}</p>
           </div>
         </template>
@@ -44,7 +44,7 @@
       v-for="item in buyCancelList" :key="item.id">
         <template slot="top">
           <div class="top">
-            <p>{{item.createTime}}</p>
+            <p>{{getTime(item.createTime)}}</p>
             <p>订单号: {{item.orderNo}}</p>
           </div>
         </template>
@@ -66,6 +66,7 @@ import NavBar from 'components/NavBar/NavBar'
 import GoodsListItem from 'components/GoodsListItem/GoodsListItem'
 import Scroll from 'components/Scroll/Scroll'
 import Tab from 'components/Tab/Tab'
+import tool from 'common/js/tool'
 import BuyManage from 'api/mine/buyManage'
 const _buyManage = new BuyManage()
 
@@ -102,14 +103,12 @@ export default {
       _buyManage.buyLogList(1)
         .then(res => {
           this.buyingList = res.result
-          console.log(res)
         })
     },
     // 购买完成列表
     getBuyDoneList() {
       _buyManage.buyLogList(2)
         .then(res => {
-          console.log(res)
           this.buyDoneList = res.result
         })
     },
@@ -118,8 +117,11 @@ export default {
       _buyManage.buyLogList(3)
         .then(res => {
           this.buyCancelList = res.result
-          console.log(res)
         })
+    },
+    // 时间戳处理
+    getTime(timestamp) {
+      return tool.timestampToTimeHM(timestamp)
     }
   }
 }

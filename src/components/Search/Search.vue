@@ -42,7 +42,6 @@ export default {
     },
     // 回填
     backWrite() {
-      console.log(this.$route.path)
       if (this.$route.query.search) {
         this.value = this.$route.query.search
       }
