@@ -6,6 +6,16 @@ const mutations = {
   },
   [types.SET_BALANCE](state, balance) {
     state.user.balance = balance
+  },
+  [types.SET_INFO_NO](state, flag) {
+    console.log(flag)
+    if (!flag) {
+      ++state.infoNum
+      localStorage.infoNum = JSON.stringify(state.infoNum)
+    } else {
+      state.infoNum = 0
+      localStorage.infoNum = JSON.stringify(state.infoNum)
+    }
   }
 }
 

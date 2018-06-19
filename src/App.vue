@@ -6,7 +6,7 @@
 
 <script type="text/ecmascript-6">
 import Layout from 'components/Layout/Layout'
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 
 export default {
   mounted() {
@@ -23,9 +23,12 @@ export default {
   },
   methods: {
     ...mapActions(['setUser']),
+    ...mapMutations({
+      setInfoNo: 'SET_INFO_NO'
+    }),
     initWebpack() {
       // 初始化websocket
-      const wsuri = 'ws://47.104.254.248:8080/api/message/message-count'
+      const wsuri = `ws://47.104.254.248:38888?token=${localStorage.token}`
       this.websock = new WebSocket(wsuri)
       // 这里面的this都指向vue
       this.websock.onopen = this.websocketopen
@@ -40,6 +43,7 @@ export default {
     // 数据接收
     websocketonmessage(e) {
       console.log(e)
+      this.setInfoNo()
       this.productinfos = JSON.parse(e.data)
     },
     // 关闭

@@ -10,6 +10,7 @@
 <script type="text/ecmascript-6">
 import Search from 'components/Search/Search'
 import InfoLink from 'page/Index/TopSearch/InfoLink/InfoLink'
+
 export default {
   data () {
     return {

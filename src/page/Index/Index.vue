@@ -84,7 +84,6 @@ export default {
     getHotGame() {
       _index.getHotGame()
         .then(res => {
-          console.log(res)
           this.HotGameList = res.result
         })
     },
