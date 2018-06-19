@@ -18,7 +18,7 @@
         <template slot="content">
           <p class="name">{{item.gameName}}</p>
           <p class="name">{{item.goodsName}}</p>
-          <p class="user desc">{{item.goodsPrice}}DDM积分*1{{item.sellCnt}}</p>
+          <p class="user desc">{{item.goodsPrice}}DDM积分 * {{item.sellCnt}}</p>
         </template>
         <template slot="btn">
           <div class="btn" @click="down(item.goodsId)">下架</div>
@@ -39,7 +39,7 @@
         <template slot="content">
           <p class="name">{{item.gameName}}</p>
           <p class="name">{{item.goodsName}}</p>
-          <p class="user desc">{{item.goodsPrice}}DDM积分*1{{item.sellCnt}}</p>
+          <p class="user desc">{{item.goodsPrice}}DDM积分 * {{item.sellCnt}}</p>
         </template>
         <template slot="bottom">
           <p class="desc">{{item.goodsDesc}}</p>
@@ -62,8 +62,8 @@
         <template slot="bottom">
           <div class="desc-wrapper">
             <p class="desc-item">简介: {{item.goodsDesc}}</p>
-            <p class="desc-item">商品上架时间: {{item.createTime}}</p>
-            <p class="desc-item">商品出售时间: {{item.sellTime}}</p>
+            <p class="desc-item">商品上架时间: {{getTime(item.createTime)}}</p>
+            <p class="desc-item">商品出售时间: {{getTime(item.sellTime)}}</p>
             <p class="desc-item">商品出售价格: {{item.goodsPrice}}</p>
             <p class="desc-item">商品出售价格: {{item.goodsPrice}}</p>
             <p class="desc-item">商品出售服务费: {{item.charge}}</p>
@@ -83,7 +83,7 @@
         <template slot="content">
           <p class="name">{{item.gameName}}</p>
           <p class="name">{{item.goodsName}}</p>
-          <p class="user desc">{{item.goodsPrice}}DDM积分*1{{item.sellCnt}}</p>
+          <p class="user desc">{{item.goodsPrice}}DDM积分 * {{item.sellCnt}}</p>
         </template>
         <template slot="bottom">
           <p class="desc">{{item.goodsDesc}}</p>
@@ -101,7 +101,7 @@
         <template slot="content">
           <p class="name">{{item.gameName}}</p>
           <p class="name">{{item.goodsName}}</p>
-          <p class="user desc">{{item.goodsPrice}}DDM积分*1{{item.sellCnt}}</p>
+          <p class="user desc">{{item.goodsPrice}}DDM积分 * {{item.sellCnt}}</p>
         </template>
         <template slot="bottom">
           <p class="desc">{{item.goodsDesc}}</p>

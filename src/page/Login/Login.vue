@@ -55,8 +55,8 @@ export default {
             duration: 1000,
             message: '登录成功'
           })
-          this.setUser()
           this.$router.push('/')
+          this.setUser()
         })
     },
     // 发送验证码

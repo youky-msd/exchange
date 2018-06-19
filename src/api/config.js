@@ -9,7 +9,7 @@ const _user = new User()
 axios.defaults.timeout = 5000
 // const debug = process.env.NODE_ENV === 'production'
 
-axios.defaults.baseURL = 'http://47.104.254.248:8080'
+axios.defaults.baseURL = 'http://ex.wan855.cn'
 
 axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
 

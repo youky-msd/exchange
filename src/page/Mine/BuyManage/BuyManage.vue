@@ -14,7 +14,7 @@
         <template slot="content">
           <p class="user desc">{{item.gameName}}</p>
           <p class="user desc">{{item.goodsName}}</p>
-          <p class="price">¥ {{item.actPrice}}</p>
+          <p class="price">¥ {{item.orderPrice}}</p>
         </template>
         <template slot="btn">
           <div class="btn" @click.stop="openSupplyWindow(item.id)">取消购买</div>
@@ -34,7 +34,7 @@
         <template slot="content">
           <p class="user desc">{{item.gameName}}</p>
           <p class="user desc">{{item.goodsName}}</p>
-          <p class="price">¥ {{item.actPrice}}</p>
+          <p class="price">¥ {{item.orderPrice}}</p>
         </template>
         <template slot="bottom">
           <p class="bottom">简介: {{item.goodsDesc}}</p>
@@ -51,7 +51,7 @@
         <template slot="content">
           <p class="user desc">{{item.gameName}}</p>
           <p class="user desc">{{item.goodsName}}</p>
-          <p class="price">¥ {{item.actPrice}}</p>
+          <p class="price">¥ {{item.orderPrice}}</p>
         </template>
         <template slot="bottom">
           <p class="bottom">简介: {{item.goodsDesc}}</p>
