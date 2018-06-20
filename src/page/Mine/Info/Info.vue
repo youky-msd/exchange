@@ -96,6 +96,7 @@ export default {
         // 查看详情操作
         this.showDetail = true
         this.currentInfoDetail = selectList
+        this.changeInfoStatus(selectList.id)
       }
     },
     // 选中操作
@@ -166,6 +167,13 @@ export default {
             this.getInfoList()
             this.selectList = []
           }
+        })
+    },
+    // 改变消息状态
+    changeInfoStatus(id) {
+      _info.changeInfoStatus(id)
+        .then(res => {
+
         })
     },
     // 时间戳处理

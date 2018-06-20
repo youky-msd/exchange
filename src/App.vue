@@ -10,9 +10,8 @@ import { mapActions } from 'vuex'
 
 export default {
   mounted() {
-    if (localStorage.token) {
-      this.setUser()
-    }
+    this.setUser()
+    this.setNoReadNum()
   },
   data () {
     return {
@@ -23,7 +22,7 @@ export default {
     Layout
   },
   methods: {
-    ...mapActions(['setUser'])
+    ...mapActions(['setUser', 'setNoReadNum'])
   }
 }
 </script>

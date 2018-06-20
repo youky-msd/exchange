@@ -6,24 +6,41 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters } from 'vuex'
+import Info from 'api/mine/info'
+const _info = new Info()
 
 export default {
+  mounted() {
+    // this.interval()
+  },
   data () {
     return {
-
     }
   },
   computed: {
     ...mapGetters(['infoNum'])
   },
   methods: {
-    ...mapMutations({
-      setInfoNo: 'SET_INFO_NO'
-    }),
+    // ...mapMutations({
+    //   setInfoNo: 'SET_INFO_NO'
+    // }),
     clear() {
       this.$router.push('/mine/info')
-      this.setInfoNo(true)
+      // this.setInfoNo(true)
+    },
+    // 获取未读数量 轮询操作
+    interval() {
+      this.getNoReadNum()
+      setInterval(() => {
+        this.getNoReadNum()
+      }, 5000)
+    },
+    getNoReadNum() {
+      _info.getNoReadNum()
+        .then(res => {
+          this.infoNum = res.result
+        })
     }
   },
   components: {
@@ -43,8 +60,8 @@ export default {
       position absolute
       font-size $font-size-small
       color #fff
-      top 0
-      right 0
+      top -5px
+      right -2px
       padding 3px 4px
       background-color red
       border-radius 5px

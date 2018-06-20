@@ -1,6 +1,8 @@
 import * as types from './mutation-types'
 import User from 'api/user'
+import Info from 'api/mine/info'
 const _user = new User()
+const _info = new Info()
 let user = {}
 
 export const setUser = ({ commit }) => {
@@ -18,7 +20,7 @@ export const setUser = ({ commit }) => {
       }
       commit(types.SET_USER, user)
 
-      initWebpack(commit) // websocket
+      // initWebpack(commit) // websocket
     })
 }
 export const setBalance = ({ commit }) => {
@@ -28,24 +30,33 @@ export const setBalance = ({ commit }) => {
     })
 }
 
-function initWebpack(commit) {
-  console.log('执行websocket')
-  // 初始化websocket
-  const wsuri = `ws://47.104.254.248:38888?token=${localStorage.token}`
-  let websock = new WebSocket(wsuri)
+export const setNoReadNum = ({ commit }) => {
+  setInterval(() => {
+    _info.getNoReadNum()
+      .then(res => {
+        commit(types.SET_INFO_NO, res.result)
+      })
+  }, 2000)
+}
 
-  websock.onopen = websocketopen
-  websock.onmessage = function(e) {
-    console.log(e)
-    commit(types.SET_INFO_NO)
-  }
-  websock.onclose = websocketclose
-  websock.onerror = websocketerror
-}
+// function initWebpack(commit) {
+//   console.log('执行websocket')
+//   // 初始化websocket
+//   const wsuri = `ws://47.104.254.248:38888?token=${localStorage.token}`
+//   let websock = new WebSocket(wsuri)
+
+//   websock.onopen = websocketopen
+//   websock.onmessage = function(e) {
+//     console.log(e)
+//     commit(types.SET_INFO_NO)
+//   }
+//   websock.onclose = websocketclose
+//   websock.onerror = websocketerror
+// }
 // 打开
-function websocketopen() {
-  console.log('WebSocket连接成功')
-}
+// function websocketopen() {
+//   console.log('WebSocket连接成功')
+// }
 // 数据接收
 // function websocketonmessage(e) {
 //   console.log(e)
@@ -53,10 +64,10 @@ function websocketopen() {
 //   this.productinfos = JSON.parse(e.data)
 // }
 // 关闭
-function websocketclose() {
-  console.log('WebSocket关闭')
-}
+// function websocketclose() {
+//   console.log('WebSocket关闭')
+// }
 // 失败
-function websocketerror() {
-  console.log('WebSocket连接失败')
-}
+// function websocketerror() {
+//   console.log('WebSocket连接失败')
+// }
