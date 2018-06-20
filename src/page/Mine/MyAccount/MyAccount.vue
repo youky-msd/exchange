@@ -22,20 +22,22 @@
     </div>
     <div class="my-account-detail-wrapper list">
       <p class="title">账单明细</p>
-      <div class="my-account-containter" v-for="(item, index) in accountDetailList" :key="index">
-        <div class="detail-item">
-          <!-- <p class="time">时间</p> -->
-          <div class="time-list-wrapper">
-            <p class="item-list-item">{{getTime(item.createTime)}}</p>
+      <Scroll class="scroll">
+        <div class="my-account-containter" v-for="(item, index) in accountDetailList" :key="index">
+          <div class="detail-item">
+            <!-- <p class="time">时间</p> -->
+            <div class="time-list-wrapper">
+              <p class="item-list-item">{{getTime(item.createTime)}}</p>
+            </div>
+          </div>
+          <div class="detail-item">
+            <!-- <p class="time">明细(DDM积分)</p> -->
+            <div class="time-list-wrapper">
+              <p class="item-list-item">{{item.status === 1 ? '收入' : '支出'}} {{item.billAmount}}积分</p>
+            </div>
           </div>
         </div>
-        <div class="detail-item">
-          <!-- <p class="time">明细(DDM积分)</p> -->
-          <div class="time-list-wrapper">
-            <p class="item-list-item">{{item.billAmount}}</p>
-          </div>
-        </div>
-      </div>
+      </Scroll>
     </div>
     <div class="btn-wrapper">
       <router-link to="/mine/exchange" class="btn left">兑换</router-link>
@@ -48,6 +50,7 @@
 import NavBar from 'components/NavBar/NavBar'
 import AccountInfo from 'page/Mine/MyAccount/AccountInfo/AccountInfo'
 import tool from 'common/js/tool'
+import Scroll from 'components/Scroll/Scroll'
 import MyAccount from 'api/mine/myAccount'
 const _myAccount = new MyAccount()
 
@@ -66,7 +69,8 @@ export default {
   },
   components: {
     NavBar,
-    AccountInfo
+    AccountInfo,
+    Scroll
   },
   methods: {
     // 选择 日 / 月
@@ -153,6 +157,10 @@ export default {
         top 310px
         bottom 60px
         height auto
+        .scroll
+          fixed-all()
+          top 40px
+          bottom 0
       .title
         text-align center
         line-height 40px
@@ -172,7 +180,7 @@ export default {
             font-size $font-size-small
             .item-list-item
               line-height 20px
-              text-indent 60px
+              text-align center
           .time
             line-height 30px
     .btn-wrapper

@@ -18,14 +18,14 @@
         <template slot="content">
           <p class="name">{{item.gameName}}</p>
           <p class="name">{{item.goodsName}}</p>
-          <p class="user desc">{{item.goodsPrice}}DDM积分 * {{item.sellCnt}}</p>
+          <p class="user desc">{{item.price}}DDM积分</p>
         </template>
         <template slot="btn">
           <div class="btn" @click="down(item.goodsId)">下架</div>
         </template>
-        <template slot="bottom">
+        <!-- <template slot="bottom">
           <p class="desc">{{item.goodsDesc}}</p>
-        </template>
+        </template> -->
       </GoodsListItem>
       <!-- 交易中 -->
       <GoodsListItem class="goods-list-item" :detail="item"
@@ -41,9 +41,9 @@
           <p class="name">{{item.goodsName}}</p>
           <p class="user desc">{{item.goodsPrice}}DDM积分 * {{item.sellCnt}}</p>
         </template>
-        <template slot="bottom">
+        <!-- <template slot="bottom">
           <p class="desc">{{item.goodsDesc}}</p>
-        </template>
+        </template> -->
       </GoodsListItem>
       <!-- 已售 -->
       <GoodsListItem class="goods-list-item" :detail="item"
@@ -61,7 +61,7 @@
         </template>
         <template slot="bottom">
           <div class="desc-wrapper">
-            <p class="desc-item">简介: {{item.goodsDesc}}</p>
+            <!-- <p class="desc-item">简介: {{item.goodsDesc}}</p> -->
             <p class="desc-item">商品上架时间: {{getTime(item.createTime)}}</p>
             <p class="desc-item">商品出售时间: {{getTime(item.sellTime)}}</p>
             <p class="desc-item">商品出售价格: {{item.goodsPrice}}</p>
@@ -83,11 +83,11 @@
         <template slot="content">
           <p class="name">{{item.gameName}}</p>
           <p class="name">{{item.goodsName}}</p>
-          <p class="user desc">{{item.goodsPrice}}DDM积分 * {{item.sellCnt}}</p>
+          <p class="user desc">{{item.price}}DDM积分</p>
         </template>
-        <template slot="bottom">
+        <!-- <template slot="bottom">
           <p class="desc">{{item.goodsDesc}}</p>
-        </template>
+        </template> -->
       </GoodsListItem>
       <!-- 已取消 -->
       <GoodsListItem class="goods-list-item" :detail="item"
@@ -103,9 +103,9 @@
           <p class="name">{{item.goodsName}}</p>
           <p class="user desc">{{item.goodsPrice}}DDM积分 * {{item.sellCnt}}</p>
         </template>
-        <template slot="bottom">
+        <!-- <template slot="bottom">
           <p class="desc">{{item.goodsDesc}}</p>
-        </template>
+        </template> -->
       </GoodsListItem>
     </Scroll>
   </div>

@@ -4,7 +4,7 @@
       <van-icon class="logo" name="search" />
       <!-- <span class="logo"></span> -->
       <form action="#" onsubmit="return false">
-        <input v-model="value" type="search" class="search-input" placeholder="输入相关搜索关键词" @keyup.enter="search">
+        <input v-model="value" type="search" class="search-input" placeholder="输入相关道具关键词搜索" @keyup.enter="search">
       </form>
     </div>
   </div>

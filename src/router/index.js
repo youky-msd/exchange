@@ -46,6 +46,10 @@ const routes = [{
     component: Store
   },
   {
+    path: '/store/:gameId',
+    component: Store
+  },
+  {
     path: '/quotation',
     component: Quotation
   },
@@ -57,10 +61,6 @@ const routes = [{
 {
   path: '/store/goods-detail/:goodsTypeId',
   component: GoodsDetail
-},
-{
-  path: '/store/:gameId',
-  component: Store
 },
 {
   path: '/mine/info',

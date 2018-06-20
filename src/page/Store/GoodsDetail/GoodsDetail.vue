@@ -10,7 +10,7 @@
     <AlertWindow class="alert-window" v-show="showSupplyWindow">
       <p class="title">供应提示</p>
       <div class="desc-wrapper">
-        <p class="desc">请确认是否有此商品,并愿意出售给对方.如发现您无法供应此商品,将会有几率剥夺您的供应资格.</p>
+        <p class="desc">您已经选择了为求购者供应此商品，请确认是否继续操作？点击“供应”后，系统将把求购者信息发送到您的消息中心，请注意查收。请在规定时间72小时内完成交易，如无法完成，请联系客服终止本次交易。</p>
         <p class="desc">请慎重选择</p>
       </div>
       <div class="btn-wrapper">
@@ -20,7 +20,7 @@
     </AlertWindow>
     <!-- 底部供应按钮 -->
     <router-link tag="div" :to="{path: `/store/want-to-buy/${$route.params.goodsTypeId}`}" class="supply-bottom-btn-wrapper" v-show="currentIndex === 1">
-      <div class="btn">供应</div>
+      <div class="btn">发起求购</div>
     </router-link>
     <NavBar :title="propertyDetail.name"></NavBar>
     <!-- 右上消息按钮 -->
@@ -30,7 +30,7 @@
     <!-- 商品信息 -->
     <GoodsDetailTitle :data="propertyDetail">
       <p class="name">{{propertyDetail.name}}</p>
-      <p class="price">参考价格: <span class="num">¥ {{propertyDetail.price}}</span></p>
+      <p class="price">参考价格: <span class="num">{{propertyDetail.price}}DDM积分</span></p>
       <p class="week-sell">本周出售: <span class="num">{{propertyDetail.weekSoldNum}}</span></p>
       <p class="all-sell">累计已售: <span class="num">{{propertyDetail.soldNum}}</span></p>
     </GoodsDetailTitle>
@@ -42,7 +42,7 @@
       <GoodsListItem class="goods-list-item" :detail="item" v-show="currentIndex === 0"
       v-for="(item, index) in sellList" :key="index" :isLink="true" @openDetail="openDetail(item)">
         <template slot="content">
-          <p class="price">¥ {{item.price}}</p>
+          <p class="price">{{item.price}}DDM积分</p>
           <p class="user desc">{{item.sellerNickName}}</p>
         </template>
         <template slot="btn">
@@ -53,7 +53,7 @@
       <GoodsListItem class="goods-list-item" :detail="item" v-show="currentIndex === 1"
       v-for="item in buyList" :key="item.id" :showAvatar="true">
         <template slot="content">
-          <p class="price">¥ {{item.totalPrice}}</p>
+          <p class="price">{{item.totalPrice}}DDM积分</p>
           <p class="user desc">{{item.nickname}}</p>
         </template>
         <template slot="btn">
@@ -64,7 +64,7 @@
       <GoodsListItem class="goods-list-item" :detail="item" v-show="currentIndex === 2"
       v-for="item in logList" :key="item.id" :showAvatar="true">
         <template slot="content">
-          <p class="price">¥ {{item.price}}</p>
+          <p class="price">{{item.price}}DDM积分</p>
           <p class="user desc">{{item.nickname}}</p>
         </template>
         <template slot="btn">
@@ -176,12 +176,14 @@ export default {
     supply() {
       _store.supply(this.supplyId)
         .then(res => {
-          Toast.success({
-            duration: 1000,
-            message: '供应成功'
-          })
           this.cancelSupplyWindow()
-          this.getPropertyDetailForBuyList()
+          if (res.code === 0) {
+            Toast.success({
+              duration: 1000,
+              message: '供应成功'
+            })
+            this.getPropertyDetailForBuyList()
+          }
         })
     },
     // 关闭供应窗口
@@ -220,7 +222,6 @@ export default {
       _store.getPropertyDetailOrderRecordsList(this.$route.params.goodsTypeId)
         .then(res => {
           this.logList = res.result
-          console.log(this.logList)
         })
     },
     // 处理时间

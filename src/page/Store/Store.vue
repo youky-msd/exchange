@@ -5,12 +5,12 @@
     <div class="list-wrapper-top">
       <div class="list-title">
         <p class="text">综合排序</p>
-        <div class="filter-select">
+        <!-- <div class="filter-select">
           <div class="select-only" @click="onlyBuyList">
             <span class="select-only-icon"><van-icon class="icon" name="success" v-show="isOnlyBuyList"/></span>
             <span class="select-only-text">只看求购</span>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     <Scroll class="scroll" :isMain="true">

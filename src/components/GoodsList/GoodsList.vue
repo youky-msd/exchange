@@ -9,7 +9,7 @@
             </div>
             <div class="content">
               <p class="content-item"><span class="name">{{item.name}}</span></p>
-              <p class="content-item"><span class="price">¥: {{item.price}}</span></p>
+              <p class="content-item"><span class="price">{{item.price}}DDM积分</span></p>
               <p class="content-item" v-if="item.order"><span class="time">{{item.order}}</span></p>
               <p class="content-item"><span class="time">{{status}}{{item.time}}</span></p>
             </div>

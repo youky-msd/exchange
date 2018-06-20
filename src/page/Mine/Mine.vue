@@ -152,6 +152,7 @@ export default {
             width 200px
             font-size $font-size-v-v
             color #fff
+            height 28px
             ellipsis()
           .user-id
             font-size $font-size-small-s

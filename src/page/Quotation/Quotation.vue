@@ -22,7 +22,7 @@
               <!-- <span class="name-en"> </span> -->
             </div>
             <div class="quotation-content desc-wrapper">
-              <span class="price">¥: {{item.avgPrice}}</span>
+              <span class="price">{{item.avgPrice}}DDM积分</span>
               <!-- <span class="number">数量: {{item.number}}</span> -->
             </div>
             <router-link tag="div" to="/store" class="quotation-content echarts" v-show="item.trendList.length > 1">

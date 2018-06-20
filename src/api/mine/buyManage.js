@@ -17,6 +17,17 @@ class BuyManage {
         return Promise.resolve(res.data)
       })
   }
+  // 取消购买
+  cancelBuy(orderId) {
+    const url = '/api/orders/cancel'
+    return axios.post(url, {
+      token: localStorage.token || '9898962464',
+      orderId
+    })
+      .then(res => {
+        return Promise.resolve(res.data)
+      })
+  }
 }
 
 export default BuyManage

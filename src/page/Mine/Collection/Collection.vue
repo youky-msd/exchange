@@ -16,16 +16,16 @@
         <template slot="content">
           <p class="name">{{item.gameName}}</p>
           <p class="name">{{item.goodsName}}</p>
-          <p class="user price">¥ {{item.price}}</p>
+          <p class="user price">{{item.price}}DDM积分</p>
         </template>
         <template slot="btn">
           <div class="icon-wrapper" v-show="isShowEdit" @click="addSelect(item)">
             <van-icon name="checked" class="icon" :class="{selected: item.selected}"/>
           </div>
         </template>
-        <template slot="bottom">
+        <!-- <template slot="bottom">
           <p class="desc">{{item.description}}</p>
-        </template>
+        </template> -->
       </GoodsListItem>
     </Scroll>
   </div>

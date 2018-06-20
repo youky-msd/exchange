@@ -4,6 +4,7 @@
     <Tab :tabList="tabList" @toggleTab="toggleTab"></Tab>
     <Scroll class="scroll">
       <!-- <GoodsList :list="list" :status="listStatus" :isClick="isClick"></GoodsList> -->
+      <!-- 正在求购 -->
       <GoodsListItem class="goods-list-item" :detail="item" v-show="currentIndex === 0"
       v-for="item in buylist" :key="item.id">
         <template slot="top">
@@ -14,15 +15,16 @@
         </template>
         <template slot="content">
           <p class="user desc">{{item.goodName}}</p>
-          <p class="price">¥ {{item.price}}</p>
+          <p class="price">{{item.price}}DDM积分</p>
         </template>
         <template slot="btn">
           <div class="btn" @click.stop="cancelBuy(item.id)">取消求购</div>
         </template>
-        <template slot="bottom">
+        <!-- <template slot="bottom">
           <p class="bottom">简介: {{item.description}}</p>
-        </template>
+        </template> -->
       </GoodsListItem>
+      <!-- 交易中 -->
       <GoodsListItem class="goods-list-item" :detail="item" v-show="currentIndex === 1"
       v-for="item in exchangingList" :key="item.id">
         <template slot="top">
@@ -33,12 +35,13 @@
         </template>
         <template slot="content">
           <p class="user desc">{{item.goodName}}</p>
-          <p class="price">¥ {{item.price}}</p>
+          <p class="price">{{item.price}}DDM积分</p>
         </template>
-        <template slot="bottom">
+        <!-- <template slot="bottom">
           <p class="bottom">简介: {{item.description}}</p>
-        </template>
+        </template> -->
       </GoodsListItem>
+      <!-- 已完成 -->
       <GoodsListItem class="goods-list-item" :detail="item" v-show="currentIndex === 2"
       v-for="item in doneList" :key="item.id">
         <template slot="top">
@@ -49,12 +52,13 @@
         </template>
         <template slot="content">
           <p class="user desc">{{item.goodName}}</p>
-          <p class="price">¥ {{item.price}}</p>
+          <p class="price">{{item.price}}DDM积分</p>
         </template>
-        <template slot="bottom">
+        <!-- <template slot="bottom">
           <p class="bottom">简介: {{item.description}}</p>
-        </template>
+        </template> -->
       </GoodsListItem>
+      <!-- 已取消 -->
       <GoodsListItem class="goods-list-item" :detail="item" v-show="currentIndex === 3"
       v-for="item in cancelList" :key="item.id">
         <template slot="top">
@@ -64,12 +68,12 @@
           </div>
         </template>
         <template slot="content">
-          <p class="price">¥ {{item.price}}</p>
-          <p class="user desc">{{item.desc}}</p>
+          <p class="user desc">{{item.goodName}}</p>
+          <p class="price">{{item.price}}DDM积分</p>
         </template>
-        <template slot="bottom">
+        <!-- <template slot="bottom">
           <p class="bottom">简介: {{item.description}}</p>
-        </template>
+        </template> -->
       </GoodsListItem>
     </Scroll>
   </div>

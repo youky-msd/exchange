@@ -45,7 +45,7 @@ export default {
         tem: {
           tickCount: 5,
           min: 0,
-          alias: '¥'
+          alias: 'DDM积分'
         }
       }
       chart.source(this.data, defs)

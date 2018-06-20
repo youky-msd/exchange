@@ -6,7 +6,10 @@
         <img v-lazy="item.image" alt="">
         <div class="list-desc-1">
           <span class="name">{{item.name}}</span>
-          <span class="money">¥: {{item.price}}</span>
+        </div>
+        <div class="list-desc-1">
+          <span class="money">{{item.price}}DDM积分</span>
+          <span class="num">在售 {{item.saleNum}}件</span>
         </div>
       </router-link>
     </ul>
@@ -48,10 +51,14 @@ export default {
         img
           border-radius 10px
           width 100%
+          height 100px
         .list-desc-1
           padding 10px 3px 3px
           display flex
           justify-content space-between
+          .name
+            color $color-text-ll
+            font-size $font-size-medium
           .money
             color $color-text-money
             font-size $font-size-small-s

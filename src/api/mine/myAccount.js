@@ -6,7 +6,8 @@ class MyAccount {
     const url = '/api/financeaccount/bill-list'
     return axios.get(url, {
       params: {
-        token: localStorage.token || '9898962464'
+        token: localStorage.token || '9898962464',
+        pageSize: 500
       }
     })
       .then(res => {

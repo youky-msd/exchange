@@ -49,7 +49,7 @@ export default {
   .scroll
     overflow hidden
     .scroll-group
-      background-color $color-background
+      // background-color $color-background
       padding-bottom 10px
       &.is-main
         padding-bottom 60px
