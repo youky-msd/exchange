@@ -26,7 +26,7 @@
               <van-icon name="checked" class="icon" :class="{selected: item.selected}"/>
             </div>
             <div class="list-item-info-wrapper">
-              <p class="text"><span class="text-desc">{{item.title}}</span></p>
+              <p class="text"><span class="text-desc">{{item.title}}</span><span class="dot" v-show="item.status === 0">●</span></p>
               <p class="status">{{item.content}}</p>
             </div>
             <div class="list-item-info-wrapper right">
@@ -97,6 +97,7 @@ export default {
         this.showDetail = true
         this.currentInfoDetail = selectList
         this.changeInfoStatus(selectList.id)
+        this.getInfoList()
       }
     },
     // 选中操作
@@ -250,6 +251,9 @@ export default {
                   color $color-text
                 .text-name
                   color $color-text-desc
+                .dot
+                  color red
+                  padding-left 5px
               .price
                 font-size $font-size-small
                 .price-text
