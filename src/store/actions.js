@@ -36,7 +36,7 @@ export const setNoReadNum = ({ commit }) => {
       .then(res => {
         commit(types.SET_INFO_NO, res.result)
       })
-  }, 2000)
+  }, 5000)
 }
 
 // function initWebpack(commit) {

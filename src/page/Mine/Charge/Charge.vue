@@ -66,8 +66,15 @@ export default {
     charge() {
       _charge.charge(this.amount, this.currentChargeType)
         .then(res => {
-          console.log(res)
-          document.write(res)
+          if (this.amount) {
+            if (this.currentChargeType === 1) {
+              console.log(res)
+              document.write(res)
+            } else if (this.currentChargeType === 2) {
+              // window.location.href = `${res.result}&redirect_url=${encodeURIComponent('http://ex.wan855.cn/api/payment/wechat-notify')}`
+              window.location.href = res.result
+            }
+          }
         })
     }
   }
