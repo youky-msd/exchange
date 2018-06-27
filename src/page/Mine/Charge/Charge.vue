@@ -71,8 +71,8 @@ export default {
               console.log(res)
               document.write(res)
             } else if (this.currentChargeType === 2) {
-              // window.location.href = `${res.result}&redirect_url=${encodeURIComponent('http://ex.wan855.cn/api/payment/wechat-notify')}`
-              window.location.href = res.result
+              window.location.href = `${res.result}&redirect_url=${encodeURIComponent('http://ex.wan855.cn/#/mine')}`
+              // window.location.href = res.result
             }
           }
         })

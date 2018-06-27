@@ -8,7 +8,7 @@
       </div>
       <div class="btn-wrapper">
         <div class="btn" @click="cancelBuyAlertWindow">取消</div>
-        <div class="btn do" @click="makeSureCancelBuy">供应</div>
+        <div class="btn do" @click="makeSureCancelBuy">取消购买</div>
       </div>
     </AlertWindow>
     <NavBar title="购买管理"></NavBar>
@@ -158,6 +158,9 @@ export default {
               duration: 1000,
               message: '取消购买成功'
             })
+            this.getBuyingList()
+            this.getBuyDoneList()
+            this.getBuyCancelList()
           }
         })
     }
