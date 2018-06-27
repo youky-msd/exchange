@@ -73,6 +73,27 @@ class User {
         return Promise.resolve(res.data)
       })
   }
+  // 上传图片
+  uploadPhoto(uploadFile) {
+    let formdata = new FormData()
+    console.log(uploadFile)
+    formdata.append('uploadFile', uploadFile)
+    formdata.append('token', localStorage.token)
+    // console.log(formdata.get())
+    const url = '/api/image/upload'
+    // console.log(uploadFile)
+    return axios({
+      url,
+      method: 'post',
+      data: formdata,
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+      .then(res => {
+        return Promise.resolve(res.data)
+      })
+  }
 }
 
 export default User

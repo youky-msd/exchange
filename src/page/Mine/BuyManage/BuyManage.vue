@@ -80,6 +80,7 @@ import Scroll from 'components/Scroll/Scroll'
 import Tab from 'components/Tab/Tab'
 import AlertWindow from 'components/AlertWindow/AlertWindow'
 import tool from 'common/js/tool'
+import { mapActions } from 'vuex'
 import BuyManage from 'api/mine/buyManage'
 const _buyManage = new BuyManage()
 
@@ -110,6 +111,7 @@ export default {
     AlertWindow
   },
   methods: {
+    ...mapActions(['setBalance']),
     // 切换tab
     toggleTab(index) {
       this.currentIndex = index
@@ -159,8 +161,8 @@ export default {
               message: '取消购买成功'
             })
             this.getBuyingList()
-            this.getBuyDoneList()
             this.getBuyCancelList()
+            this.setBalance()
           }
         })
     }

@@ -10,14 +10,14 @@
         </div>
         <router-link to="/mine/account-setting/modify-nickname" class="btn linear">修改昵称</router-link>
       </div>
-      <!-- <div class="user-info-item">
+      <div class="user-info-item">
         <div class="user-info-wrapper">
           <span class="value">头像</span>
         </div>
         <van-uploader :after-read="onRead">
           <span class="btn">设置头像</span>
         </van-uploader>
-      </div> -->
+      </div>
       <div class="user-info-item">
         <div class="user-info-wrapper">
           <span class="value">接收推送通知</span>
@@ -77,7 +77,11 @@ export default {
     },
     // 头像设置
     onRead(file) {
-      console.log(file)
+      // console.log(file)
+      _user.uploadPhoto(file.file)
+        .then(res => {
+          console.log(res)
+        })
     }
   }
 }
