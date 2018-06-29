@@ -197,6 +197,7 @@ export default {
               message: '下架成功'
             })
             this.getSellList()
+            this.getDownList()
           }
         })
     },

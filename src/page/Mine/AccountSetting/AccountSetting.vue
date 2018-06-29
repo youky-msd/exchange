@@ -43,9 +43,11 @@
 import { Toast } from 'vant'
 import NavBar from 'components/NavBar/NavBar'
 import Notice from 'components/Notice/Notice'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import User from 'api/user'
+import AccountSetting from 'api/mine/accountSetting'
 const _user = new User()
+const _accountSetting = new AccountSetting()
 
 export default {
   data () {
@@ -61,6 +63,7 @@ export default {
     Notice
   },
   methods: {
+    ...mapActions(['setUser']),
     // 退出登录
     logout() {
       _user.logout()
@@ -77,10 +80,19 @@ export default {
     },
     // 头像设置
     onRead(file) {
-      // console.log(file)
-      _user.uploadPhoto(file.file)
+      console.log(file)
+      _user.uploadPhoto(file.content)
         .then(res => {
-          console.log(res)
+          return _accountSetting.accountSettingAvatar(this.user.userId, res.result)
+        })
+        .then(res => {
+          if (res.code === 0) {
+            Toast.success({
+              duration: 500,
+              message: '头像修改成功'
+            })
+          }
+          this.setUser()
         })
     }
   }

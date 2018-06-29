@@ -12,6 +12,9 @@ export default {
   mounted() {
     this.setUser()
     this.setNoReadNum()
+    setInterval(() => {
+      this.setBalance()
+    }, 3000)
   },
   data () {
     return {
@@ -22,7 +25,7 @@ export default {
     Layout
   },
   methods: {
-    ...mapActions(['setUser', 'setNoReadNum'])
+    ...mapActions(['setUser', 'setNoReadNum', 'setBalance'])
   }
 }
 </script>

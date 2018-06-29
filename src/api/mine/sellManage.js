@@ -23,7 +23,8 @@ class SellManage {
     const url = '/api/game/all-games'
     return axios.get(url, {
       params: {
-        token: localStorage.token || '9898962464'
+        token: localStorage.token || '9898962464',
+        pageSize: 100
       }
     })
       .then(res => {
@@ -54,7 +55,8 @@ class SellManage {
     return axios.get(url, {
       params: {
         token: localStorage.token || '9898962464',
-        type
+        type,
+        pageSize: 100
       }
     })
       .then(res => {
@@ -71,7 +73,8 @@ class SellManage {
     return axios.get(url, {
       params: {
         token: localStorage.token || '9898962464',
-        type
+        type,
+        pageSize: 100
       }
     })
       .then(res => {

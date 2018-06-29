@@ -28,11 +28,11 @@
         </div>
         <div class="confirm-content-item">
           <span class="text">手续费:</span>
-          <span class="content"></span>
+          <span class="content">{{serviceCharge}}</span>
         </div>
         <div class="confirm-content-item">
           <span class="text">最终收益:</span>
-          <span class="content"></span>
+          <span class="content">{{finallyGet}}</span>
         </div>
         <div class="confirm-content-item">
           <span class="text">商品介绍:</span>
@@ -49,15 +49,30 @@
 <script type="text/ecmascript-6">
 import { Toast } from 'vant'
 import SellManage from 'api/mine/sellManage'
+import Exchange from 'api/mine/exchange'
 const _sellManage = new SellManage()
+const _exchange = new Exchange()
 
 export default {
   props: {
     formData: Object
   },
+  mounted() {
+    this.getChargeRate()
+  },
   data () {
     return {
-
+      // serviceCharge: 0,
+      // finallyGet: 0,
+      chargeRate: 0
+    }
+  },
+  computed: {
+    finallyGet() {
+      return (this.formData.price - this.formData.price * this.chargeRate).toString()
+    },
+    serviceCharge() {
+      return (this.formData.price * this.chargeRate).toString()
     }
   },
   components: {
@@ -81,6 +96,15 @@ export default {
             this.$router.back()
           }
         })
+    },
+    // 获取手续费比例
+    getChargeRate() {
+      _exchange.getChargeRate()
+        .then(res => {
+          this.chargeRate = res.result.value
+          // this.serviceCharge = this.formData.price * this.chargeRate
+          // this.finallyGet = this.formData.price - this.formData.price * this.chargeRate
+        })
     }
   }
 }
@@ -90,7 +114,7 @@ export default {
   @import '~common/stylus/index.styl'
 
   .confirm-up
-    position fixed
+    position absolute
     z-index 999
     top 0
     left 0
@@ -106,7 +130,7 @@ export default {
         font-size 30px
         color #fff
     .confirm-up-window
-      position fixed
+      position absolute
       z-index 1000
       top 50%
       left 50%
@@ -131,7 +155,7 @@ export default {
           .content
             flex 1
             text-align center
-            padding-left 20px
+            // padding-left 20px
     .btn-wrapper
       padding-top 80px
       .btn

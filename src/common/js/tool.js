@@ -17,6 +17,15 @@ let tools = {
       return true
     }
   },
+  // 邮箱
+  email(str) {
+    let reg = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/
+    if (!reg.test(str)) {
+      return false
+    } else {
+      return true
+    }
+  },
   // 时间处理
   timestampToTime(timestamp) {
     let date = new Date(timestamp) // 时间戳为10位需*1000，时间戳为13位的话不需乘1000

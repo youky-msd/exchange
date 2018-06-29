@@ -72,10 +72,12 @@
 
 <script type="text/ecmascript-6">
 import { Toast } from 'vant'
+import _tool from 'common/js/tool.js'
 import NavBar from 'components/NavBar/NavBar'
 import ConfirmUp from 'page/Mine/SellManage/Up/ConfirmUp/ConfirmUp'
 import SellManage from 'api/mine/sellManage'
 let _sellManage = new SellManage()
+
 export default {
   mounted() {
     this.getGameList()
@@ -119,13 +121,24 @@ export default {
     },
     // 打开确认窗口
     openWindow() {
-      if (this.judge()) {
-        this.showWindow = true
-      } else {
+      if (!this.judge()) {
         Toast({
           duration: 1000,
           message: '请填写完整'
         })
+        // this.showWindow = true
+      } else if (!_tool.email(this.formParam.email)) {
+        Toast({
+          duration: 1000,
+          message: '邮箱不正确'
+        })
+      } else if (!_tool.qq(this.formParam.qq)) {
+        Toast({
+          duration: 1000,
+          message: 'qq填写不正确'
+        })
+      } else {
+        this.showWindow = true
       }
     },
     // 关闭确认窗口

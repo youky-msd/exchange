@@ -92,12 +92,9 @@
 <script type="text/ecmascript-6">
 import NavBar from 'components/NavBar/NavBar'
 import Scroll from 'components/Scroll/Scroll'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
-  mounted() {
-    this.getBalance()
-  },
   data () {
     return {
     }
@@ -110,13 +107,6 @@ export default {
     ...mapGetters(['user'])
   },
   methods: {
-    ...mapActions(['setBalance']),
-    // 重复获取balance(事多)
-    getBalance() {
-      setInterval(() => {
-        this.setBalance()
-      }, 3000)
-    }
   }
 }
 </script>
