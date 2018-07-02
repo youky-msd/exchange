@@ -97,9 +97,9 @@ export default {
           }
         })
     },
-    // 获取手续费比例
+    // 获取佣金比例
     getChargeRate() {
-      _exchange.getChargeRate()
+      _exchange.getServiceRate()
         .then(res => {
           this.chargeRate = res.result.value
           // this.serviceCharge = this.formData.price * this.chargeRate

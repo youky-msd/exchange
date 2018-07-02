@@ -15,7 +15,7 @@
         </template>
         <template slot="content">
           <p class="user desc">{{item.goodName}}</p>
-          <p class="price">{{item.price}}DDM积分</p>
+          <p class="price">{{item.price}}DDM积分 * {{item.count}}</p>
         </template>
         <template slot="btn">
           <div class="btn" @click.stop="cancelBuy(item.id)">取消求购</div>
@@ -35,7 +35,7 @@
         </template>
         <template slot="content">
           <p class="user desc">{{item.goodName}}</p>
-          <p class="price">{{item.price}}DDM积分</p>
+          <p class="price">{{item.price}}DDM积分 * {{item.count}}</p>
         </template>
         <!-- <template slot="bottom">
           <p class="bottom">简介: {{item.description}}</p>
@@ -52,7 +52,7 @@
         </template>
         <template slot="content">
           <p class="user desc">{{item.goodName}}</p>
-          <p class="price">{{item.price}}DDM积分</p>
+          <p class="price">{{item.price}}DDM积分 * {{item.count}}</p>
         </template>
         <!-- <template slot="bottom">
           <p class="bottom">简介: {{item.description}}</p>
@@ -69,7 +69,7 @@
         </template>
         <template slot="content">
           <p class="user desc">{{item.goodName}}</p>
-          <p class="price">{{item.price}}DDM积分</p>
+          <p class="price">{{item.price}}DDM积分 * {{item.count}}</p>
         </template>
         <!-- <template slot="bottom">
           <p class="bottom">简介: {{item.description}}</p>
@@ -157,6 +157,7 @@ export default {
               message: '已取消求购'
             })
             this.getBuyList()
+            this.getCancelList()
           }
         })
     },

@@ -13,7 +13,7 @@
         </div> -->
       </div>
     </div>
-    <Scroll class="scroll" :isMain="true">
+    <Scroll class="scroll" :isMain="true" :data="list" :pullup="pullup" @scrollToEnd="getGoodsList">
       <List :list="list"></List>
     </Scroll>
   </div>
@@ -36,7 +36,9 @@ export default {
   data () {
     return {
       isOnlyBuyList: false, // 只看求购
-      list: [] // 商品列表
+      list: [], // 商品列表
+      pullup: true,
+      goodsListPageNum: 0
     }
   },
   components: {
@@ -49,9 +51,9 @@ export default {
   methods: {
     // 获取商品列表
     getGoodsList() {
-      _store.getGoodsList()
+      _store.getGoodsList(++this.goodsListPageNum)
         .then(res => {
-          this.list = res.result
+          this.list = this.list.concat(res.result)
         })
     },
     // 获取求购列表

@@ -1,6 +1,6 @@
 <template>
   <div class="index">
-    <Scroll class="scroll" :isMain="true">
+    <Scroll class="scroll" :isMain="true" :data="list" :pullup="pullup" @scrollToEnd="getHotGoods">
       <div class="top-bg"></div>
       <div class="container">
         <TopSearch></TopSearch>
@@ -54,7 +54,9 @@ export default {
       imageList: [], // banner列表
       adList: [], // 广告列表
       HotGameList: [], // 热门游戏列表
-      list: [] // 热门商品列表
+      list: [], // 热门商品列表
+      pullup: true, // 是否下拉加载
+      hotGoodsListPageNum: 0 // 热门商品页
     }
   },
   components: {
@@ -89,9 +91,9 @@ export default {
     },
     // 获取热门商品
     getHotGoods() {
-      _store.getGoodsList()
+      _store.getGoodsList(++this.hotGoodsListPageNum)
         .then(res => {
-          this.list = res.result
+          this.list = this.list.concat(res.result)
         })
     }
   }

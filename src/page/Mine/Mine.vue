@@ -4,8 +4,8 @@
         <NavBar title="个人中心" :showBack="false"></NavBar>
         <router-link tag="div" to="/mine/account-setting" class="mine-nav">
           <div class="avatar">
-            <img :src="user.avatar" v-show="user.avatar" alt="">
-            <img src="../../common/test/avatar.png" v-show="!user.avatar" alt="">
+            <img v-lazy="user.avatar" v-show="user.avatar" alt="">
+            <!-- <img src="../../common/test/avatar.png" v-show="!user.avatar" alt=""> -->
           </div>
           <div class="user-info">
             <div class="user-name">{{user.nickName}}</div>

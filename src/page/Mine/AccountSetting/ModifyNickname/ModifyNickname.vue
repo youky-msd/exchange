@@ -39,16 +39,31 @@ export default {
   },
   methods: {
     ...mapActions(['setUser']),
+    judge() {
+      let reg = /^[A-Za-z0-9\u4e00-\u9fa5]{4,14}$/
+      if (reg.test(this.nickName)) {
+        return true
+      } else {
+        return false
+      }
+    },
     modifyAvatar() {
-      _accountSetting.accountSettingNickName(this.user.userId, this.nickName)
-        .then(res => {
-          Toast.success({
-            duration: 1000,
-            message: '修改成功!'
+      if (this.judge()) {
+        _accountSetting.accountSettingNickName(this.user.userId, this.nickName)
+          .then(res => {
+            Toast.success({
+              duration: 1000,
+              message: '修改成功!'
+            })
+            this.setUser()
+            this.$router.back()
           })
-          this.setUser()
-          this.$router.back()
+      } else {
+        Toast.success({
+          duration: 1000,
+          message: '输入昵称有误'
         })
+      }
     }
   }
 }

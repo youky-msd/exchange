@@ -122,18 +122,18 @@ export default {
     // 打开确认窗口
     openWindow() {
       if (!this.judge()) {
-        Toast({
+        Toast.fail({
           duration: 1000,
           message: '请填写完整'
         })
         // this.showWindow = true
       } else if (!_tool.email(this.formParam.email)) {
-        Toast({
+        Toast.fail({
           duration: 1000,
           message: '邮箱不正确'
         })
       } else if (!_tool.qq(this.formParam.qq)) {
-        Toast({
+        Toast.fail({
           duration: 1000,
           message: 'qq填写不正确'
         })

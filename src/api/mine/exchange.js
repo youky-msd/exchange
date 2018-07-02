@@ -63,7 +63,7 @@ class Exchange {
         return Promise.resolve(res.data)
       })
   }
-  // 手续费(佣金)比例
+  // 手续费比例
   getChargeRate(key = 'withdrawal_charge_rate') {
     const url = '/api/sysconf/get-by-key'
     return axios.get(url, {
@@ -78,6 +78,19 @@ class Exchange {
   }
   // 充值DDM汇率
   getDDMRate(key = 'exchange_rate') {
+    const url = '/api/sysconf/get-by-key'
+    return axios.get(url, {
+      params: {
+        token: localStorage.token || '9898962464',
+        key
+      }
+    })
+      .then(res => {
+        return Promise.resolve(res.data)
+      })
+  }
+  // 佣金比例
+  getServiceRate(key = 'charge_rate') {
     const url = '/api/sysconf/get-by-key'
     return axios.get(url, {
       params: {

@@ -2,12 +2,13 @@ import axios from './config'
 
 class Store {
   // 获取道具列表
-  getGoodsList() {
+  getGoodsList(pageNo) {
     const url = '/api/goodstype/list'
     return axios.get(url, {
       params: {
         token: localStorage.token || '9898962464',
-        pageSize: 50
+        pageNo,
+        pageSize: 10
       }
     })
       .then(res => {
@@ -28,12 +29,13 @@ class Store {
       })
   }
   // 道具详情-在售列表
-  getPropertyDetailForSaleList(goodsTypeId) {
+  getPropertyDetailForSaleList(goodsTypeId, pageNo) {
     const url = '/api/goods/for-sale-list'
     return axios.get(url, {
       params: {
         token: localStorage.token || '9898962464',
-        pageSize: 50,
+        pageNo,
+        pageSize: 10,
         goodsTypeId
       }
     })
@@ -42,12 +44,13 @@ class Store {
       })
   }
   // 道具详情-求购列表
-  getPropertyDetailForBuyList(goodsTypeId) {
+  getPropertyDetailForBuyList(goodsTypeId, pageNo) {
     const url = '/api/purchase/for-list'
     return axios.get(url, {
       params: {
         token: localStorage.token || '9898962464',
-        pageSize: 50,
+        pageNo,
+        pageSize: 10,
         goodsTypeId
       }
     })
@@ -56,12 +59,13 @@ class Store {
       })
   }
   // 道具详情-成交记录列表
-  getPropertyDetailOrderRecordsList(goodsTypeId) {
+  getPropertyDetailOrderRecordsList(goodsTypeId, pageNo) {
     const url = '/api/orders/order-records'
     return axios.get(url, {
       params: {
         token: localStorage.token || '9898962464',
-        pageSize: 50,
+        pageNo,
+        pageSize: 10,
         goodsTypeId
       }
     })

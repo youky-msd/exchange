@@ -35,6 +35,7 @@
 
 <script type="text/ecmascript-6">
 import { Toast } from 'vant'
+import _tool from 'common/js/tool'
 import NavBar from 'components/NavBar/NavBar'
 import GoodsDetailTitle from 'page/Store/GoodsDetail/GoodsDetailTitle/GoodsDetailTitle'
 import { mapActions } from 'vuex'
@@ -78,23 +79,50 @@ export default {
           this.formParams.name = this.propertyDetail.name
         })
     },
+    // 验证
+    judge() {
+      let fp = this.formParams
+      if (!fp.purchasePrice && !fp.count && !fp.qq && !fp.email) {
+        Toast.fail({
+          duration: 1000,
+          message: '请填写完整'
+        })
+        return false
+      } else if (!_tool.qq(fp.qq)) {
+        Toast.fail({
+          duration: 1000,
+          message: 'qq填写不正确'
+        })
+        return false
+      } else if (!_tool.email(fp.email)) {
+        Toast.fail({
+          duration: 1000,
+          message: '邮箱填写不正确'
+        })
+        return false
+      } else {
+        return true
+      }
+    },
     // 发布求购
     purchaseOrder() {
-      // 计算总价
-      this.formParams.totalPrice = parseInt(this.formParams.count) * parseInt(this.formParams.purchasePrice)
-      _store.purchaseOrder(this.formParams)
-        .then(res => {
-          if (res.code === 0) {
-            Toast.success({
-              duration: 1000,
-              message: '求购成功'
-            })
-            this.setBalance()
-            setTimeout(() => {
-              this.$router.back()
-            }, 500)
-          }
-        })
+      if (this.judge()) {
+        // 计算总价
+        this.formParams.totalPrice = parseInt(this.formParams.count) * parseInt(this.formParams.purchasePrice)
+        _store.purchaseOrder(this.formParams)
+          .then(res => {
+            if (res.code === 0) {
+              Toast.success({
+                duration: 1000,
+                message: '求购成功'
+              })
+              this.setBalance()
+              setTimeout(() => {
+                this.$router.back()
+              }, 500)
+            }
+          })
+      }
     }
   }
 }
@@ -125,7 +153,7 @@ export default {
       .desc
         padding-top 10px
     .buy-bottom-wrapper
-      position fixed
+      position absolute
       box-sizing border-box
       width 100%
       padding 0 13px

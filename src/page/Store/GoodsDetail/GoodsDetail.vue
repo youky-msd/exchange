@@ -37,7 +37,7 @@
     <!-- Tab -->
     <Tab :tabList="tabList" @toggleTab="toggleTab"></Tab>
     <!-- 列表 -->
-    <Scroll class="scroll">
+    <Scroll class="scroll" :data="currentScrollData" :pullup="pullup" @scrollToEnd="scrollToEnd">
       <!-- 在售 -->
       <GoodsListItem class="goods-list-item" :detail="item" v-show="currentIndex === 0"
       v-for="(item, index) in sellList" :key="index" :isLink="true" @openDetail="openDetail(item)">
@@ -53,7 +53,7 @@
       <GoodsListItem class="goods-list-item" :detail="item" v-show="currentIndex === 1"
       v-for="item in buyList" :key="item.id" :showAvatar="true">
         <template slot="content">
-          <p class="price">{{item.totalPrice}}DDM积分</p>
+          <p class="price">{{item.totalPrice}}DDM积分 * {{item.count}}</p>
           <p class="user desc">{{item.nickname}}</p>
         </template>
         <template slot="btn">
@@ -121,7 +121,12 @@ export default {
         sellPrice: 0
       },
       chartLineList: [], // 走势
-      supplyId: '' // 供应ID
+      supplyId: '', // 供应ID
+      pullup: true,
+      currentScrollData: [], // 需要当前scroll传递的scroll data
+      sellListPageNum: 0,
+      buyListPageNum: 0,
+      logListPageNum: 0
     }
   },
   components: {
@@ -166,6 +171,23 @@ export default {
     // 切换tab
     toggleTab(index) {
       this.currentIndex = index
+      if (index === 0) {
+        this.currentScrollData = this.sellList
+      } else if (index === 1) {
+        this.currentScrollData = this.buyList
+      } else if (index === 2) {
+        this.currentScrollData = this.logList
+      }
+    },
+    // 上拉加载方法
+    scrollToEnd() {
+      if (this.currentIndex === 0) {
+        this.getPropertyDetailForSaleList()
+      } else if (this.currentIndex === 1) {
+        this.getPropertyDetailForBuyList()
+      } else if (this.currentIndex === 2) {
+        this.getPropertyDetailOrderRecordsList()
+      }
     },
     // 供应按钮,弹出窗口
     openSupplyWindow(id) {
@@ -203,25 +225,32 @@ export default {
     },
     // 获取道具详情-在售列表
     getPropertyDetailForSaleList() {
-      _store.getPropertyDetailForSaleList(this.$route.params.goodsTypeId)
+      _store.getPropertyDetailForSaleList(this.$route.params.goodsTypeId, ++this.sellListPageNum)
         .then(res => {
-          this.sellList = res.result.goodsList
+          if (res.result.length === 0) {
+            --this.sellListPageNum
+          }
+          this.sellList = this.sellList.concat(res.result.goodsList)
         })
     },
     // 获取道具详情-求购列表
     getPropertyDetailForBuyList() {
-      _store.getPropertyDetailForBuyList(this.$route.params.goodsTypeId)
+      _store.getPropertyDetailForBuyList(this.$route.params.goodsTypeId, ++this.buyListPageNum)
         .then(res => {
-          if (res.result) {
-            this.buyList = res.result.purchaseList
+          if (res.result.length === 0) {
+            --this.buyListPageNum
           }
+          this.buyList = this.buyList.concat(res.result.purchaseList)
         })
     },
     // 获取道具详情-成交记录
     getPropertyDetailOrderRecordsList() {
-      _store.getPropertyDetailOrderRecordsList(this.$route.params.goodsTypeId)
+      _store.getPropertyDetailOrderRecordsList(this.$route.params.goodsTypeId, ++this.logListPageNum)
         .then(res => {
-          this.logList = res.result
+          if (res.result.length === 0) {
+            --this.logListPageNum
+          }
+          this.logList = this.logList.concat(res.result)
         })
     },
     // 处理时间
