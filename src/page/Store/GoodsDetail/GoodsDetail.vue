@@ -204,6 +204,8 @@ export default {
               duration: 1000,
               message: '供应成功'
             })
+            this.buyList = []
+            this.buyListPageNum = 0
             this.getPropertyDetailForBuyList()
           }
         })

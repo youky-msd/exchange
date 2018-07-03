@@ -291,7 +291,8 @@ export default {
           .btn
             font-size $font-size-medium-x
     .btn-wrapper
-      btn-bottom()
+      // btn-bottom()
+      padding 0 13px
       .btn
         btn-big()
 </style>

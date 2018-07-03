@@ -20,6 +20,7 @@ export default {
   @import '~common/stylus/index.styl'
 
   .layout
-    fixed-all()
+    // fixed-all()
+    height 100%
     background-color $color-background
 </style>

@@ -79,17 +79,11 @@ export default {
 .login
   // fix-all()
   .container
-    fixed-all()
-    top 50px
-    bottom 95px
-    padding 0 13px
-    display flex
-    flex-direction column
-    justify-content center
-    align-items center
+    padding 50px 13px 0
     .logo-wrapper
       width 100px
       height 100px
+      margin 0 auto
       margin-bottom 30px
       img
         width 100%

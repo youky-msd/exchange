@@ -75,6 +75,7 @@ class User {
   }
   // 上传图片
   uploadPhoto(uploadFile) {
+    alert(uploadFile)
     const url = '/api/image/upload'
     return axios.post(url, {
       token: localStorage.token || '9898962464',

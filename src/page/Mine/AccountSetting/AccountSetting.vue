@@ -80,7 +80,7 @@ export default {
     },
     // 头像设置
     onRead(file) {
-      console.log(file)
+      alert(file)
       _user.uploadPhoto(file.content)
         .then(res => {
           return _accountSetting.accountSettingAvatar(this.user.userId, res.result)
