@@ -23,6 +23,7 @@ import SystemSetting from 'page/Mine/SystemSetting/SystemSetting'
 import BuyDetail from 'page/Mine/MyBuy/BuyDetail/BuyDetail'
 import BuyManage from 'page/Mine/BuyManage/BuyManage'
 import MyAccount from 'page/Mine/MyAccount/MyAccount'
+import BindWallet from 'page/Mine/BindWallet/BindWallet'
 import Log from 'page/Mine/MyAccount/Log/Log'
 import Charge from 'page/Mine/Charge/Charge'
 import Exchange from 'page/Mine/Exchange/Exchange'
@@ -113,6 +114,10 @@ const routes = [{
 {
   path: '/mine/my-account',
   component: MyAccount
+},
+{
+  path: '/mine/bind-wallet',
+  component: BindWallet
 },
 {
   path: '/mine/charge',

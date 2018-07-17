@@ -42,6 +42,7 @@
       <div class="btn-wrapper">
         <div class="btn" @click="submit">确认上架</div>
       </div>
+      {{formData.price}}--{{chargeRate}}
     </div>
   </div>
 </template>
@@ -69,10 +70,10 @@ export default {
   },
   computed: {
     finallyGet() {
-      return (this.formData.price - this.formData.price * this.chargeRate).toString()
+      return Math.floor((this.formData.price - this.formData.price * this.chargeRate) * 100000000) / 100000000
     },
     serviceCharge() {
-      return (this.formData.price * this.chargeRate).toString()
+      return Math.floor(this.formData.price * this.chargeRate * 100000000) / 100000000
     }
   },
   components: {

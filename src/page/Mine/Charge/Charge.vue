@@ -49,6 +49,10 @@ export default {
       {
         text: '微信',
         type: 2
+      },
+      {
+        text: 'DDM币',
+        type: 3
       }]
     }
   },

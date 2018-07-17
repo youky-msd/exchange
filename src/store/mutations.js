@@ -5,8 +5,10 @@ const mutations = {
     state.user = user
   },
   [types.SET_BALANCE](state, result) {
-    state.user.balance = result.accountBalance
-    state.user.lockAmount = result.lockAmount
+    if (result) {
+      state.user.balance = result.accountBalance
+      state.user.lockAmount = result.lockAmount
+    }
   },
   [types.SET_INFO_NO](state, num) {
     state.infoNum = num

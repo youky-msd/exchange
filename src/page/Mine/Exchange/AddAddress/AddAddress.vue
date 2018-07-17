@@ -31,17 +31,28 @@ export default {
     Notice
   },
   methods: {
+    judge(str) {
+      let reg = /^\w{42}$/
+      return reg.test(str)
+    },
     addAddress() {
-      _exchange.addAddress(2, this.address)
-        .then(res => {
-          if (res.code === 0) {
-            Toast.success({
-              duration: 1000,
-              message: '添加地址成功'
-            })
-          }
-          this.$router.back()
+      if (this.judge(this.address)) {
+        _exchange.addAddress(2, this.address)
+          .then(res => {
+            if (res.code === 0) {
+              Toast.success({
+                duration: 1000,
+                message: '添加地址成功'
+              })
+            }
+            this.$router.back()
+          })
+      } else {
+        Toast.fail({
+          duration: 500,
+          message: '地址输入有误'
         })
+      }
     }
   }
 }

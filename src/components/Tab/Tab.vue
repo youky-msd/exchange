@@ -15,11 +15,15 @@ export default {
   props: {
     tabList: {
       type: Array
+    },
+    parentIndex: {
+      type: Number,
+      default: 0
     }
   },
   data () {
     return {
-      currentIndex: 0
+      currentIndex: this.parentIndex
     }
   },
   methods: {

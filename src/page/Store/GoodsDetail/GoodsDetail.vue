@@ -5,13 +5,16 @@
      :detail="sellSelect" :balance="user.balance"></GoodsBuy>
     <!-- 购买弹窗 -->
     <BuyWindow v-show="showBuyWindow" @cancel="cancelBuy" @buyDone="buyDone"
-    :balance="user.balance" :goodsId="selectGoods.goodsId" :sellPrice="selectGoods.sellPrice"></BuyWindow>
+    :goodsId="selectGoods.goodsId" :sellPrice="selectGoods.sellPrice"></BuyWindow>
     <!-- 供应提示弹窗 -->
     <AlertWindow class="alert-window" v-show="showSupplyWindow">
-      <p class="title">供应提示</p>
+      <p class="title">供应求购</p>
+      <div class="buying-detail">
+        <p class="desc">供应可得: <span class="price">{{buyingDetail.realIncome}}DDM积分</span></p>
+        <p class="desc">共{{buyingDetail.count}}件 手续费: {{buyingDetail.commission}}DDM积分</p>
+      </div>
       <div class="desc-wrapper">
-        <p class="desc">您已经选择了为求购者供应此商品，请确认是否继续操作？点击“供应”后，系统将把求购者信息发送到您的消息中心，请注意查收。请在规定时间72小时内完成交易，如无法完成，请联系客服终止本次交易。</p>
-        <p class="desc">请慎重选择</p>
+        <p class="desc">您已经选择了为求购者供应此商品，点击“供应”后，系统将把求购者信息发送到您的消息中心，请注意查收，请在72小时之内完成交易。如有问题，请随时联系客服。</p>
       </div>
       <div class="btn-wrapper">
         <div class="btn" @click="cancelSupplyWindow">取消</div>
@@ -35,7 +38,7 @@
       <p class="all-sell">累计已售: <span class="num">{{propertyDetail.soldNum}}</span></p>
     </GoodsDetailTitle>
     <!-- Tab -->
-    <Tab :tabList="tabList" @toggleTab="toggleTab"></Tab>
+    <Tab :tabList="tabList" @toggleTab="toggleTab" :parentIndex="currentIndex"></Tab>
     <!-- 列表 -->
     <Scroll class="scroll" :data="currentScrollData" :pullup="pullup" @scrollToEnd="scrollToEnd">
       <!-- 在售 -->
@@ -53,11 +56,11 @@
       <GoodsListItem class="goods-list-item" :detail="item" v-show="currentIndex === 1"
       v-for="item in buyList" :key="item.id" :showAvatar="true">
         <template slot="content">
-          <p class="price">{{item.totalPrice}}DDM积分 * {{item.count}}</p>
+          <p class="price">{{item.totalPrice}}DDM积分 求购数量{{item.count}}件</p>
           <p class="user desc">{{item.nickname}}</p>
         </template>
         <template slot="btn">
-          <div class="btn" @click.stop="openSupplyWindow(item.id)">供应</div>
+          <div class="btn" @click.stop="openSupplyWindow(item.id, item.orderId)">供应</div>
         </template>
       </GoodsListItem>
       <!-- 成交记录 -->
@@ -106,7 +109,7 @@ export default {
   },
   data () {
     return {
-      currentIndex: 0, // 当前tab索引
+      currentIndex: parseInt(this.$route.query.index) ? parseInt(this.$route.query.index) : 0, // 当前tab索引
       showBuyWindow: false, // 是否打开购买窗口
       showSupplyWindow: false, // 是否打开供应提示窗口
       ShowSellDetail: false, // 是否打开出售详情
@@ -122,6 +125,7 @@ export default {
       },
       chartLineList: [], // 走势
       supplyId: '', // 供应ID
+      buyingDetail: {}, // 正在求购详情
       pullup: true,
       currentScrollData: [], // 需要当前scroll传递的scroll data
       sellListPageNum: 0,
@@ -190,9 +194,10 @@ export default {
       }
     },
     // 供应按钮,弹出窗口
-    openSupplyWindow(id) {
+    openSupplyWindow(id, orderId) {
       this.showSupplyWindow = true
       this.supplyId = id
+      this.getBuyingDetail(orderId)
     },
     // 供应
     supply() {
@@ -229,35 +234,49 @@ export default {
     getPropertyDetailForSaleList() {
       _store.getPropertyDetailForSaleList(this.$route.params.goodsTypeId, ++this.sellListPageNum)
         .then(res => {
-          if (res.result.length === 0) {
+          const goodsList = res.result.goodsList
+          if (goodsList instanceof Array && goodsList.length === 0) {
             --this.sellListPageNum
           }
-          this.sellList = this.sellList.concat(res.result.goodsList)
+          this.sellList = this.sellList.concat(goodsList)
         })
     },
     // 获取道具详情-求购列表
     getPropertyDetailForBuyList() {
       _store.getPropertyDetailForBuyList(this.$route.params.goodsTypeId, ++this.buyListPageNum)
         .then(res => {
-          if (res.result.length === 0) {
+          const purchaseList = res.result.purchaseList
+          if (purchaseList instanceof Array && purchaseList.length === 0) {
             --this.buyListPageNum
           }
-          this.buyList = this.buyList.concat(res.result.purchaseList)
+          if (purchaseList instanceof Array && purchaseList.length > 0) {
+            this.buyList = this.buyList.concat(purchaseList)
+          }
         })
     },
     // 获取道具详情-成交记录
     getPropertyDetailOrderRecordsList() {
       _store.getPropertyDetailOrderRecordsList(this.$route.params.goodsTypeId, ++this.logListPageNum)
         .then(res => {
-          if (res.result.length === 0) {
+          if (res.result instanceof Array && res.result.length === 0) {
             --this.logListPageNum
           }
-          this.logList = this.logList.concat(res.result)
+          if (res.result instanceof Array) {
+            this.logList = this.logList.concat(res.result)
+          }
         })
     },
     // 处理时间
     getTime(timestamp) {
       return tool.timestampToTime(timestamp)
+    },
+    // 获取正在求购详情
+    getBuyingDetail(orderId) {
+      _store.getBuyingDetail(orderId)
+        .then(res => {
+          this.buyingDetail = res.result
+          console.log(this.buyingDetail)
+        })
     }
   }
 }
@@ -287,12 +306,20 @@ export default {
         color $color-text-money
     .supply-bottom-btn-wrapper
       position fixed
-      z-index 999
+      z-index 9
       bottom 20px
       width calc(100% - 26px)
       padding 0 13px
       .btn
         btn-big()
+    .alert-window
+      .buying-detail
+        padding-top 10px
+        font-size $font-size-medium-x
+        .desc
+          line-height 26px
+          .price
+            color $color-text-money
     .scroll
       fixed-all()
       top 222px

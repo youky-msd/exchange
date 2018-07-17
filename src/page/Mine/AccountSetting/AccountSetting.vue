@@ -80,10 +80,14 @@ export default {
     },
     // 头像设置
     onRead(file) {
-      alert(file)
       _user.uploadPhoto(file.content)
         .then(res => {
-          return _accountSetting.accountSettingAvatar(this.user.userId, res.result)
+          if (res.code === 0) {
+            return _accountSetting.accountSettingAvatar(this.user.userId, res.result)
+          }
+        }, error => {
+          alert(error)
+          alert(error.statusText)
         })
         .then(res => {
           if (res.code === 0) {

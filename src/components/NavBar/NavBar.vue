@@ -67,6 +67,7 @@ export default {
       color #fff
     .name
       flex 6
+      ellipsis()
     .icon-wrapper
       &.right
         display flex

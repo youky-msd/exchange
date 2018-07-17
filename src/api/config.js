@@ -7,9 +7,9 @@ const _user = new User()
 
 // axios 配置
 axios.defaults.timeout = 5000
-// const debug = process.env.NODE_ENV === 'production'
+const debug = process.env.NODE_ENV === 'production'
 
-axios.defaults.baseURL = 'http://ex.wan855.cn'
+axios.defaults.baseURL = debug ? 'https://ex.wan855.cn' : 'http://ex.wan855.cn'
 
 axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
 

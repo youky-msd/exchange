@@ -108,7 +108,7 @@ export default {
     purchaseOrder() {
       if (this.judge()) {
         // 计算总价
-        this.formParams.totalPrice = parseInt(this.formParams.count) * parseInt(this.formParams.purchasePrice)
+        this.formParams.totalPrice = parseFloat(this.formParams.count) * parseFloat(this.formParams.purchasePrice)
         _store.purchaseOrder(this.formParams)
           .then(res => {
             if (res.code === 0) {

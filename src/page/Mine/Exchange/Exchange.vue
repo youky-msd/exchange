@@ -25,7 +25,7 @@
           <ul>
             <li class="address-select-item" v-for="(item, index) in addressList" :key="index"
             @click="selectAddress(item.cardWalletId)">
-              <span class="text">{{item.ddmAddress}}</span>
+              <div class="text">{{item.ddmAddress}}</div>
               <van-icon name="checked" class="icon" :class="{selected: item.cardWalletId === currentSelectAddress}"/>
             </li>
           </ul>
@@ -193,6 +193,8 @@ export default {
               font-size $font-size-large
               .text
                 color $color-text-ll
+                width 90%
+                ellipsis()
               .icon
                 font-size $font-size-v-v
                 &.selected

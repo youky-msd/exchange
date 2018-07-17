@@ -133,7 +133,7 @@ export default {
     return {
       currentIndex: 0,
       listStatus: '下架时间: ', // 列表的时间状态
-      tabList: ['在售', '交易中', '已售', '已下架', '已取消'], // tab列表
+      tabList: ['已上架', '交易中', '已售', '已下架', '已取消'], // tab列表
       sellList: [], // 在售列表
       exchangingList: [], // 交易中列表
       hasSellList: [], // 已售列表

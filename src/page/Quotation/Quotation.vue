@@ -25,7 +25,7 @@
               <span class="price">{{item.avgPrice}}DDM积分</span>
               <!-- <span class="number">数量: {{item.number}}</span> -->
             </div>
-            <router-link tag="div" to="/store" class="quotation-content echarts" v-show="item.trendList.length > 1">
+            <router-link tag="div" :to="`/store/goods-detail/${item.goodsTypeId}?index=3`" class="quotation-content echarts" v-show="item.trendList.length > 1">
               <trend
                 :data="item.trendList"
                 :stroke-width="5"
@@ -39,7 +39,7 @@
                 <p>{{item.upDown}}</p>
               </div>
             </router-link>
-            <router-link tag="div" to="/store" class="quotation-content echarts" v-show="item.trendList.length <= 1">
+            <router-link tag="div" :to="`/store/goods-detail/${item.goodsTypeId}?index=3`" class="quotation-content echarts" v-show="item.trendList.length <= 1">
               <trend
                 :data="[0,0]"
                 :stroke-width="5"

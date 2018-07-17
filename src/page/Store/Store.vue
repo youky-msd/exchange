@@ -48,6 +48,19 @@ export default {
     List,
     TopSearch
   },
+  activated() {
+    if (this.$route.query.search) {
+      _store.search(this.$route.query.search)
+        .then(res => {
+          this.list = res.result
+        })
+    } else if (this.$route.params.gameId) {
+      _store.getGoodsListForGameId(this.$route.params.gameId)
+        .then(res => {
+          this.list = res.result
+        })
+    }
+  },
   methods: {
     // 获取商品列表
     getGoodsList() {
@@ -79,6 +92,11 @@ export default {
           .then(res => {
             this.list = res.result
           })
+      } else if (this.$route.params.gameId) {
+        _store.getGoodsListForGameId(this.$route.params.gameId)
+          .then(res => {
+            this.list = res.result
+          })
       } else {
         if (!this.isOnlyBuyList) {
           this.getGoodsList()
@@ -95,9 +113,6 @@ export default {
           this.list = res.result
         })
     }
-  },
-  watch: {
-    '$route': 'routerSearch'
   }
 }
 </script>

@@ -3,11 +3,11 @@
     <div class="my-account-wrapper">
       <div class="my-account-container">
         <p class="num">{{user.balance}}</p>
-        <p class="desc">DDM</p>
+        <p class="desc">DDM积分余额</p>
       </div>
       <div class="my-account-container">
         <p class="num">{{user.lockAmount}}</p>
-        <p class="desc">锁定DDM</p>
+        <p class="desc">锁定DDM积分</p>
       </div>
     </div>
   </div>

@@ -8,11 +8,12 @@
           </div>
           <p class="title">确认支付</p>
         </div>
-        <p class="intergral">{{sellPrice}}DDM</p>
-        <p class="account">账户余额: {{balance}}</p>
+        <p class="intergral">{{sellPrice}}DDM积分</p>
+        <p class="account">账户余额: {{theBalance}} <span class="price-warning" v-show="sellPrice > theBalance">余额不足</span></p>
         <div class="btn-wrapper">
           <div class="cancel" @click="cancel">取消</div>
-          <div class="buy" @click="buy">购买</div>
+          <div class="buy" @click="buy" v-if="sellPrice <= theBalance">购买</div>
+          <router-link to="/mine/charge" class="buy" tag="div" v-else>前往充值</router-link>
         </div>
       </div>
     </div>
@@ -22,14 +23,19 @@
 <script type="text/ecmascript-6">
 import { Toast } from 'vant'
 import Store from 'api/store'
-import { mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 const _store = new Store()
 
 export default {
   props: {
-    balance: Number, // 余额
     goodsId: String, // 商品ID
     sellPrice: Number // 支付金额
+  },
+  computed: {
+    ...mapGetters(['user']),
+    theBalance() {
+      return this.user.balance ? this.user.balance : 0
+    }
   },
   data () {
     return {
@@ -40,7 +46,6 @@ export default {
 
   },
   methods: {
-    ...mapActions(['setBalance']),
     // 取消窗口
     cancel() {
       this.$emit('cancel')
@@ -54,7 +59,6 @@ export default {
               duration: 1000,
               message: '购买成功'
             })
-            this.setBalance()
             this.$emit('buyDone')
           } else {
             Toast({
@@ -124,6 +128,8 @@ export default {
           border-bottom 1px solid $color-text-l
           padding 15px
           font-size $font-size-medium
+          .price-warning
+            color $color-sub-theme
         .btn-wrapper
           display flex
           margin-top 30px

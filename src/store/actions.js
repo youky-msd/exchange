@@ -12,11 +12,13 @@ export const setUser = ({ commit }) => {
       return _user.getBalanceLock()
     })
     .then(res => {
-      if (res.result.accountBalance !== 'undefined') {
-        user.balance = res.result.accountBalance
-      }
-      if (res.result.lockAmount !== 'undefined') {
-        user.lockAmount = res.result.lockAmount
+      if (res.result) {
+        if (res.result.accountBalance !== 'undefined') {
+          user.balance = res.result.accountBalance
+        }
+        if (res.result.lockAmount !== 'undefined') {
+          user.lockAmount = res.result.lockAmount
+        }
       }
       commit(types.SET_USER, user)
 

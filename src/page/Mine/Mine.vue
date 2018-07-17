@@ -16,14 +16,21 @@
           </div>
         </router-link>
         <div class="mine-nav-shadow"></div>
-        <router-link to="/mine/my-account" tag="div" class="user-money">
-          <div class="money-icon"></div>
-          <div class="user-money-num">
+        <div class="user-money">
+          <router-link to="/mine/my-account" class="account-money-wrapper">
+            <div class="money-icon base-icon"></div>
+            <p class="text">我的账户</p>
+          </router-link>
+          <router-link to="/mine/bind-wallet" class="account-money-wrapper">
+            <div class="wallet-icon base-icon"></div>
+            <p class="text">绑定DDM钱包</p>
+          </router-link>
+          <!-- <div class="user-money-num">
             <p class="money-text">我的钱包</p>
             <p class="money-num" v-if="user.balance">{{user.balance}}DDM</p>
-          </div>
-          <router-link to="/mine/charge" class="user-money-btn">充值</router-link>
-        </router-link>
+          </div> -->
+          <!-- <router-link to="/mine/charge" class="user-money-btn">充值</router-link> -->
+        </div>
         <div class="user-operation">
           <ul>
             <router-link to="/mine/info" tag="li" class="user-operation-item">
@@ -195,22 +202,32 @@ export default {
         margin 16px 13px 0
         border-radius 10px
         box-shadow 0 0 20px $color-background-d
-        .money-icon
-          width 50px
-          height 50px
-          border-radius 50%
-          box-shadow 0 0 20px #5e63f0
-          bg('./mine-money')
-        .user-money-num
-          .money-text
+        .account-money-wrapper
+          flex 1
+          display flex
+          align-items center
+          justify-content center
+          .base-icon
+            width 44px
+            height 44px
+            border-radius 50%
+            box-shadow 0 0 20px #5e63f0
+            &.money-icon
+              bg('./mine-money')
+            // &.wallet-icon
+          .text
+            padding-left 10px
             color #fff
-            font-size $font-size-medium
-            padding-bottom 7px
-          .money-num
-            font-size $font-size-large
-            color $color-text-money
-        .user-money-btn
-          btn-linear()
+        // .user-money-num
+        //   .money-text
+        //     color #fff
+        //     font-size $font-size-medium
+        //     padding-bottom 7px
+        //   .money-num
+        //     font-size $font-size-large
+        //     color $color-text-money
+        // .user-money-btn
+        //   btn-linear()
       .user-operation
         margin-top 15px
         ul
@@ -245,8 +262,8 @@ export default {
               &.no-order
                 border-right none
               .icon
-                width 42px
-                height 42px
+                width 38px
+                height 38px
                 &.info
                   bg('./info')
                 &.collection

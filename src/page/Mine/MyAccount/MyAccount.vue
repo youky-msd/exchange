@@ -22,20 +22,16 @@
     </div>
     <div class="my-account-detail-wrapper list">
       <p class="title">账单明细</p>
+      <div class="my-account-containter">
+        <div class="detail-item">来源</div>
+        <div class="detail-item">积分</div>
+        <div class="detail-item">时间</div>
+      </div>
       <Scroll class="scroll">
         <div class="my-account-containter" v-for="(item, index) in accountDetailList" :key="index">
-          <div class="detail-item">
-            <!-- <p class="time">时间</p> -->
-            <div class="time-list-wrapper">
-              <p class="item-list-item">{{getTime(item.createTime)}}</p>
-            </div>
-          </div>
-          <div class="detail-item">
-            <!-- <p class="time">明细(DDM积分)</p> -->
-            <div class="time-list-wrapper">
-              <p class="item-list-item">{{item.status === 1 ? '收入' : '支出'}} {{item.billAmount}}积分</p>
-            </div>
-          </div>
+          <div class="detail-item">{{remark(item.remark)}}</div>
+          <div class="detail-item">{{item.status === 1 ? '+' : '-'}}{{item.billAmount}}</div>
+          <div class="detail-item">{{getTime(item.createTime)}}</div>
         </div>
       </Scroll>
     </div>
@@ -64,7 +60,22 @@ export default {
       isActive: 0,
       accountDetailList: [], // 账单明细列表
       monthAccount: {}, // 月统计
-      weekAccount: {} // 周统计
+      weekAccount: {}, // 周统计
+      remarkList: [
+        '充值',
+        '兑换人民币',
+        '兑换人民币失败',
+        '兑换DDM币',
+        '兑换DDM币失败',
+        '供应商品',
+        '供应商品失败',
+        '出售商品',
+        '出售商品失败',
+        '购买商品',
+        '购买商品失败',
+        '求购商品',
+        '求购商品失败'
+      ]
     }
   },
   components: {
@@ -96,6 +107,9 @@ export default {
           this.monthAccount = res.result.currentMonthAccount
           this.weekAccount = res.result.currentWeekAccount
         })
+    },
+    remark(remark) {
+      return this.remarkList[remark - 1]
     }
   }
 }
@@ -159,7 +173,7 @@ export default {
         height auto
         .scroll
           fixed-all()
-          top 40px
+          top 60px
           bottom 0
       .title
         text-align center
@@ -170,19 +184,13 @@ export default {
         display flex
         color $color-text-little
         .detail-item
-          flex 1
+          flex 2
           color $color-text-l
-          .time,
-          .time-list-wrapper
-            // text-align center
-            font-size $font-size-large
-          .time-list-wrapper
-            font-size $font-size-small
-            .item-list-item
-              line-height 20px
-              text-align center
-          .time
-            line-height 30px
+          font-size $font-size-small
+          line-height 20px
+          text-align center
+          &.small
+            flex 1
     .btn-wrapper
       position absolute
       box-sizing border-box

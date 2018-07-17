@@ -42,7 +42,7 @@ export default {
     bottom 0
     width 100%
     z-index 99
-    box-shadow inset 0 -70px 30px $color-background
+    box-shadow inset 0 -80px 30px $color-background
     ul
       display flex
       padding 20px 0 24px

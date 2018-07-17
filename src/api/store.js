@@ -180,6 +180,32 @@ class Store {
         return Promise.resolve(res.data)
       })
   }
+  // 通过游戏ID获取道具列表
+  getGoodsListForGameId(bizId) {
+    const url = '/api/goodstype/list'
+    return axios.get(url, {
+      params: {
+        token: localStorage.token || '9898962464',
+        bizId
+      }
+    })
+      .then(res => {
+        return Promise.resolve(res.data)
+      })
+  }
+  // 正在求购详情
+  getBuyingDetail(orderId) {
+    const url = '/api/purchase/detail'
+    return axios.get(url, {
+      params: {
+        token: localStorage.token || '9898962464',
+        orderId
+      }
+    })
+      .then(res => {
+        return Promise.resolve(res.data)
+      })
+  }
 }
 
 export default Store

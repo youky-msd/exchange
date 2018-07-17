@@ -133,10 +133,9 @@ export default {
             padding 0 15px
             justify-content space-between
             .nav-item
-              width 64px
+              width 56px
               img
-                width 64px
-                height 64px
+                width 100%
                 border-radius 32px
               .text
                 font-size $font-size-small

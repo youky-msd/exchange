@@ -3,6 +3,7 @@ import axios from '../config'
 class AccountSetting {
   // 修改用户信息 - 头像
   accountSettingAvatar(id, avatar) {
+    // alert('调用修改用户头像接口')
     const url = '/api/user/update-user'
     return axios.get(url, {
       params: {
