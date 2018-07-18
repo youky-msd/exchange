@@ -4,10 +4,10 @@
     <GoodsBuy v-show="ShowSellDetail" @closeSellDetail="closeSellDetail"
      :detail="sellSelect" :balance="user.balance"></GoodsBuy>
     <!-- 购买弹窗 -->
-    <BuyWindow v-show="showBuyWindow" @cancel="cancelBuy" @buyDone="buyDone"
+    <BuyWindow :show="showBuyWindow" @cancel="cancelBuy" @buyDone="buyDone"
     :goodsId="selectGoods.goodsId" :sellPrice="selectGoods.sellPrice"></BuyWindow>
     <!-- 供应提示弹窗 -->
-    <AlertWindow class="alert-window" v-show="showSupplyWindow">
+    <AlertWindow class="supply-alert-window" :show="showSupplyWindow">
       <p class="title">供应求购</p>
       <div class="buying-detail">
         <p class="desc">供应可得: <span class="price">{{buyingDetail.realIncome}}DDM积分</span></p>
@@ -312,7 +312,7 @@ export default {
       padding 0 13px
       .btn
         btn-big()
-    .alert-window
+    .supply-alert-window
       .buying-detail
         padding-top 10px
         font-size $font-size-medium-x
@@ -320,6 +320,27 @@ export default {
           line-height 26px
           .price
             color $color-text-money
+      .title
+        color #fff
+        text-align center
+        font-size $font-size-large-x
+      .desc-wrapper
+        padding-top 20px
+        line-height 20px
+        color $color-text-desc
+        font-size $font-size-medium
+        .desc
+          text-indent 2em
+      .btn-wrapper
+        position absolute
+        width calc(100% - 50px)
+        bottom 20px
+        display flex
+        justify-content space-between
+        .btn
+          btn(120px,38px,#5e698b,$font-size-large,#fff)
+          &.do
+            background-color #4a4aa3
     .scroll
       fixed-all()
       top 222px

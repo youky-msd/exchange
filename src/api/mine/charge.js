@@ -38,6 +38,18 @@ class Charge {
         return Promise.resolve(res.data)
       })
   }
+  // 获取DDM充值二维码
+  getDDMChargeQrCode() {
+    const url = '/api/ddm-wallet/getDDMAddress'
+    return axios.get(url, {
+      params: {
+        token: localStorage.token || '9898962464'
+      }
+    })
+      .then(res => {
+        return Promise.resolve(res.data)
+      })
+  }
 }
 
 export default Charge

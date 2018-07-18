@@ -1,26 +1,29 @@
 <template>
-  <div class="buy-window">
-    <div class="buy-wrapper">
-      <div class="buy-main">
-        <div class="title">
-          <div class="img">
-            <img src="../../../common/img/buy.png" alt="">
+  <FadeAnimate :show="show">
+    <div class="buy-window">
+      <div class="buy-wrapper">
+        <div class="buy-main">
+          <div class="title">
+            <div class="img">
+              <img src="../../../common/img/buy.png" alt="">
+            </div>
+            <p class="title">确认支付</p>
           </div>
-          <p class="title">确认支付</p>
-        </div>
-        <p class="intergral">{{sellPrice}}DDM积分</p>
-        <p class="account">账户余额: {{theBalance}} <span class="price-warning" v-show="sellPrice > theBalance">余额不足</span></p>
-        <div class="btn-wrapper">
-          <div class="cancel" @click="cancel">取消</div>
-          <div class="buy" @click="buy" v-if="sellPrice <= theBalance">购买</div>
-          <router-link to="/mine/charge" class="buy" tag="div" v-else>前往充值</router-link>
+          <p class="intergral">{{sellPrice}}DDM积分</p>
+          <p class="account">账户余额: {{theBalance}} <span class="price-warning" v-show="sellPrice > theBalance">余额不足</span></p>
+          <div class="btn-wrapper">
+            <div class="cancel" @click="cancel">取消</div>
+            <div class="buy" @click="buy" v-if="sellPrice <= theBalance">购买</div>
+            <router-link to="/mine/charge" class="buy" tag="div" v-else>前往充值</router-link>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </FadeAnimate>
 </template>
 
 <script type="text/ecmascript-6">
+import FadeAnimate from 'components/FadeAnimate/FadeAnimate'
 import { Toast } from 'vant'
 import Store from 'api/store'
 import { mapGetters } from 'vuex'
@@ -29,7 +32,8 @@ const _store = new Store()
 export default {
   props: {
     goodsId: String, // 商品ID
-    sellPrice: Number // 支付金额
+    sellPrice: Number, // 支付金额
+    show: Boolean
   },
   computed: {
     ...mapGetters(['user']),
@@ -43,7 +47,7 @@ export default {
     }
   },
   components: {
-
+    FadeAnimate
   },
   methods: {
     // 取消窗口

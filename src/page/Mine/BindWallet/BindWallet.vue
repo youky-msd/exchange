@@ -1,7 +1,7 @@
 <template>
   <div class="bind-wallet">
-    <NavBar title="绑定DDM钱包"></NavBar>
-    <p class="description">用DDM币充值需要先绑定您的DDM钱包</p>
+    <NavBar title="创建并绑定DDM钱包"></NavBar>
+    <!-- <p class="description">用DDM币充值需要先绑定您的DDM钱包</p> -->
     <div class="container">
       <div class="input-container">
         <p class="label">手机账号</p>
@@ -42,11 +42,13 @@ export default {
     bind() {
       _exchange.bind(this.mobile, this.verificationCode)
         .then(res => {
-          localStorage.token = res.result.token
-          Toast.success({
-            duration: 1000,
-            message: '绑定成功'
-          })
+          if (res.code === 0) {
+            Toast.success({
+              duration: 1000,
+              message: '绑定成功'
+            })
+            this.$router.back()
+          }
         })
     },
     // 发送验证码

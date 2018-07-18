@@ -26,13 +26,22 @@
     <div class="btn-wrapper">
       <div class="btn" @click="charge">充值</div>
     </div>
+    <!-- <FadeAnimate :show="isShowDDMChargeWindow"> -->
+      <AlertWindow class="ddm-charge-window" :show="isShowDDMChargeWindow">
+        <div class="close" @click="closeDDMChargeWindow"><van-icon name="close" /></div>
+        <p class="desc">您需要支付<span class="price">{{amount}}</span>DDM币</p>
+        <p class="desc-text">请使用钱包[扫一扫]扫描下方二维码完成支付</p>
+        <img class="qr-code" :src="DDMQrCode" alt="">
+      </AlertWindow>
+    <!-- </FadeAnimate> -->
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-// import { Toast } from 'vant'
+import { Toast } from 'vant'
 import NavBar from 'components/NavBar/NavBar'
 import AccountInfo from 'page/Mine/MyAccount/AccountInfo/AccountInfo'
+import AlertWindow from 'components/AlertWindow/AlertWindow'
 import { mapActions } from 'vuex'
 import Charge from 'api/mine/charge'
 const _charge = new Charge()
@@ -53,12 +62,15 @@ export default {
       {
         text: 'DDM币',
         type: 3
-      }]
+      }],
+      isShowDDMChargeWindow: false, // 是否打开DDM二维码窗口
+      DDMQrCode: ''
     }
   },
   components: {
     NavBar,
-    AccountInfo
+    AccountInfo,
+    AlertWindow
   },
   methods: {
     ...mapActions(['setUser']),
@@ -68,18 +80,39 @@ export default {
     },
     // 充值
     charge() {
-      _charge.charge(this.amount, this.currentChargeType)
-        .then(res => {
-          if (this.amount) {
-            if (this.currentChargeType === 1) {
-              console.log(res)
-              document.write(res)
-            } else if (this.currentChargeType === 2) {
-              window.location.href = `${res.result}&redirect_url=${encodeURIComponent('http://ex.wan855.cn/#/mine')}`
-              // window.location.href = res.result
+      if (this.currentChargeType !== 3) {
+        _charge.charge(this.amount, this.currentChargeType)
+          .then(res => {
+            if (this.amount) {
+              if (this.currentChargeType === 1) {
+                console.log(res)
+                document.write(res)
+              } else if (this.currentChargeType === 2) {
+                window.location.href = `${res.result}&redirect_url=${encodeURIComponent('http://ex.wan855.cn/#/mine')}`
+                // window.location.href = res.result
+              } else if (this.currentChargeType === 3) {
+                console.log(res)
+              }
             }
-          }
-        })
+          })
+      } else {
+        if (this.amount) {
+          this.isShowDDMChargeWindow = true
+          _charge.getDDMChargeQrCode()
+            .then(res => {
+              this.DDMQrCode = res.result
+            })
+        } else {
+          Toast.fail({
+            duration: 1000,
+            message: '请输入充值金额'
+          })
+        }
+      }
+    },
+    // 关闭DDM充值窗口
+    closeDDMChargeWindow() {
+      this.isShowDDMChargeWindow = false
     }
   }
 }
@@ -125,6 +158,29 @@ export default {
               color $color-selected
           .text
             padding-left 10px
+    .ddm-charge-window
+      position relative
+      .close
+        padding 10px
+        position absolute
+        top 5px
+        right 5px
+        font-size 20px
+      .desc
+        color #fff
+        text-align center
+        font-size $font-size-large
+        line-height 24px
+      .desc-text
+        color $color-text-l
+        text-align center
+        font-size $font-size-medium
+        line-height 24px
+      .qr-code
+        display block
+        margin 20px auto
+        width 150px
+        height 150px
     .charge-desc
       padding 0 13px
       color $color-text-desc

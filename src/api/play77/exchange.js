@@ -1,15 +1,13 @@
-import axios from './config'
+import axios from 'api/config'
 
 class Exchange {
   // 绑定
-  bind(sid, phone, identifyingCode, userAccountId) {
-    const url = ''
+  bind(phone, identifyingCode) {
+    const url = '/api/bankwallent/DDMBinding'
     return axios.post(url, {
-      method: 'bind_wallet',
-      sid,
+      token: localStorage.token || '9898962464',
       phone,
-      identifyingCode,
-      user_account_id: userAccountId
+      identifyingCode
     })
       .then(res => {
         return Promise.resolve(res.data)
@@ -21,6 +19,8 @@ class Exchange {
     return axios.post(url, {
       method: 'send_sms',
       phone
+    }, {
+      baseURL: 'https://miniapps.play77.cn/ddmApiPrivate/api'
     })
       .then(res => {
         return Promise.resolve(res.data)

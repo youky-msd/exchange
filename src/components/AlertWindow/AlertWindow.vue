@@ -1,22 +1,28 @@
 <template>
-  <div class="alert-window">
-    <div class="alert-wrapper">
-      <div class="alert-main">
-        <slot></slot>
+  <FadeAnimate :show="show">
+    <div class="alert-window">
+      <div class="alert-wrapper">
+        <div class="alert-main">
+          <slot></slot>
+        </div>
       </div>
     </div>
-  </div>
+  </FadeAnimate>
 </template>
 
 <script type="text/ecmascript-6">
+import FadeAnimate from 'components/FadeAnimate/FadeAnimate'
 export default {
+  props: {
+    show: Boolean
+  },
   data () {
     return {
 
     }
   },
   components: {
-
+    FadeAnimate
   },
   methods: {
   }
@@ -55,25 +61,4 @@ export default {
         height 100%
         border-radius 20px
         padding 25px
-        .title
-          color #fff
-          text-align center
-          font-size $font-size-large-x
-        .desc-wrapper
-          padding-top 20px
-          line-height 20px
-          color $color-text-desc
-          font-size $font-size-medium
-          .desc
-            text-indent 2em
-        .btn-wrapper
-          position absolute
-          width calc(100% - 50px)
-          bottom 20px
-          display flex
-          justify-content space-between
-          .btn
-            btn(120px,38px,#5e698b,$font-size-large,#fff)
-            &.do
-              background-color #4a4aa3
 </style>

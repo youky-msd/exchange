@@ -1,17 +1,22 @@
 <template>
   <div class="layout">
-    <!-- <keep-alive> -->
-      <router-view></router-view>
-    <!-- </keep-alive> -->
+    <keep-alive>
+      <SlideLeftAnimate>
+        <router-view></router-view>
+      </SlideLeftAnimate>
+    </keep-alive>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-
+import SlideLeftAnimate from 'components/SlideLeftAnimate/SlideLeftAnimate'
 export default {
   data () {
     return {
     }
+  },
+  components: {
+    SlideLeftAnimate
   }
 }
 </script>
