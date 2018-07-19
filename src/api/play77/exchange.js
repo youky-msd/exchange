@@ -3,11 +3,13 @@ import axios from 'api/config'
 class Exchange {
   // 绑定
   bind(phone, identifyingCode) {
-    const url = '/api/bankwallent/DDMBinding'
-    return axios.post(url, {
-      token: localStorage.token || '9898962464',
-      phone,
-      identifyingCode
+    const url = '/api/ddm-wallet/DDMBinding'
+    return axios.get(url, {
+      params: {
+        token: localStorage.token || '9898962464',
+        phone,
+        identifyingCode
+      }
     })
       .then(res => {
         return Promise.resolve(res.data)

@@ -48,7 +48,7 @@ axios.interceptors.response.use(
             localStorage.token = res.result.token
             location.reload()
           })
-      } else if (response.data.code !== 0) {
+      } else if (response.data.code !== 0 && response.data.code !== 200) {
         // 其他情况
         Toast({
           message: response.data.message,

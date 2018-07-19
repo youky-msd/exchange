@@ -28,7 +28,8 @@
         <div class="detail-item">时间</div>
       </div>
       <Scroll class="scroll">
-        <div class="my-account-containter" v-for="(item, index) in accountDetailList" :key="index">
+        <div class="my-account-containter" :class="{freeze: item.freezeStatus === 0}"
+         v-for="(item, index) in accountDetailList" :key="index">
           <div class="detail-item">{{remark(item.remark)}}</div>
           <div class="detail-item">{{item.status === 1 ? '+' : '-'}}{{item.billAmount}}</div>
           <div class="detail-item">{{getTime(item.createTime)}}</div>
@@ -183,6 +184,8 @@ export default {
       .my-account-containter
         display flex
         color $color-text-little
+        &.freeze
+          color $color-sub-theme
         .detail-item
           flex 2
           color $color-text-l

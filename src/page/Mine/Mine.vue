@@ -212,7 +212,7 @@ export default {
             height 44px
             border-radius 50%
             box-shadow 0 0 20px #5e63f0
-            &.money-icon
+            &.wallet-icon
               bg('./mine-money')
             // &.wallet-icon
             &.amount-icon

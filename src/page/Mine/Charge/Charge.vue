@@ -45,6 +45,7 @@ import AlertWindow from 'components/AlertWindow/AlertWindow'
 import { mapActions } from 'vuex'
 import Charge from 'api/mine/charge'
 const _charge = new Charge()
+const qrBaseUrl = 'http://qr.liantu.com/api.php?text=x'
 
 export default {
   data () {
@@ -100,7 +101,7 @@ export default {
           this.isShowDDMChargeWindow = true
           _charge.getDDMChargeQrCode()
             .then(res => {
-              this.DDMQrCode = res.result
+              this.DDMQrCode = qrBaseUrl + res.result
             })
         } else {
           Toast.fail({
