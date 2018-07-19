@@ -18,7 +18,7 @@
         <div class="mine-nav-shadow"></div>
         <div class="user-money">
           <router-link to="/mine/my-account" class="account-money-wrapper">
-            <div class="money-icon base-icon"></div>
+            <div class="amount-icon base-icon"></div>
             <p class="text">我的账户</p>
           </router-link>
           <router-link to="/mine/bind-wallet" class="account-money-wrapper">
@@ -215,6 +215,8 @@ export default {
             &.money-icon
               bg('./mine-money')
             // &.wallet-icon
+            &.amount-icon
+              bg('./amount')
           .text
             padding-left 10px
             color #fff
