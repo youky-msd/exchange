@@ -185,7 +185,8 @@ export default {
         display flex
         color $color-text-little
         &.freeze
-          color $color-sub-theme
+          .detail-item
+            color $color-sub-theme
         .detail-item
           flex 2
           color $color-text-l

@@ -1,6 +1,6 @@
 <template>
   <div class="buy-manage">
-    <AlertWindow v-show="showCancelBuyWindow">
+    <AlertWindow :show="showCancelBuyWindow">
       <p class="title">取消通知</p>
       <div class="desc-wrapper">
         <p class="desc">您是否要取消购买此道具</p>
@@ -174,6 +174,27 @@ export default {
   @import '~common/stylus/index.styl'
 
   .buy-manage
+    .title
+      color #fff
+      text-align center
+      font-size $font-size-large-x
+    .desc-wrapper
+      padding-top 20px
+      line-height 20px
+      color $color-text-desc
+      font-size $font-size-medium
+      .desc
+        text-indent 2em
+    .btn-wrapper
+        position absolute
+        width calc(100% - 50px)
+        bottom 20px
+        display flex
+        justify-content space-between
+        .btn
+          btn(120px,38px,#5e698b,$font-size-large,#fff)
+          &.do
+            background-color #4a4aa3
     .scroll
       fixed-all()
       top 92px

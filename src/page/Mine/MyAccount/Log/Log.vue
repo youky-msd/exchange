@@ -20,7 +20,7 @@
             </div>
             <div class="list-item-log-wrapper">
               <p class="text"><span class="text-desc">充值渠道</span><span class="text-name">{{item.channelName}}</span></p>
-              <p class="time">充值金额 {{item.exgAmount}}</p>
+              <p class="time">充值金额 {{item.exgAmount}}DDM积分</p>
             </div>
             <div class="list-item-log-wrapper right">
               <p class="status">{{getTime(item.createTime)}}</p>
@@ -37,7 +37,7 @@
             </div>
             <div class="list-item-log-wrapper">
               <p class="text"><span class="text-desc">兑换方式</span><span class="text-name"> {{item.type === 2 ? 'DDM':'银行卡'}}</span></p>
-              <p class="time">兑换实际金额 {{item.exchangeAmount}}</p>
+              <p class="time">兑换实际金额 {{item.exchangeAmount}}DDM积分</p>
             </div>
             <div class="list-item-log-wrapper right">
               <p class="status">{{getTime(item.createTime)}}</p>

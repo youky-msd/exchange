@@ -1,6 +1,6 @@
 <template>
   <div class="info">
-    <AlertWindow v-show="showDetail">
+    <AlertWindow :show="showDetail">
       <div class="alert-detail">
         <div class="title">{{currentInfoDetail.title}}</div>
         <div class="detail">{{currentInfoDetail.content}}</div>

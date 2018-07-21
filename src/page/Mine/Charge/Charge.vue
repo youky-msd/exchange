@@ -45,7 +45,7 @@ import AlertWindow from 'components/AlertWindow/AlertWindow'
 import { mapActions } from 'vuex'
 import Charge from 'api/mine/charge'
 const _charge = new Charge()
-const qrBaseUrl = 'http://qr.liantu.com/api.php?text=x'
+const qrBaseUrl = 'http://qr.liantu.com/api.php?text='
 
 export default {
   data () {
@@ -89,7 +89,8 @@ export default {
                 console.log(res)
                 document.write(res)
               } else if (this.currentChargeType === 2) {
-                window.location.href = `${res.result}&redirect_url=${encodeURIComponent('http://ex.wan855.cn/#/mine')}`
+                window.location.href = `${res.result}&redirect_url=${encodeURIComponent('https://ex.wan855.cn/#/mine')}`
+
                 // window.location.href = res.result
               } else if (this.currentChargeType === 3) {
                 console.log(res)
@@ -102,6 +103,7 @@ export default {
           _charge.getDDMChargeQrCode()
             .then(res => {
               this.DDMQrCode = qrBaseUrl + res.result
+              console.log(this.DDMQrCode)
             })
         } else {
           Toast.fail({
