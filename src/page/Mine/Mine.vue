@@ -17,11 +17,15 @@
         </router-link>
         <div class="mine-nav-shadow"></div>
         <div class="user-money">
-          <router-link to="/mine/my-account" class="account-money-wrapper">
+          <router-link to="/mine/my-account" tag="div" class="account-money-wrapper">
             <div class="amount-icon base-icon"></div>
             <p class="text">我的账户</p>
           </router-link>
-          <router-link to="/mine/bind-wallet" class="account-money-wrapper">
+          <div class="account-money-wrapper" v-if="hasBinding" @click="tipHasBinding()">
+            <div class="wallet-icon base-icon"></div>
+            <p class="text">绑定DDM钱包</p>
+          </div>
+          <router-link to="/mine/bind-wallet" tag="div" class="account-money-wrapper" v-else>
             <div class="wallet-icon base-icon"></div>
             <p class="text">绑定DDM钱包</p>
           </router-link>
@@ -97,13 +101,20 @@
 </template>
 
 <script type="text/ecmascript-6">
+import { Toast } from 'vant'
 import NavBar from 'components/NavBar/NavBar'
 import Scroll from 'components/Scroll/Scroll'
 import { mapGetters } from 'vuex'
+import Exchange from 'api/play77/exchange'
+const _exchange = new Exchange()
 
 export default {
+  mounted() {
+    this.isBinding()
+  },
   data () {
     return {
+      hasBinding: false
     }
   },
   components: {
@@ -114,6 +125,22 @@ export default {
     ...mapGetters(['user'])
   },
   methods: {
+    // 判断是否绑定接口
+    isBinding() {
+      _exchange.isBinding()
+        .then(res => {
+          console.log(res)
+          if (res.code === 0) {
+            this.hasBinding = true
+          }
+        })
+    },
+    tipHasBinding() {
+      Toast.fail({
+        message: '已绑定',
+        duration: 1000
+      })
+    }
   }
 }
 </script>

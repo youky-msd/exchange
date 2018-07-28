@@ -28,6 +28,18 @@ class Exchange {
         return Promise.resolve(res.data)
       })
   }
+  // 判断是否绑定
+  isBinding() {
+    const url = '/api/ddm-wallet/isBindingDDM'
+    return axios.get(url, {
+      params: {
+        token: localStorage.token || '9898962464'
+      }
+    })
+      .then(res => {
+        return Promise.resolve(res.data)
+      })
+  }
 }
 
 export default Exchange
