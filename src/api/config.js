@@ -5,14 +5,10 @@ import Router from '../router'
 import User from 'api/user'
 const _user = new User()
 
-// axios 配置
 axios.defaults.timeout = 5000
 const debug = process.env.NODE_ENV === 'production'
-
 axios.defaults.baseURL = debug ? 'https://ex.wan855.cn' : 'https://ex.wan855.cn'
-
 axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
-
 axios.interceptors.request.use((config) => {
   if (config.method === 'post') {
     config.data = qs.stringify(config.data)
