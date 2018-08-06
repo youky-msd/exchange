@@ -14,11 +14,9 @@ axios.defaults.baseURL = debug ? 'https://ex.wan855.cn' : 'https://ex.wan855.cn'
 axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
 
 axios.interceptors.request.use((config) => {
-  // POST传参序列化
   if (config.method === 'post') {
     config.data = qs.stringify(config.data)
   }
-  // PUT传参序列化
   if (config.method === 'put') {
     config.data = qs.stringify(config.data)
   }
@@ -28,12 +26,8 @@ axios.interceptors.request.use((config) => {
   return Promise.reject(error)
 })
 
-// http response 拦截器
 axios.interceptors.response.use(
   response => {
-    /*
-      token config
-    */
     // status === 200
     if (response.status === 200) {
       // token不正确
