@@ -33,6 +33,10 @@ export const setBalance = ({ commit }) => {
 }
 
 export const setNoReadNum = ({ commit }) => {
+  _info.getNoReadNum()
+    .then(res => {
+      commit(types.SET_INFO_NO, res.result)
+    })
   setInterval(() => {
     _info.getNoReadNum()
       .then(res => {

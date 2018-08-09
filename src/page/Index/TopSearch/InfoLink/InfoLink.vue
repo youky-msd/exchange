@@ -1,7 +1,8 @@
 <template>
   <div class="info-link">
     <span class="num" v-show="infoNum > 0">{{infoNum}}</span>
-    <span class="info" @click="clear()"></span>
+    <van-icon name="chat" class="info"/>
+    <!-- <span class="info" @click="clear()"></span> -->
   </div>
 </template>
 
@@ -65,10 +66,16 @@ export default {
       padding 3px 4px
       background-color red
       border-radius 5px
+      z-index 5
     .info
-      display inline-block
-      width 100%
-      height 100%
-      bg('./info-white')
-      background-size 25px 25px
+      position relative
+      z-index 2
+      font-size 28px
+      color #fff
+      padding-left 5px
+      // display inline-block
+      // width 100%
+      // height 100%
+      // bg('./info-white')
+      // background-size 25px 25px
 </style>
