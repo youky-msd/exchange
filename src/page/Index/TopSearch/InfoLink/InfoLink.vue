@@ -1,5 +1,5 @@
 <template>
-  <div class="info-link">
+  <div class="info-link" @click="clear()">
     <span class="num" v-show="infoNum > 0">{{infoNum}}</span>
     <van-icon name="chat" class="info"/>
     <!-- <span class="info" @click="clear()"></span> -->
